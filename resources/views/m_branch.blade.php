@@ -102,6 +102,10 @@ $(document).ready(function(){
     $("#bank_id").selectpicker();
     show_types();
 
+    $(".class-control").blur(function(){
+        $("#submit").css("display","block");
+    });
+
     $(".addNew").click(function(){
         empty_form();
         $("#modal").modal('show');
