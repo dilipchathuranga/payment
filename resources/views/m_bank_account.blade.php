@@ -123,14 +123,13 @@
                     <table class="table table-bordered" id="tblbankaccount">
                         <thead>
                             <tr>
-                                <th>Bank Name</th>
-                                <th>Branch Name</th>
-                                <th>Supplier Name</th>
-                                <th>Account No</th>
-                                <th>Account Name</th>
-                                <th>Holder NIC</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th style="width:10%">Bank Name</th>
+                                <th style="width:10%">Branch Name</th>
+                                <th style="width:10%">Supplier Name</th>
+                                <th style="width:20%">Account No</th>
+                                <th style="width:10%">Account Name</th>
+                                <th style="width:20%">Status</th>
+                                <th style="width:20%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -349,20 +348,23 @@ function show_types(){
                 {data: 'supplier_name'},
                 {data: 'account_no'},
                 {data: 'account_name'},
-                {data: 'holder_nic'},
-                {data: 'status',
-                    "render":function(data,type,row,meta){
-                            if(row.status==0)
-                            {
-                                return 'Pending'
-                            }
-                            if(row.status==1){
-                                return 'Approved'
-                            }
-                            if(row.status==2){
-                                return 'Rejected'
-                            }
+                {data: null,
+                    render:function(d){
+
+                        var html = "";
+                        if(d.status==0){
+                            html = "<span class='badge badge-info'>Pending</span>";
                         }
+                        if(d.status==1){
+                            html = "<span class='badge badge-success'>Approved</span>";
+                        }
+                        if(d.status==2){
+                            html = "<span class='badge badge-danger'>Rejected</span>";
+                        }
+
+                        return html;
+                    }
+
                 },
                 {
                 data: null,
@@ -370,6 +372,12 @@ function show_types(){
                     var html = "";
                     html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
                     html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
+                    if(d.status==0){
+                        html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"'><i class='fas fa-check-circle'></i></button>";
+                        html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"'><i class='fas fa-times-circle'></i></button>";
+                    }else{
+                        html+="&nbsp;<button class='btn btn-info btn-sm change_status' data='0' data-id='"+d.id+"'><i class='fas fa-spinner'></i></button>";
+                    }
                     return html;
 
                 }

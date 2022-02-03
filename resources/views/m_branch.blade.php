@@ -284,6 +284,7 @@ function show_types(){
                 var html = "";
                 html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
                 html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
+
                 return html;
 
             }
