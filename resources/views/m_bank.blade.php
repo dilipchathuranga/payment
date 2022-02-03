@@ -89,7 +89,7 @@ $(document).ready(function(){
 
     show_types();
 
-    $(".class-control").blur(function(){
+    $(".form-control").blur(function(){
         $("#submit").css("display","block");
     });
 
@@ -250,7 +250,6 @@ function show_types(){
             'processing': true,
             'serverSide': true,
             "bLengthChange": false,
-            "aaSorting": [[0,'desc']],
             'ajax': {
                         'method': 'get',
                         'url': 'bank/create'
