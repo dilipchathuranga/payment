@@ -15,7 +15,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    
+
     @yield('third_party_stylesheets')
 
     @stack('page_css')
@@ -31,17 +31,17 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
-       
+
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    
+
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <li class="user-footer">
-                        
+
                         <a href="#" class="btn btn-default btn-flat btn-lg btn-block"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Log out

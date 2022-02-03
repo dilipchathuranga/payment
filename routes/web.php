@@ -21,3 +21,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//bank->bank
+Route::get('/bank', 'MBankController@index')->name('bank');
+Route::post('/bank', 'MBankController@store');
+Route::get('/bank/create', 'MBankController@create');
+Route::get('/bank/{id}', 'MBankController@show');
+Route::put('/bank/{id}', 'MBankController@update');
+Route::delete('/bank/{id}', 'MBankController@destroy');
+
+//bank->branch
+Route::get('/branch', 'MBranchController@index')->name('branch');
+Route::post('/branch', 'MBranchController@store');
+Route::get('/branch/create','MBranchController@create');
+Route::get('/branch/{id}', 'MBranchController@show');
+Route::put('/branch/{id}', 'MBranchController@update');
+Route::delete('/branch/{id}', 'MBranchController@destroy');
+
