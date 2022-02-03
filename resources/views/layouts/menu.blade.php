@@ -26,5 +26,11 @@
             <p>&nbsp;Branch</p>
           </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('branch') }}" class="nav-link bank_account_route">
+              &nbsp;&nbsp;&nbsp<i class="fas fa-file-invoice-dollar"></i>
+              <p>&nbsp;Bank Account</p>
+            </a>
+          </li>
     </ul>
 </li>
