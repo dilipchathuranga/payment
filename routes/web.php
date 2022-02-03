@@ -37,3 +37,11 @@ Route::get('/branch/{id}', 'MBranchController@show');
 Route::put('/branch/{id}', 'MBranchController@update');
 Route::delete('/branch/{id}', 'MBranchController@destroy');
 
+//bank->bank_account
+Route::get('/bank_account', 'MBankAccountController@index')->name('branch');
+Route::post('/bank_account', 'MBankAccountController@store');
+Route::get('/bank_account/create','MBankAccountController@create');
+Route::get('/bank_account/{id}', 'MBankAccountController@show');
+Route::put('/bank_account/{id}', 'MBankAccountController@update');
+Route::delete('/bank_account/{id}', 'MBankAccountController@destroy');
+
