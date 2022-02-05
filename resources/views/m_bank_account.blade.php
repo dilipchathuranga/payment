@@ -117,14 +117,13 @@
                     <table class="table table-bordered" id="tbl_bank_account">
                         <thead>
                             <tr>
-                                <th>Bank Name</th>
-                                <th>Branch Name</th>
-                                <th>Supplier Name</th>
-                                <th>Account No</th>
-                                <th>Account Name</th>
-                                <th>Holder NIC</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th style="width: 15%;">Bank Name</th>
+                                <th style="width: 15%;">Branch Name</th>
+                                <th style="width: 10%;">Supplier BP No</th>
+                                <th style="width: 15%;">Account No</th>
+                                <th style="width: 20%;">Account Name</th>
+                                <th style="width: 10%;">Status</th>
+                                <th style="width: 20%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -419,10 +418,9 @@ function show_types(){
             'columns': [
                 {data: 'bank_name'},
                 {data: 'branch_name'},
-                {data: 'supplier_name'},
+                {data: 'bp_no'},
                 {data: 'account_no'},
                 {data: 'account_name'},
-                {data: 'holder_nic'},
                 {data: null,
                 render:function(d){
 
