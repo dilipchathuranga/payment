@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use DataTables;
+use Illuminate\Support\Facades\Http;
 
 class MBankAccountController extends Controller
 {
@@ -19,20 +21,32 @@ class MBankAccountController extends Controller
 
     public function index()
     {
-        $bank=m_bank::all();
-        $branch=m_branch::all();
-        return view('m_bank_account')->with(['banks' => $bank,'branches'=>$branch]);
+        $banks = m_bank::all();
+        $branches = m_branch::all();
+        $supplier_response = Http::get('http://fin.maga.engineering/api/get_suppliers', [
+            'api_token' => 'MAGA_AUHT_00001'
+        ]);
+
+       $suppliers = json_decode($supplier_response,true);
+
+       return view('m_bank_account')->with(['banks' => $banks,
+                                            'branches' => $branches,
+                                            'suppliers' => $suppliers]);
+
     }
 
     public function create(){
 
-        $result = DB::table('m_bank_accounts')
-                            ->join('m_banks','m_bank_accounts.bank_id','=','m_banks.id')
-                            ->join('m_branches','m_bank_accounts.branch_id','=','m_branches.id')
-                            ->select('m_bank_accounts.*','m_banks.name as bank_name','m_branches.name as branch_name')
-                            ->get();
+        $result = m_bank_account::all();
 
-        return DataTables($result)->make(true);
+        return DataTables::of($result)
+                        ->addColumn('bank_name', function(m_bank_account $bank_account){
+                            return $bank_account->bank->name;
+                        })
+                        ->addColumn('branch_name', function(m_bank_account $bank_account){
+                            return $bank_account->branch->name;
+                        })
+                        ->make(true);
 
     }
 
@@ -43,11 +57,8 @@ class MBankAccountController extends Controller
             'branch_id' => 'required',
             'supplier_id' => 'required',
             'supplier_name'=>'required',
-            'supplier_email' => 'required',
-            'supplier_telephone' => 'required',
             'account_no'=>'required',
-            'account_name' => 'required',
-            'holder_nic' => 'required',
+            'account_name' => 'required'
 
         ]);
 
@@ -62,6 +73,7 @@ class MBankAccountController extends Controller
                 $bank_account->branch_id = $request->branch_id;
                 $bank_account->supplier_id = $request->supplier_id;
                 $bank_account->supplier_name = $request->supplier_name;
+                $bank_account->bp_no = $request->bp_no;
                 $bank_account->supplier_email = $request->supplier_email;
                 $bank_account->supplier_telephone = $request->supplier_telephone;
                 $bank_account->account_no = $request->account_no;
@@ -102,11 +114,8 @@ class MBankAccountController extends Controller
             'branch_id' => 'required',
             'supplier_id' => 'required',
             'supplier_name'=>'required',
-            'supplier_email' => 'required',
-            'supplier_telephone' => 'required',
             'account_no'=>'required',
-            'account_name' => 'required',
-            'holder_nic' => 'required',
+            'account_name' => 'required'
         ]);
 
         if($validator->fails()){
@@ -120,6 +129,7 @@ class MBankAccountController extends Controller
                 $bank_account->branch_id = $request->branch_id;
                 $bank_account->supplier_id = $request->supplier_id;
                 $bank_account->supplier_name = $request->supplier_name;
+                $bank_account->bp_no = $request->bp_no;
                 $bank_account->supplier_email = $request->supplier_email;
                 $bank_account->supplier_telephone = $request->supplier_telephone;
                 $bank_account->account_no = $request->account_no;
@@ -147,6 +157,16 @@ class MBankAccountController extends Controller
         $result = m_bank_account::destroy($id);
 
         return response()->json($result);
+
+    }
+
+    public function get_supplier($id){
+
+        $supplier_response = Http::get('http://fin.maga.engineering/api/get_supplier/'.$id, [
+            'api_token' => 'MAGA_AUHT_00001'
+        ]);
+
+       return $supplier_response;
 
     }
 }

@@ -36,6 +36,7 @@ Route::get('/branch/create','MBranchController@create');
 Route::get('/branch/{id}', 'MBranchController@show');
 Route::put('/branch/{id}', 'MBranchController@update');
 Route::delete('/branch/{id}', 'MBranchController@destroy');
+Route::get('/branch/get_by_bank_id/{id}', 'MBranchController@get_by_bank_id');
 
 //bank->bank_account
 Route::get('/bank_account', 'MBankAccountController@index')->name('bank_account');
@@ -44,4 +45,5 @@ Route::get('/bank_account/create','MBankAccountController@create');
 Route::get('/bank_account/{id}', 'MBankAccountController@show');
 Route::put('/bank_account/{id}', 'MBankAccountController@update');
 Route::delete('/bank_account/{id}', 'MBankAccountController@destroy');
+Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="modal fade" id="modal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -23,12 +24,10 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="levy">Branch Name</label>
                             <select name="branch_id" id="branch_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
-                                <option value="">-- select branch --</option>
+                            <option value="">-- select Branch --</option>
                                 @foreach($branches as $branch)
                                     <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                                 @endforeach
@@ -37,56 +36,51 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                        <label for="rate">Supplier ID</label>
-                        <input type="text" class="form-control" id="supplier_id" name="supplier_id" placeholder="Enter Bank Code" required>
+                            <label for="rate">Supplier ID</label>
+                            <select name="supplier_id" id="supplier_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
+                                <option value="">-- select supplier --</option>
+                                @for($i=0; $i < sizeof($suppliers); $i++ )
+                                    <option value="{{ $suppliers[$i]['id'] }}">{{ $suppliers[$i]['name'] }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Supplier BP No</label>
+                            <input type="text" class="form-control" id="bp_no" name="bp_no" placeholder="Enter Supplier BP No" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="rate">Supplier Name</label>
-                            <input type="text" class="form-control" id="supplier_name" name="supplier_name" placeholder="Enter Bank Name" required>
+                            <input type="text" class="form-control" id="supplier_name" name="supplier_name" placeholder="Enter Supplier Name" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="rate">Supplier Email</label>
-                            <input type="text" class="form-control" id="supplier_email" name="supplier_email" placeholder="Enter Bank Name" required>
+                            <input type="text" class="form-control" id="supplier_email" name="supplier_email" placeholder="Enter Supplier Email" readonly>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="rate">Supplier Telephone</label>
-                            <input type="text" class="form-control" id="supplier_telephone" name="supplier_telephone" placeholder="Enter Bank Name" required>
+                            <input type="text" class="form-control" id="supplier_telephone" name="supplier_telephone" placeholder="Enter Supplier Telephone" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="rate">Account No</label>
-                            <input type="text" class="form-control" id="account_no" name="account_no" placeholder="Enter Bank Name" required>
+                            <input type="text" class="form-control" id="account_no" name="account_no" placeholder="Enter Account No" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="rate">Account Name</label>
-                            <input type="text" class="form-control" id="account_name" name="account_name" placeholder="Enter Bank Name" required>
+                            <input type="text" class="form-control" id="account_name" name="account_name" placeholder="Enter Account Name" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="rate">Holder NIC</label>
-                            <input type="text" class="form-control" id="holder_nic" name="holder_nic" placeholder="Enter Bank Name" required>
-                        </div>
-                    </div>
-                    <div class="row" hidden>
-                        <div class="form-group col-md-12">
-                            <label for="rate">Action By</label>
-                            <input type="text" class="form-control" id="action_by" name="action_by" placeholder="Enter Bank Name" required>
-                        </div>
-                    </div>
-                    <div class="row" hidden>
-                        <div class="form-group col-md-12">
-                            <label for="rate">Status</label>
-                            <input type="text" class="form-control" id="status" name="status" placeholder="Enter Bank Name" required>
+                            <label for="rate">Account NIC</label>
+                            <input type="text" class="form-control" id="holder_nic" name="holder_nic" placeholder="Enter Account NIC No" required>
                         </div>
                     </div>
                 </form>
@@ -120,7 +114,7 @@
                     <button class="btn btn-primary addNew"><i class="fa fa-plus"></i> Add New Bank Account</button>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered" id="tblbankaccount">
+                    <table class="table table-bordered" id="tbl_bank_account">
                         <thead>
                             <tr>
                                 <th>Bank Name</th>
@@ -155,12 +149,87 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $("#bank_id").selectpicker();
-    $("#branch_id").selectpicker();
+    
     show_types();
 
-    $(".addNew").click(function(){
+    $(document).on("blur",".form-control",function(){
+        $("#submit").css("display","block");
+    });
+
+    $(document).on("change","#bank_id",function(){
+
+        var id = $(this).val();
+
+        if(id!= ""){
+
+            $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'branch/get_by_bank_id/'+id,
+            'async': false,
+            success: function(data){
+                
+                var html = "";
+
+                html+="<option value=''>-- select branch --</option>";
+                
+                    for(var i =0; i < data.length; i++){
+                        html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                    }
+
+                $("#branch_id").html(html);
+                $("#branch_id").selectpicker("refresh");
+
+                }
+
+            });
+
+        }else{
+
+            $("#branch_id").html("");
+            $("#branch_id").selectpicker("refresh");
+        }
+
+    }); 
+
+    $(document).on("change","#supplier_id",function(){
+
+        var id = $(this).val();
+
+        if(id!= ""){
+
+            $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'get_supplier/'+id,
+            'async': false,
+            success: function(data){
+                
+                $("#supplier_name").val(data.name);
+                $("#bp_no").val(data.bp_no);
+                $("#supplier_email").val(data.email);
+                $("#supplier_telephone").val(data.tele_no);
+
+            }
+
+            });
+
+        }else{
+
+            $("#supplier_name").val("");
+            $("#bp_no").val("");
+            $("#supplier_email").val("");
+            $("#supplier_telephone").val("");
+        }
+
+    }); 
+
+    $(document).on("click",".addNew",function(){
+
         empty_form();
+
         $("#modal").modal('show');
         $(".modal-title").html('Save Bank Account');
         $("#submit").html('Save Bank Account');
@@ -173,6 +242,7 @@ $(document).ready(function(){
                 var branch_id =$("#branch_id").val();
                 var supplier_id =$("#supplier_id").val();
                 var supplier_name =$("#supplier_name").val();
+                var bp_no =$("#bp_no").val();
                 var supplier_email =$("#supplier_email").val();
                 var supplier_telephone =$("#supplier_telephone").val();
                 var account_no =$("#account_no").val();
@@ -183,7 +253,7 @@ $(document).ready(function(){
                 'type': 'ajax',
                 'dataType': 'json',
                 'method': 'post',
-                'data' : {bank_id:bank_id,branch_id:branch_id,supplier_id:supplier_id,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic},
+                'data' : {bank_id:bank_id,branch_id:branch_id,supplier_id:supplier_id,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
                 'url' : 'bank_account',
                 'async': false,
                 success:function(data){
@@ -231,8 +301,9 @@ $(document).ready(function(){
             success: function(data){
                 $("#bank_id").selectpicker('val',data.bank_id);
                 $("#branch_id").selectpicker('val',data.branch_id);
-                $("#supplier_id").val(data.supplier_id);
+                $("#supplier_id").selectpicker('val',data.supplier_id);
                 $("#supplier_name").val(data.supplier_name);
+                $("#bp_no").val(data.bp_no);
                 $("#supplier_email").val(data.supplier_email);
                 $("#supplier_telephone").val(data.supplier_telephone);
                 $("#account_no").val(data.account_no);
@@ -243,6 +314,7 @@ $(document).ready(function(){
         });
 
         $("#submit").click(function(){
+
             if($("#hid").val() != ""){
             var id =$("#hid").val();
 
@@ -250,6 +322,7 @@ $(document).ready(function(){
             var branch_id = $("#branch_id").val();
             var supplier_id = $("#supplier_id").val();
             var supplier_name = $("#supplier_name").val();
+            var bp_no = $("#bp_no").val();
             var supplier_email = $("#supplier_email").val();
             var supplier_telephone = $("#supplier_telephone").val();
             var account_no = $("#account_no").val();
@@ -260,7 +333,7 @@ $(document).ready(function(){
                 'type': 'ajax',
                 'dataType': 'json',
                 'method': 'put',
-                'data' : {bank_id:bank_id,branch_id:branch_id,supplier_id:supplier_id,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic},
+                'data' : {bank_id:bank_id,branch_id:branch_id,supplier_id:supplier_id,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
                 'url': 'bank_account/'+id,
                 'async': false,
                 success:function(data){
@@ -330,10 +403,10 @@ $(document).ready(function(){
 
 //Data Table show
 function show_types(){
-        $('#tblbankaccount').DataTable().clear();
-        $('#tblbankaccount').DataTable().destroy();
+        $('#tbl_bank_account').DataTable().clear();
+        $('#tbl_bank_account').DataTable().destroy();
 
-        $("#tblbankaccount").DataTable({
+        $("#tbl_bank_account").DataTable({
             'processing': true,
             'serverSide': true,
             "bLengthChange": false,
@@ -350,19 +423,20 @@ function show_types(){
                 {data: 'account_no'},
                 {data: 'account_name'},
                 {data: 'holder_nic'},
-                {data: 'status',
-                    "render":function(data,type,row,meta){
-                            if(row.status==0)
-                            {
-                                return 'Pending'
-                            }
-                            if(row.status==1){
-                                return 'Approved'
-                            }
-                            if(row.status==2){
-                                return 'Rejected'
-                            }
-                        }
+                {data: null,
+                render:function(d){
+
+                    if(d.status==0)
+                    {
+                        return 'Pending'
+                    }
+                    if(d.status==1){
+                        return 'Approved'
+                    }
+                    if(d.status==2){
+                        return 'Rejected'
+                    }
+                }
                 },
                 {
                 data: null,
@@ -380,10 +454,11 @@ function show_types(){
 }
 
 function empty_form(){
-    $("#bank_id").val("");
-    $("#branch_id").val("");
-    $("#supplier_id").val("");
+    $("#bank_id").selectpicker("val","");
+    $("#branch_id").selectpicker("val","");
+    $("#supplier_id").selectpicker("val","");
     $("#supplier_name").val("");
+    $("#bp_no").val("");
     $("#supplier_email").val("");
     $("#supplier_telephone").val("");
     $("#account_no").val("");
