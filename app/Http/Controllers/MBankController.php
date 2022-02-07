@@ -21,9 +21,7 @@ class MBankController extends Controller
 
     public function create(){
 
-        $result = DB::table('m_banks')
-                            ->select('m_banks.*')
-                            ->get();
+        $result = m_bank::all();
 
         return DataTables($result)->make(true);
 
@@ -108,5 +106,6 @@ class MBankController extends Controller
         return response()->json($result);
 
     }
+
 
 }

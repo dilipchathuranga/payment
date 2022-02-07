@@ -26,14 +26,14 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-6">
-                  <label for="rate">Bank Code</label>
-                  <input type="text" class="form-control" id="code" name="code" placeholder="Enter Bank Code" required>
+                  <label for="code">Branch Code</label>
+                  <input type="text" class="form-control" id="code" name="code" placeholder="Enter Branch Code" required>
                   </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label for="rate">Bank Name</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter Bank Name" required>
+                  <label for="rate">Branch Name</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter Branch Name" required>
                 </div>
               </div>
             </form>
@@ -99,7 +99,6 @@ $(document).ready(function(){
         }
     });
 
-    $("#bank_id").selectpicker();
     show_types();
 
     $(".form-control").blur(function(){
@@ -177,42 +176,42 @@ $(document).ready(function(){
 
             });
 
-            $("#submit").click(function(){
-              if($("#hid").val() != ""){
+        $("#submit").click(function(){
+            if($("#hid").val() != ""){
 
-                var id =$("#hid").val();
+            var id =$("#hid").val();
 
-                var bank_id =$("#bank_id").val();
-                var name =$("#name").val();
-                var code =$("#code").val();
+            var bank_id =$("#bank_id").val();
+            var name =$("#name").val();
+            var code =$("#code").val();
 
-                $.ajax({
-                  'type': 'ajax',
-                  'dataType': 'json',
-                  'method': 'put',
-                  'data' : {bank_id:bank_id,name:name,code:code},
-                  'url': 'branch/'+id,
-                  'async': false,
-                  success:function(data){
-                    if(data.validation_error){
-                        validation_error(data.validation_error);//if has validation error call this function
-                      }
+            $.ajax({
+                'type': 'ajax',
+                'dataType': 'json',
+                'method': 'put',
+                'data' : {bank_id:bank_id,name:name,code:code},
+                'url': 'branch/'+id,
+                'async': false,
+                success:function(data){
+                if(data.validation_error){
+                    validation_error(data.validation_error);//if has validation error call this function
+                    }
 
-                      if(data.db_error){
-                        db_error(data.db_error);
-                      }
+                    if(data.db_error){
+                    db_error(data.db_error);
+                    }
 
-                      if(data.db_success){
-                        db_success(data.db_success);
-                        setTimeout(function(){
-                          $("#modal").modal('hide');
-                          location.reload();
-                        }, 2000);
-                      }
-                    },
-                });
-              }
+                    if(data.db_success){
+                    db_success(data.db_success);
+                    setTimeout(function(){
+                        $("#modal").modal('hide');
+                        location.reload();
+                    }, 2000);
+                    }
+                },
             });
+            }
+        });
     });
 
     $(document).on("click", ".delete", function(){

@@ -12,7 +12,7 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <input type="hidden" id="bank" name="bank">
+                    <input type="hidden" id="hid" name="hid">
                     <div class="row">
                         <div class="form-group col-md-6">
                         <label for="rate">Bank Code</label>
@@ -56,7 +56,7 @@
                     <button class="btn btn-primary addNew"><i class="fa fa-plus"></i> Add New Bank</button>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered" id="tblbank">
+                    <table class="table table-bordered" id="tbl_bank">
                         <thead>
                             <tr>
                                 <th style="width:20%">Bank Code</th>
@@ -89,7 +89,7 @@ $(document).ready(function(){
 
     show_types();
 
-    $(".form-control").blur(function(){
+    $(document).on("blur",".form-control",function(){
         $("#submit").css("display","block");
     });
 
@@ -100,7 +100,7 @@ $(document).ready(function(){
         $("#submit").html('Save Bank');
         $("#submit").click(function(){
             $("#submit").css("display","none");
-            var hid =$("#bank").val();
+            var hid = $("#hid").val();
             //save bank
             if(hid == ""){
                 var name =$("#name").val();
@@ -144,7 +144,7 @@ $(document).ready(function(){
         var id = $(this).attr('data');
 
         empty_form();
-        $("#bank").val(id);
+        $("#hid").val(id);
         $("#modal").modal('show');
         $(".modal-title").html('Edit Bank');
         $("#submit").html('Update Bank');
@@ -156,44 +156,48 @@ $(document).ready(function(){
             'url': 'bank/'+id,
             'async': false,
             success: function(data){
-            $("#bank").val(data.id);
-            $("#name").val(data.name);
-            $("#code").val(data.code);
+
+                $("#hid").val(data.id);
+                $("#name").val(data.name);
+                $("#code").val(data.code);
+                
             }
 
         });
 
         $("#submit").click(function(){
-            if($("#bank").val() != ""){
-            var id =$("#bank").val();
-            var name =$("#name").val();
-            var code =$("#code").val();
 
-            $.ajax({
-                'type': 'ajax',
-                'dataType': 'json',
-                'method': 'put',
-                'data' : {name:name,code:code},
-                'url': 'bank/'+id,
-                'async': false,
-                success:function(data){
-                if(data.validation_error){
-                    validation_error(data.validation_error);//if has validation error call this function
-                    }
+            if($("#hid").val() != ""){
 
-                    if(data.db_error){
-                    db_error(data.db_error);
-                    }
+                var id = $("#hid").val();
+                var name = $("#name").val();
+                var code = $("#code").val();
 
-                    if(data.db_success){
-                    db_success(data.db_success);
-                    setTimeout(function(){
-                        $("#modal").modal('hide');
-                        location.reload();
-                    }, 2000);
-                    }
-                },
-            });
+                $.ajax({
+                    'type': 'ajax',
+                    'dataType': 'json',
+                    'method': 'put',
+                    'data' : {name:name,code:code},
+                    'url': 'bank/'+id,
+                    'async': false,
+                    success:function(data){
+                    if(data.validation_error){
+                        validation_error(data.validation_error);//if has validation error call this function
+                        }
+
+                        if(data.db_error){
+                        db_error(data.db_error);
+                        }
+
+                        if(data.db_success){
+                        db_success(data.db_success);
+                        setTimeout(function(){
+                            $("#modal").modal('hide');
+                            location.reload();
+                        }, 2000);
+                        }
+                    },
+                });
             }
         });
     });
@@ -243,10 +247,10 @@ $(document).ready(function(){
 
 //Data Table show
 function show_types(){
-        $('#tblbank').DataTable().clear();
-        $('#tblbank').DataTable().destroy();
+        $('#tbl_bank').DataTable().clear();
+        $('#tbl_bank').DataTable().destroy();
 
-        $("#tblbank").DataTable({
+        $("#tbl_bank").DataTable({
             'processing': true,
             'serverSide': true,
             "bLengthChange": false,
@@ -274,7 +278,7 @@ function show_types(){
 }
 
 function empty_form(){
-    $("#bank").val("");
+    $("#hid").val("");
     $("#name").val("");
     $("#code").val("");
 }

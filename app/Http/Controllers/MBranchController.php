@@ -17,18 +17,20 @@ class MBranchController extends Controller
 
     public function index()
     {
-        $bank=m_bank::all();
+        $bank = m_bank::all();
+
         return view('m_branch')->with(['banks' => $bank]);
     }
 
     public function create(){
 
-        $result = DB::table('m_branches')
-                            ->join('m_banks','m_branches.bank_id','=','m_banks.id')
-                            ->select('m_branches.*','m_banks.name as bank_name')
-                            ->get();
+        $result = m_branch::all();
 
-        return DataTables($result)->make(true);
+        return DataTables::of($result)
+                        ->addColumn('bank_name', function(m_branch $branch){
+                            return $branch->bank->name;
+                        })
+                        ->make(true);
 
     }
 
@@ -112,6 +114,14 @@ class MBranchController extends Controller
 
     public function destroy($id){
         $result = m_branch::destroy($id);
+
+        return response()->json($result);
+
+    }
+
+    public function get_by_bank_id($id){
+        
+        $result = m_branch::where('bank_id', $id)->get();
 
         return response()->json($result);
 
