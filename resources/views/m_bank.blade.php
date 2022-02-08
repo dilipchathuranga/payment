@@ -77,7 +77,6 @@
 $(document).ready(function(){
 
     // menu active
-    $(".bank_treeview").addClass('menu-open');
     $(".bank_route").addClass('active');
 
     //csrf token error

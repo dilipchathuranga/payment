@@ -5,32 +5,33 @@
         <p>Dashboard</p>
     </a>
 </li>
-<br>
-<p style="color:white; font-size: 17px">Master</p>
-<li class="nav-item has-treeview bank_treeview">
-    <a href="#" class="nav-link">
-      &nbsp;&nbsp;<i class="fas fa-city"></i>&nbsp;&nbsp;
-      <p> Bank</p>
-      <i class="right fas fa-angle-right"></i>
-    </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="{{ route('bank') }}" class="nav-link bank_route">
-            &nbsp;&nbsp;&nbsp;<i class="fas fa-money-check-alt"></i>
-            <p>&nbsp;Bank</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('branch') }}" class="nav-link branch_route">
-            &nbsp;&nbsp;&nbsp;<i class="fas fa-code-branch"></i>
-            <p>&nbsp;Branch</p>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('bank_account') }}" class="nav-link bank_account_route">
-              &nbsp;&nbsp;&nbsp<i class="fas fa-file-invoice-dollar"></i>
-              <p>&nbsp;Bank Account</p>
-            </a>
-          </li>
-    </ul>
+<li class="nav-item">
+    <p style="color: #C2C7D0; font-size: 15px; padding-top:10px">&nbsp;Master</p>
+</li>
+<li class="nav-item">
+  <a href="{{ route('bank') }}" class="nav-link bank_route">
+   <i class="fas fa-money-check-alt"></i>
+    <p>&nbsp;Bank</p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{ route('branch') }}" class="nav-link branch_route">
+   <i class="fas fa-code-branch"></i>
+    <p>&nbsp;&nbsp;Branch</p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{ route('bank_account') }}" class="nav-link bank_account_route">
+    <i class="fas fa-file-invoice-dollar"></i>
+    <p>&nbsp;Bank Account</p>
+  </a>
+</li>
+<li class="nav-item">
+    <p style="color: #C2C7D0; font-size: 15px; padding-top:10px">&nbsp;Payment Section</p>
+</li>
+<li class="nav-item">
+  <a href="{{ route('payment_bill') }}" class="nav-link payment_bill_route">
+    <i class="fas fa-file-invoice-dollar"></i>
+    <p>&nbsp;Payment Bills</p>
+  </a>
 </li>

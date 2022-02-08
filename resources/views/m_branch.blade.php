@@ -89,7 +89,6 @@
 $(document).ready(function(){
 
     // menu active
-    $(".bank_treeview").addClass('menu-open');
     $(".branch_route").addClass('active');
 
     //csrf token error
