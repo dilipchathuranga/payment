@@ -117,7 +117,6 @@
                     <table class="table table-bordered" id="tbl_bank_account">
                         <thead>
                             <tr>
-<<<<<<< HEAD
                                 <th style="width:10%">Bank Name</th>
                                 <th style="width:10%">Branch Name</th>
                                 <th style="width:10%">Supplier Name</th>
@@ -125,15 +124,6 @@
                                 <th style="width:10%">Account Name</th>
                                 <th style="width:20%">Status</th>
                                 <th style="width:20%">Action</th>
-=======
-                                <th style="width: 15%;">Bank Name</th>
-                                <th style="width: 15%;">Branch Name</th>
-                                <th style="width: 10%;">Supplier BP No</th>
-                                <th style="width: 15%;">Account No</th>
-                                <th style="width: 20%;">Account Name</th>
-                                <th style="width: 10%;">Status</th>
-                                <th style="width: 20%;">Action</th>
->>>>>>> main
                             </tr>
                         </thead>
                         <tbody>
@@ -158,7 +148,7 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
+
     show_types();
 
     $(document).on("blur",".form-control",function(){
@@ -178,11 +168,11 @@ $(document).ready(function(){
             'url': 'branch/get_by_bank_id/'+id,
             'async': false,
             success: function(data){
-                
+
                 var html = "";
 
                 html+="<option value=''>-- select branch --</option>";
-                
+
                     for(var i =0; i < data.length; i++){
                         html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
                     }
@@ -200,7 +190,7 @@ $(document).ready(function(){
             $("#branch_id").selectpicker("refresh");
         }
 
-    }); 
+    });
 
     $(document).on("change","#supplier_id",function(){
 
@@ -215,7 +205,7 @@ $(document).ready(function(){
             'url': 'get_supplier/'+id,
             'async': false,
             success: function(data){
-                
+
                 $("#supplier_name").val(data.name);
                 $("#bp_no").val(data.bp_no);
                 $("#supplier_email").val(data.email);
@@ -233,7 +223,7 @@ $(document).ready(function(){
             $("#supplier_telephone").val("");
         }
 
-    }); 
+    });
 
     $(document).on("click",".addNew",function(){
 
@@ -432,7 +422,7 @@ function show_types(){
                 {data: 'account_no'},
                 {data: 'account_name'},
                 {data: null,
-<<<<<<< HEAD
+
                     render:function(d){
 
                         var html = "";
@@ -448,22 +438,6 @@ function show_types(){
 
                         return html;
                     }
-
-=======
-                render:function(d){
-
-                    if(d.status==0)
-                    {
-                        return 'Pending'
-                    }
-                    if(d.status==1){
-                        return 'Approved'
-                    }
-                    if(d.status==2){
-                        return 'Rejected'
-                    }
-                }
->>>>>>> main
                 },
                 {
                 data: null,
