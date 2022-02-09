@@ -27,7 +27,7 @@ class MBranchController extends Controller
 
     public function create(){
 
-        $result = m_branch::where('can_delete','=','0');
+        $result = m_branch::where('is_active','=','1');
 
         return DataTables::of($result)
                         ->addColumn('bank_name', function(m_branch $branch){
@@ -56,7 +56,7 @@ class MBranchController extends Controller
                 $branch->bank_id = $request->bank_id;
                 $branch->code = $request->code;
                 $branch->name = $request->name;
-                $branch->can_delete = 0;
+                $branch->is_active = 1;
 
 
                 $branch->save();
@@ -121,7 +121,7 @@ class MBranchController extends Controller
             DB::beginTransaction();
 
             $branch = m_branch::find($request->id);
-            $branch->can_delete = 1;
+            $branch->is_active = 0;
 
             $branch->save();
 

@@ -23,7 +23,7 @@ class MBankController extends Controller
 
         $result = DB::table('m_banks')
                             ->select('m_banks.*')
-                            ->where('can_delete','=','0')
+                            ->where('is_active','=','1')
                             ->get();
 
         return DataTables($result)->make(true);
@@ -46,7 +46,7 @@ class MBankController extends Controller
                 $type = new m_bank;
                 $type->name = $request->name;
                 $type->code = $request->code;
-                $type->can_delete = 0;
+                $type->is_active = 1;
 
 
                 $type->save();
@@ -109,7 +109,7 @@ class MBankController extends Controller
             DB::beginTransaction();
 
             $type = m_bank::find($request->id);
-            $type->can_delete = 1;
+            $type->is_active = 0;
 
             $type->save();
 

@@ -239,7 +239,7 @@ $(document).ready(function(){
                         if(data){
                         Swal.fire(
                             'Deleted!',
-                            'Designation has been deleted.',
+                            'Branch has been deleted.',
                             'success'
                             );
                         setTimeout(function(){

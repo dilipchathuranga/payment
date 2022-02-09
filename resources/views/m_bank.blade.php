@@ -159,7 +159,7 @@ $(document).ready(function(){
                 $("#hid").val(data.id);
                 $("#name").val(data.name);
                 $("#code").val(data.code);
-                
+
             }
 
         });
@@ -225,7 +225,7 @@ $(document).ready(function(){
                         if(data){
                             Swal.fire(
                                 'Deleted!',
-                                'Designation has been deleted.',
+                                'Bank has been deleted.',
                                 'success'
                             );
                             setTimeout(function(){

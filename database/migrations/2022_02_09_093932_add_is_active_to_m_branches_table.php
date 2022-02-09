@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMBanksTable extends Migration
+class AddIsActiveToMBranchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateMBanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_banks', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('m_branches', function (Blueprint $table) {
+            $table->tinyInteger('is_active');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateMBanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_banks');
+        Schema::table('m_branches', function (Blueprint $table) {
+            $table->dropColumn('is_active');
+        });
     }
 }

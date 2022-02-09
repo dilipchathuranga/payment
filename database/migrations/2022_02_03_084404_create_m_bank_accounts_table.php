@@ -26,7 +26,6 @@ class CreateMBankAccountsTable extends Migration
             $table->string('holder_nic');
             $table->integer('action_by');
             $table->tinyInteger('status');
-            $table->tinyInteger('can_delete');
             $table->timestamps();
         });
     }
