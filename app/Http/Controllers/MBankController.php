@@ -21,7 +21,10 @@ class MBankController extends Controller
 
     public function create(){
 
-        $result = m_bank::all();
+        $result = DB::table('m_banks')
+                            ->select('m_banks.*')
+                            ->where('can_delete','=','0')
+                            ->get();
 
         return DataTables($result)->make(true);
 
@@ -43,6 +46,7 @@ class MBankController extends Controller
                 $type = new m_bank;
                 $type->name = $request->name;
                 $type->code = $request->code;
+                $type->can_delete = 0;
 
 
                 $type->save();
@@ -100,10 +104,24 @@ class MBankController extends Controller
 
     }
 
-    public function destroy($id){
-        $result = m_bank::destroy($id);
+    public function destroy(Request $request){
+        try{
+            DB::beginTransaction();
 
-        return response()->json($result);
+            $type = m_bank::find($request->id);
+            $type->can_delete = 1;
+
+            $type->save();
+
+            DB::commit();
+            return response()->json(['db_success' => 'Bank Updated']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
 
     }
 

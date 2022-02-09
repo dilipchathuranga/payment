@@ -44,6 +44,7 @@ Route::get('/bank_account/{id}', 'MBankAccountController@show');
 Route::put('/bank_account/{id}', 'MBankAccountController@update');
 Route::delete('/bank_account/{id}', 'MBankAccountController@destroy');
 Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
+Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status');
 
 //payment->bank_account
 Route::get('/payment_bill', 'MPaymentBillController@index')->name('payment_bill');

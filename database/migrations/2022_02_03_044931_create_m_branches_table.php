@@ -18,6 +18,7 @@ class CreateMBranchesTable extends Migration
             $table->integer('bank_id');
             $table->string('code');
             $table->string('name');
+            $table->tinyInteger('can_delete');
             $table->timestamps();
         });
     }

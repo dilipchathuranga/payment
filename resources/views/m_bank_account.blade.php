@@ -224,6 +224,88 @@ $(document).ready(function(){
 
     });
 
+        $(document).on("change","#supplier_id",function(){
+
+        var id = $(this).val();
+
+        if(id!= ""){
+
+            $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'get_supplier/'+id,
+            'async': false,
+            success: function(data){
+
+                $("#supplier_name").val(data.name);
+                $("#bp_no").val(data.bp_no);
+                $("#supplier_email").val(data.email);
+                $("#supplier_telephone").val(data.tele_no);
+
+            }
+
+            });
+
+        }else{
+
+            $("#supplier_name").val("");
+            $("#bp_no").val("");
+            $("#supplier_email").val("");
+            $("#supplier_telephone").val("");
+        }
+
+    });
+
+
+
+
+
+    $(document).on("click",".change_status",function(){
+        var id = $(this).attr('data-id');
+        var data = $(this).attr('data');
+        console.log(id);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Update it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        'type': 'ajax',
+                        'dataType': 'json',
+                        'method': 'put',
+                        'url': 'get_bank_account_status/'+id,
+                        'data':{data:data},
+                        'async': false,
+                        success: function(data){
+
+                        if(data){
+                            Swal.fire(
+                                'Status!',
+                                'Bank Account Status Updated.',
+                                'success'
+                            );
+                            setTimeout(function(){
+                            location.reload();
+                            }, 2000);
+
+                        }
+
+                        }
+                    });
+
+                }
+
+        });
+
+});
+
     $(document).on("click",".addNew",function(){
 
         empty_form();
@@ -420,13 +502,14 @@ function show_types(){
                 {data: 'bp_no'},
                 {data: 'account_no'},
                 {data: 'account_name'},
-                {data: null,
+                {
+                    data: null,
 
                     render:function(d){
 
                         var html = "";
                         if(d.status==0){
-                            html = "<span class='badge badge-info'>Pending</span>";
+                            html = "<span class='badge badge-warning'>Pending</span>";
                         }
                         if(d.status==1){
                             html = "<span class='badge badge-success'>Approved</span>";
@@ -439,20 +522,20 @@ function show_types(){
                     }
                 },
                 {
-                data: null,
-                render: function(d){
-                    var html = "";
-                    html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
-                    html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
-                    if(d.status==0){
-                        html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"'><i class='fas fa-check-circle'></i></button>";
-                        html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"'><i class='fas fa-times-circle'></i></button>";
-                    }else{
-                        html+="&nbsp;<button class='btn btn-info btn-sm change_status' data='0' data-id='"+d.id+"'><i class='fas fa-spinner'></i></button>";
-                    }
-                    return html;
+                    data: null,
+                    render: function(d){
+                        var html = "";
+                        html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
+                        html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
+                        if(d.status==0){
+                            html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"'><i class='fas fa-check-circle'></i></button>";
+                            html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"'><i class='fas fa-times-circle'></i></button>";
+                        }else{
+                            html+="&nbsp;<button class='btn btn-info btn-sm change_status' data='0' data-id='"+d.id+"'><i class='fas fa-spinner'></i></button>";
+                        }
+                        return html;
 
-                }
+                    }
 
                 }
             ]

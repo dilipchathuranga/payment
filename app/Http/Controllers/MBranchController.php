@@ -17,14 +17,17 @@ class MBranchController extends Controller
 
     public function index()
     {
-        $bank = m_bank::all();
+        $bank = DB::table('m_banks')
+                        ->select('m_banks.*')
+                        ->where('can_delete','=','0')
+                        ->get();
 
         return view('m_branch')->with(['banks' => $bank]);
     }
 
     public function create(){
 
-        $result = m_branch::all();
+        $result = m_branch::where('can_delete','=','0');
 
         return DataTables::of($result)
                         ->addColumn('bank_name', function(m_branch $branch){
@@ -53,6 +56,7 @@ class MBranchController extends Controller
                 $branch->bank_id = $request->bank_id;
                 $branch->code = $request->code;
                 $branch->name = $request->name;
+                $branch->can_delete = 0;
 
 
                 $branch->save();
@@ -112,15 +116,28 @@ class MBranchController extends Controller
 
     }
 
-    public function destroy($id){
-        $result = m_branch::destroy($id);
+    public function destroy(Request $request){
+        try{
+            DB::beginTransaction();
 
-        return response()->json($result);
+            $branch = m_branch::find($request->id);
+            $branch->can_delete = 1;
+
+            $branch->save();
+
+            DB::commit();
+            return response()->json(['db_success' => 'Branch Updated']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
 
     }
 
     public function get_by_bank_id($id){
-        
+
         $result = m_branch::where('bank_id', $id)->get();
 
         return response()->json($result);

@@ -37,7 +37,7 @@ class MBankAccountController extends Controller
 
     public function create(){
 
-        $result = m_bank_account::all();
+        $result = m_bank_account::where('can_delete','=','0');
 
         return DataTables::of($result)
                         ->addColumn('bank_name', function(m_bank_account $bank_account){
@@ -81,6 +81,7 @@ class MBankAccountController extends Controller
                 $bank_account->holder_nic = $request->holder_nic;
                 $bank_account->action_by = auth()->user()->id;
                 $bank_account->status = 0;
+                $bank_account->can_delete = 0;
 
 
 
@@ -153,11 +154,24 @@ class MBankAccountController extends Controller
 
     }
 
-    public function destroy($id){
-        $result = m_bank_account::destroy($id);
+    public function destroy(Request $request){
 
-        return response()->json($result);
+            try{
+                DB::beginTransaction();
 
+                $bank_account = m_bank_account::find($request->id);
+                $bank_account->can_delete = 1;
+
+                $bank_account->save();
+
+                DB::commit();
+                return response()->json(['db_success' => 'Bank Account Deleted']);
+
+            }catch(\Throwable $th){
+                DB::rollback();
+                throw $th;
+                return response()->json(['db_error' =>'Database Error'.$th]);
+            }
     }
 
     public function get_supplier($id){
@@ -169,4 +183,25 @@ class MBankAccountController extends Controller
        return $supplier_response;
 
     }
+
+
+    public function get_status(Request $request){
+        try{
+            DB::beginTransaction();
+
+            $bank_account = m_bank_account::find($request->id);
+            $bank_account->status = $request->data;
+
+            $bank_account->save();
+
+            DB::commit();
+            return response()->json(['db_success' => 'Bank status Added']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+    }
+
 }
