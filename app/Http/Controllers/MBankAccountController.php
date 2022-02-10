@@ -37,7 +37,7 @@ class MBankAccountController extends Controller
 
     public function create(){
 
-        $result = m_bank_account::where('can_delete','=','0');
+        $result = m_bank_account::where('is_active','=','1');
 
         return DataTables::of($result)
                         ->addColumn('bank_name', function(m_bank_account $bank_account){
@@ -81,7 +81,7 @@ class MBankAccountController extends Controller
                 $bank_account->holder_nic = $request->holder_nic;
                 $bank_account->action_by = auth()->user()->id;
                 $bank_account->status = 0;
-                $bank_account->can_delete = 0;
+                $bank_account->is_active = 1;
 
 
 
@@ -160,7 +160,7 @@ class MBankAccountController extends Controller
                 DB::beginTransaction();
 
                 $bank_account = m_bank_account::find($request->id);
-                $bank_account->can_delete = 1;
+                $bank_account->is_active = 0;
 
                 $bank_account->save();
 
