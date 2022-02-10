@@ -19,7 +19,7 @@ class MBranchController extends Controller
     {
         $bank = DB::table('m_banks')
                         ->select('m_banks.*')
-                        ->where('can_delete','=','0')
+                        ->where('is_active','=','0')
                         ->get();
 
         return view('m_branch')->with(['banks' => $bank]);
