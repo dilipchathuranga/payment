@@ -23,15 +23,14 @@ class MBankAccountController extends Controller
     {
         $banks = m_bank::all();
         $branches = m_branch::all();
-        $supplier_response = Http::get('http://fin.maga.engineering/api/get_suppliers', [
-            'api_token' => 'MAGA_AUHT_00001'
-        ]);
+    //     $supplier_response = Http::get('http://fin.maga.engineering/api/get_suppliers', [
+    //         'api_token' => 'MAGA_AUHT_00001'
+    //     ]);
 
-       $suppliers = json_decode($supplier_response,true);
+    //    $suppliers = json_decode($supplier_response,true);
 
        return view('m_bank_account')->with(['banks' => $banks,
-                                            'branches' => $branches,
-                                            'suppliers' => $suppliers]);
+                                            'branches' => $branches]);
 
     }
 

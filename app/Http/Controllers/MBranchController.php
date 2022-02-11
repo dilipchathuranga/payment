@@ -17,10 +17,7 @@ class MBranchController extends Controller
 
     public function index()
     {
-        $bank = DB::table('m_banks')
-                        ->select('m_banks.*')
-                        ->where('is_active','=','0')
-                        ->get();
+        $bank = m_bank::where('is_active', 1)->get();
 
         return view('m_branch')->with(['banks' => $bank]);
     }

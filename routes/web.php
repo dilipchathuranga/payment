@@ -47,10 +47,10 @@ Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
 Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status');
 
 //payment->bank_account
-Route::get('/payment_bill', 'MPaymentBillController@index')->name('payment_bill');
-Route::post('/payment_bill', 'MPaymentBillController@store');
-Route::get('/payment_bill/create','MPaymentBillController@create');
-Route::get('/payment_bill/{id}', 'MPaymentBillController@show');
-Route::put('/payment_bill/{id}', 'MPaymentBillController@update');
-Route::delete('/payment_bill/{id}', 'MPaymentBillController@destroy');
+Route::get('/payment_bill', 'PPaymentBillController@index')->name('payment_bill');
+Route::post('/payment_bill', 'PPaymentBillController@store');
+Route::get('/payment_bill/create','PPaymentBillController@create');
+Route::get('/payment_bill/{id}', 'PPaymentBillController@show');
+Route::put('/payment_bill/{id}', 'PPaymentBillController@update');
+Route::delete('/payment_bill/{id}', 'PPaymentBillController@destroy');
 

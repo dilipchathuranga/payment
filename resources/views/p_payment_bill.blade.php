@@ -197,15 +197,20 @@
 <script>
     $(document).ready(function(){
 
-        var recieving_bill = [];
-        var pending_bill = [];
-
         show_pending_bills();
 
         $(".bulk_receive").click(function(){
 
             $("#modal").modal('show');
 
+            // receiving id array
+            var recieving_bill = [];
+
+            // get pending bills
+            var pending_bills = get_pending_bills();
+
+            
+            // two tables
             var pending_table;
             var receiving_table;
 
@@ -214,49 +219,10 @@
             $('#pending_table').DataTable().destroy();
 
             pending_table = $("#pending_table").DataTable({
-                'processing': true,
-                'serverSide': true,
-                "bLengthChange": false,
-                "autoWidth": false,
-                'searching': false,
-                'ajax': {
-                            'method': 'post',
-                            'url': 'http://demofin.maga.engineering/api/pending_payment_bills?api_token=MAGA_AUHT_00001'
-                },
-                'columns': [
-                    {data: 'module'},
-                    {data: 'invoice_date'},
-                    {data: 'project_name'},
-                    {data: 'supplier_name'},
-                    {data: 'amount',
-                        render: $.fn.dataTable.render.number( ',', '.', 2, '' )},
-                    {
-                    data: null,
-                    render: function(d){
-
-                        var html = "";
-
-                        html+="<button class='btn btn-success btn-xs receive' data='"+d.id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>";
-                        
-                        return html;
-                    }
-                    }
-                ],
-
-                fixedColumns: true,
-                "fnPreDrawCallback": function(oSettings) {
-                    /* reset pending_bill before each draw*/
-                    pending_bill = [];
-                },
-                "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    /* push this row of data to pending_bill array*/
-                    pending_bill.push(aData);
-
-                },
-                "fnDrawCallback": function(oSettings) {
-                    /* can now access sorted data array*/
-                    // console.log(pending_bill)
-                }
+                "paging": false,
+                "searching": false,
+                "pageLength": 20,
+                fixedColumns: true
 
             });
 
@@ -268,25 +234,85 @@
                 "paging": false,
                 "searching": false,
                 "pageLength": 20,
-                fixedColumns: true,
-                "fnPreDrawCallback": function(oSettings) {
-                    /* reset pending_bill before each draw*/
-                    recieving_bill = [];
-
-                },
-                "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    /* push this row of data to pending_bill array*/
-                    recieving_bill.push(aData);
-
-
-                },
-                "fnDrawCallback": function(oSettings) {
-                    /* can now access sorted data array*/
-                    // console.log(recieving_bill)
-                }
+                fixedColumns: true
+                
             });
 
+            //add pending table data
+            for(var i=0; i < pending_bills.length; i++){
 
+                pending_table.row.add([pending_bills[i].module,
+                    pending_bills[i].invoice_date,
+                    pending_bills[i].project_name,
+                    pending_bills[i].supplier_name,
+                    pending_bills[i].amount,
+                   "<button class='btn btn-success btn-xs add' data='"+ pending_bills[i].bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>"
+                ]).draw();
+                
+            }
+
+            // add bills to receiving table
+            $("#pending_table tbody").on('click','.add',function(){
+
+                var row = $(this).parents('tr');
+                var bill_id = $(this).attr('data');
+            
+                // validation
+                if(recieving_bill.length==20){
+                    toastr.error('Cannot add more than 20 records');
+                    return this;
+                }
+
+                if(recieving_bill.includes(bill_id)){
+                    toastr.error('Cannot add duplicates');
+                    return this;
+
+                }else{
+
+                    recieving_bill.push(bill_id);
+
+                    var module_name=(row.find('td:nth-child(1)').text());
+                    var date=(row.find('td:nth-child(2)').text());
+                    var project=(row.find('td:nth-child(3)').text());
+                    var supplier=(row.find('td:nth-child(4)').text());
+                    var amount=(row.find('td:nth-child(5)').text());
+
+                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-xs btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>"
+                    ]).draw();
+                    pending_table.row(row).remove().draw();
+
+                }
+
+
+            });
+
+            // remove bills to receiving table
+            $("#receiving_table tbody").on('click','.remove',function(){
+
+                var row = $(this).parents('tr');
+
+                var bill_id = $(this).attr('data');
+
+                var module_name=(row.find('td:nth-child(1)').text());
+                var date=(row.find('td:nth-child(2)').text());
+                var project=(row.find('td:nth-child(3)').text());
+                var supplier=(row.find('td:nth-child(4)').text());
+                var amount=(row.find('td:nth-child(5)').text());
+
+
+                const index = recieving_bill.indexOf(bill_id);
+
+                if (index > -1) {
+                    recieving_bill.splice(index, 1); 
+
+                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-xs add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>"
+                    ]).draw();
+           
+                    receiving_table.row(row).remove().draw();
+
+                }
+
+            });
 
         });
 
@@ -337,6 +363,27 @@
         })
 
 
+    }
+
+    function get_pending_bills(){
+
+        var result;
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'post',
+            'url': 'http://demofin.maga.engineering/api/pending_payment_bills_json?api_token=MAGA_AUHT_00001',
+            'async': false,
+            success: function(data){
+
+                result = data;
+                
+            }
+
+        });
+
+        return result;
     }
 
 </script>

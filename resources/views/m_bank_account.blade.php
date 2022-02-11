@@ -38,10 +38,7 @@
                         <div class="form-group col-md-6">
                             <label for="rate">Supplier ID</label>
                             <select name="supplier_id" id="supplier_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
-                                <option value="">-- select supplier --</option>
-                                @for($i=0; $i < sizeof($suppliers); $i++ )
-                                    <option value="{{ $suppliers[$i]['id'] }}">{{ $suppliers[$i]['name'] }}</option>
-                                @endfor
+                                
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -148,7 +145,8 @@ $(document).ready(function(){
         }
     });
 
-    show_types();
+    show_bank_accounts();
+    get_suppliers();
 
     $(document).on("blur",".form-control",function(){
         $("#submit").css("display","block");
@@ -482,7 +480,8 @@ $(document).ready(function(){
 });
 
 //Data Table show
-function show_types(){
+function show_bank_accounts(){
+
         $('#tbl_bank_account').DataTable().clear();
         $('#tbl_bank_account').DataTable().destroy();
 
@@ -491,7 +490,6 @@ function show_types(){
             'serverSide': true,
             "bLengthChange": false,
             "autoWidth": false,
-            "aaSorting": [[0,'desc']],
             'ajax': {
                         'method': 'get',
                         'url': 'bank_account/create'
@@ -540,6 +538,36 @@ function show_types(){
                 }
             ]
         });
+}
+
+function get_suppliers(){
+
+    var result;
+
+    $.ajax({
+        'type': 'ajax',
+        'dataType': 'json',
+        'method': 'get',
+        'url': 'http://fin.maga.engineering/api/get_suppliers?api_token=MAGA_AUHT_00001',
+        'async': false,
+        success: function(data){
+
+            var html = "";
+
+            html+="<option value=''>-- select supplier --</option>";
+
+                for(var i =0; i < data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+
+            $("#supplier_id").html(html);
+            $("#supplier_id").selectpicker("refresh");
+
+                
+        }
+
+    });
+
 }
 
 function empty_form(){

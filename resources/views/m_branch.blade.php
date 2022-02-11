@@ -17,7 +17,7 @@
                 <div class="form-group col-md-6">
                     <label for="levy">Bank Name</label>
                     <select name="bank_id" id="bank_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
-                        <option value="">-- select branch --</option>
+                        <option value="">-- select bank --</option>
                         @foreach($banks as $bank)
                             <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                         @endforeach
@@ -98,7 +98,7 @@ $(document).ready(function(){
         }
     });
 
-    show_types();
+    show_branches();
 
     $(".form-control").blur(function(){
         $("#submit").css("display","block");
@@ -259,7 +259,7 @@ $(document).ready(function(){
 });
 
 //Data Table show
-function show_types(){
+function show_branches(){
 
     $('#tblbranch').DataTable().clear();
     $('#tblbranch').DataTable().destroy();

@@ -86,7 +86,7 @@ $(document).ready(function(){
         }
     });
 
-    show_types();
+    show_banks();
 
     $(document).on("blur",".form-control",function(){
         $("#submit").css("display","block");
@@ -245,7 +245,7 @@ $(document).ready(function(){
 });
 
 //Data Table show
-function show_types(){
+function show_banks(){
         $('#tbl_bank').DataTable().clear();
         $('#tbl_bank').DataTable().destroy();
 
