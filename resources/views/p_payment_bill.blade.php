@@ -85,10 +85,10 @@
                     </div>
                 </div>
             </div>
-          <!-- <div class="modal-footer">
+          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success submit" id="submit">Save changes</button>
-          </div> -->
+            <button type="button" class="btn btn-success bill_receive" id="submit">Receive Bills</button>
+          </div>
       </div>
     </div>
 </div>
@@ -194,10 +194,67 @@
         </div>
     </div>
 </div>
+
+@if(Session::has('bill_session'))
+  <input type="hidden" id="bill_session" value="1">
+@else
+  <input type="hidden" id="bill_session" value="0">
+@endif
+
 <script>
     $(document).ready(function(){
 
+        //csrf token error
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        //session 
+        var bill_session = $("#bill_session").val();
+        if(bill_session == '1'){
+        show_session_bills();
+        
+        }else{
         show_pending_bills();
+        }
+
+        $("#option1").click(function(){
+
+            var session = 'pending_bill';
+            $.ajax({
+                'type': 'ajax',
+                'dataType': 'json',
+                'method': 'post',
+                'url': 'home/bill_session',
+                'data': {session:session},
+                'async': false,
+                'success': function(data){
+                    
+                }
+            });
+            show_pending_bills();
+
+        });
+
+        $("#option2").click(function(){
+
+            var session = 'received_bill';
+            $.ajax({
+                    'type': 'ajax',
+                    'dataType': 'json',
+                    'method': 'post',
+                    'url': 'home/bill_session',
+                    'data': {session:session},
+                    'async': false,
+                    'success': function(data){
+                    
+                    }
+            });
+            show_received_bills();
+
+        });
 
         $(".bulk_receive").click(function(){
 
@@ -209,7 +266,6 @@
             // get pending bills
             var pending_bills = get_pending_bills();
 
-            
             // two tables
             var pending_table;
             var receiving_table;
@@ -239,16 +295,18 @@
             });
 
             //add pending table data
-            for(var i=0; i < pending_bills.length; i++){
+            if(pending_bills.length > 0){
+                for(var i=0; i < pending_bills.length; i++){
 
-                pending_table.row.add([pending_bills[i].module,
-                    pending_bills[i].invoice_date,
-                    pending_bills[i].project_name,
-                    pending_bills[i].supplier_name,
-                    pending_bills[i].amount,
-                   "<button class='btn btn-success btn-xs add' data='"+ pending_bills[i].bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>"
-                ]).draw();
-                
+                    pending_table.row.add([pending_bills[i].module,
+                        pending_bills[i].invoice_date,
+                        pending_bills[i].project_name,
+                        pending_bills[i].supplier_name,
+                        pending_bills[i].amount,
+                    "<button class='btn btn-success btn-xs add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>"
+                    ]).draw();
+
+                }
             }
 
             // add bills to receiving table
@@ -314,14 +372,68 @@
 
             });
 
+            $(document).on('click','.bill_receive',function(){
+
+                if( recieving_bill.length > 0 ){
+
+                    $.ajax({
+                        'type': 'ajax',
+                        'dataType': 'json',
+                        'method': 'post',
+                        'async': false,
+                        'data': {bill_id:recieving_bill},
+                        'url': 'payment_bill/bulk_bill_receive',
+                        success: function(data){
+
+                            if(data.db_error){
+                                db_error(data.db_error);
+                            }
+
+                            if(data.db_success){
+                                db_success(data.db_success);
+                                setTimeout(function(){
+                                    $("#modal").modal('hide');
+                                    location.reload();
+                                }, 2000);
+                            }
+                        }
+                    });
+
+                }
+
+            });
+
         });
 
     });
+
+    function show_session_bills(){
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'async': false,
+            'url': 'get_session',
+            success: function(data){
+
+            if(data.bill_session == 'pending_bill'){
+                show_pending_bills();
+            }else if(data.bill_session == 'received_bill'){
+                show_received_bills();
+            }
+
+            }
+        });
+
+    }
 
     function show_pending_bills(){
 
         $("#option1").addClass('btn-active');
         $("#option2").removeClass('btn-active');
+
+        $(".bulk_receive").css("display", "block");
 
         var project_id = $("#project_id_s").val();
         var supplier_id = $("#supplier_id_s").val();
@@ -336,9 +448,8 @@
             "bLengthChange": false,
             'searching': false,
             'ajax': {
-                        'method': 'post',
-                        'data': {project_id:project_id, supplier_id:supplier_id, table_search:table_search},
-                        'url': 'http://demofin.maga.engineering/api/pending_payment_bills?api_token=MAGA_AUHT_00001'
+                        'method': 'get',
+                        'url': 'payment_bill/pending_payment_bills_datatable'
             },
             'columns': [
                 {data: 'module'},
@@ -365,6 +476,54 @@
 
     }
 
+    function show_received_bills(){
+
+        $("#option2").addClass('btn-active');
+        $("#option1").removeClass('btn-active');
+
+        $(".bulk_receive").css("display", "none");
+
+        var project_id = $("#project_id_s").val();
+        var supplier_id = $("#supplier_id_s").val();
+        var table_search = $("#table_search").val();
+
+        $('#dataTable').DataTable().clear();
+        $('#dataTable').DataTable().destroy();
+
+        $("#dataTable").DataTable({
+            'processing': true,
+            'serverSide': true,
+            "bLengthChange": false,
+            'searching': false,
+            'ajax': {
+                        'method': 'get',
+                        'url': 'payment_bill/received_payment_bills_datatable'
+            },
+            'columns': [
+                {data: 'module'},
+                {data: 'project_name'},
+                {data: 'supplier_name'},
+                {data: 'invoice_date'},
+                {data: 'bill_refference'},
+                {data: 'amount',
+                    render: $.fn.dataTable.render.number( ',', '.', 2, '' ) },
+                {
+                data: null,
+                render: function(d){
+
+                    var html = "";
+
+                    // html+="<button class='btn btn-success btn-xs receive' data='"+d.id+"' title='Recieved'>Recieved</button>";
+                    
+                    return html;
+                }
+                }
+            ]
+        })
+
+
+    }
+
     function get_pending_bills(){
 
         var result;
@@ -372,8 +531,8 @@
         $.ajax({
             'type': 'ajax',
             'dataType': 'json',
-            'method': 'post',
-            'url': 'http://demofin.maga.engineering/api/pending_payment_bills_json?api_token=MAGA_AUHT_00001',
+            'method': 'get',
+            'url': 'payment_bill/pending_payment_bills',
             'async': false,
             success: function(data){
 
@@ -384,6 +543,33 @@
         });
 
         return result;
+    }
+
+    function validation_error(error){
+        for(var i=0;i< error.length;i++){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error[i],
+        });
+        }
+    }
+
+    function db_error(error){
+        Swal.fire({
+            icon: 'error',
+            title: 'Database Error',
+            text: error,
+        });
+    }
+
+    function db_success(message){
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: message,
+        });
     }
 
 </script>

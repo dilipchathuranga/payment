@@ -18,6 +18,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home/bill_session', 'HomeController@bill_session');
+Route::get('/get_session', 'HomeController@get_session');
 
 //master->bank
 Route::get('/bank', 'MBankController@index')->name('bank');
@@ -48,9 +50,10 @@ Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status')
 
 //payment->bank_account
 Route::get('/payment_bill', 'PPaymentBillController@index')->name('payment_bill');
-Route::post('/payment_bill', 'PPaymentBillController@store');
-Route::get('/payment_bill/create','PPaymentBillController@create');
-Route::get('/payment_bill/{id}', 'PPaymentBillController@show');
-Route::put('/payment_bill/{id}', 'PPaymentBillController@update');
-Route::delete('/payment_bill/{id}', 'PPaymentBillController@destroy');
+Route::post('/payment_bill/bulk_bill_receive', 'PPaymentBillController@bulk_bill_receive');
+Route::get('/payment_bill/pending_payment_bills','PPaymentBillController@pending_payment_bills');
+Route::get('/payment_bill/pending_payment_bills_datatable','PPaymentBillController@pending_payment_bills_datatable');
+Route::get('/payment_bill/received_payment_bills_datatable','PPaymentBillController@received_payment_bills_datatable');
+
+
 

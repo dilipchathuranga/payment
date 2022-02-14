@@ -18,6 +18,41 @@ class PPaymentBillController extends Controller
         return view('p_payment_bill');
     }
 
+    public function bulk_bill_receive(Request $request){
+        
+        $bill_ids = $request->bill_id;
+
+        try{
+            DB::beginTransaction();
+
+            foreach($bill_ids as $value){
+
+                $bill = p_payment_bill::find($value);
+                $bill->status = 1; //received
+
+                $bill->save();
+            }
+
+            DB::commit();
+            return response()->json(['db_success' => 'Bills Received']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
+
+    }
+
+    public function pending_payment_bills(){
+
+        $result = p_payment_bill::where('status', '0')->get();
+
+        return response()->json($result);
+
+    }
+
     public function pending_payment_bills_datatable(Request $request){
 
         $result = p_payment_bill::where('status', '0')->get();
@@ -26,15 +61,8 @@ class PPaymentBillController extends Controller
 
     }
     
-    public function pending_payment_bills_json(Request $request){
-
-        $result = p_payment_bill::where('status', '0')->get();
-
-        return response()->json($result);
-
-    }
     
-    public function recieved_payment_bills(Request $request){
+    public function received_payment_bills_datatable(Request $request){
 
         $result = p_payment_bill::where('status', '1')->get();
 

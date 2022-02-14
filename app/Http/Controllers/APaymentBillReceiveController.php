@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class APaymentBillReceiveController extends Controller
 {
     public function store(Request $request){
-
+        
         try{
             DB::beginTransaction();
 
@@ -39,5 +39,6 @@ class APaymentBillReceiveController extends Controller
             throw $th;
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
-
+        
+    }
 }
