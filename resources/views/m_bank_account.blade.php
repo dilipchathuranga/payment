@@ -38,7 +38,7 @@
                         <div class="form-group col-md-6">
                             <label for="rate">Supplier ID</label>
                             <select name="supplier_id" id="supplier_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
-                                
+
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -541,7 +541,6 @@ function show_bank_accounts(){
         });
 }
 
-<<<<<<< Updated upstream
 function get_suppliers(){
 
     var result;
@@ -565,14 +564,14 @@ function get_suppliers(){
             $("#supplier_id").html(html);
             $("#supplier_id").selectpicker("refresh");
 
-                
+
         }
 
     });
 
 }
 
-=======
+
 $(document).on('click', '.attachment', function(){
 
     var id = $(this).attr('data');
@@ -580,7 +579,6 @@ $(document).on('click', '.attachment', function(){
 
     });
 
->>>>>>> Stashed changes
 function empty_form(){
     $("#bank_id").selectpicker("val","");
     $("#branch_id").selectpicker("val","");
