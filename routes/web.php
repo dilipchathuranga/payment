@@ -57,3 +57,15 @@ Route::get('/payment_bill/received_payment_bills_datatable','PPaymentBillControl
 
 
 
+//payment->bank_account_attachment
+Route::get('/bank_account_attachment', 'MBankAccountAttachmentController@index')->name('bank_account_attachment');
+Route::post('/bank_account_attachment', 'MBankAccountAttachmentController@store');
+Route::get('/bank_account_attachment/create','MBankAccountAttachmentController@create');
+Route::get('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@show');
+Route::post('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@update');
+Route::delete('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@destroy');
+Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentController@showtable');
+Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_rates');
+
+
+

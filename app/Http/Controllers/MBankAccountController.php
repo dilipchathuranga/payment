@@ -136,7 +136,6 @@ class MBankAccountController extends Controller
                 $bank_account->account_name = $request->account_name;
                 $bank_account->holder_nic = $request->holder_nic;
                 $bank_account->action_by = auth()->user()->id;
-                $bank_account->status = 0;
 
                 $bank_account->save();
 

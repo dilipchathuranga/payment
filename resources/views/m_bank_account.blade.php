@@ -525,6 +525,7 @@ function show_bank_accounts(){
                         var html = "";
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
                         html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
+                        html+="&nbsp;<button class='btn btn-secondary btn-sm attachment' data='"+d.id+"' data-id='"+d.bank_id+"' data-sid='"+d.supplier_id+"'><i class='fas fa-paperclip'></i></button>";
                         if(d.status==0){
                             html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"'><i class='fas fa-check-circle'></i></button>";
                             html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"'><i class='fas fa-times-circle'></i></button>";
@@ -540,6 +541,7 @@ function show_bank_accounts(){
         });
 }
 
+<<<<<<< Updated upstream
 function get_suppliers(){
 
     var result;
@@ -570,6 +572,15 @@ function get_suppliers(){
 
 }
 
+=======
+$(document).on('click', '.attachment', function(){
+
+    var id = $(this).attr('data');
+    window.open('bank_account_attachment/show_table/'+id, '_blank');
+
+    });
+
+>>>>>>> Stashed changes
 function empty_form(){
     $("#bank_id").selectpicker("val","");
     $("#branch_id").selectpicker("val","");
