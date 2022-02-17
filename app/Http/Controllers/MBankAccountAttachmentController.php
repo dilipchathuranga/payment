@@ -39,17 +39,18 @@ class MBankAccountAttachmentController extends Controller
             return response()->json(['validation_error' => $validator->errors()->all()]);
         }else{
             try{
-                if ($request->file('document_path')) {
+                if ($request->hasFile('document_path')) {
 
                     $file = $request->file('document_path');
-                    $file_name = $request->bank_id . '.' .$file->getClientOriginalExtension();
-                    $file->move(public_path('uploads\mbank_attachment'), $file_name);
+                    $file_name =$file->getClientOriginalExtension();
+                    $filename=time().'.'.$file_name;
+                    $file->move(public_path('uploads\mbank_attachment'), $filename);
 
                     $upload1 = new m_bank_account_attachment;
                     $upload1->supplier_id = $request->supplier_id;;
                     $upload1->bank_id =$request->bank_id;
                     $upload1->document_main =  $request->document_main;
-                    $upload1->document_path =  public_path("uploads\mbank_attachment/".$file_name);
+                    $upload1->document_path =  public_path("uploads\mbank_attachment/".$filename);
                     $upload1->save();
 
                 }
@@ -78,6 +79,7 @@ class MBankAccountAttachmentController extends Controller
 
     public function update(Request $request){
 
+
         $validator = Validator::make($request->all(), [
             'document_main'=>'required',
         ]);
@@ -86,27 +88,16 @@ class MBankAccountAttachmentController extends Controller
             return response()->json(['validation_error' => $validator->errors()->all()]);
         }else{
             try{
+                DB::beginTransaction();
 
-            if ($request->file('file')) {
+                $m_bank_account_attachment = m_bank_account_attachment::find($request->id);
+                $m_bank_account_attachment->supplier_id = $request->supplier_id;
+                $m_bank_account_attachment->bank_id = $request->bank_id;
+                $m_bank_account_attachment->document_main = $request->document_main;
 
-                //delete previous upload
-                $upload= DB::table('m_bank_account_attachments')
-                            ->where(['bank_id' => $request->bank_id])
-                            ->delete();
+                $m_bank_account_attachment->save();
 
 
-                $file = $request->file('file');
-                $file_name = $request->bank_id . '.' .$file->getClientOriginalExtension();
-                $file->move(public_path('uploads\agreement_uploads'), $file_name);
-
-                $upload1 = new m_bank_account_attachment;
-                $upload1->supplier_id = $request->supplier_id;;
-                $upload1->bank_id =$request->bank_id;
-                $upload1->document_main =  $request->document_main;
-                $upload1->document_path =  public_path("uploads\mbank_attachment/".$file_name);
-                $upload1->save();
-
-            }
             DB::commit();
             return response()->json(['db_success' => 'Added New Attachment']);
 

@@ -167,21 +167,18 @@ $(document).ready(function(){
         $("#submit").click(function(){
             if($("#hid").val() != ""){
             var id =$("#hid").val();
+
             var bank_id = $("#bank_id").val();
             var supplier_id = $("#supplier_id").val();
             var document_main = $("#document_main").val();
 
-            var formData = new FormData($('#myForm')[0]);
-
             $.ajax({
                 'type': 'ajax',
                 'dataType': 'json',
-                'method': 'post',
-                'data' : formData,
-                'url': "{{ url('bank_account_attachment') }}/"+id,
+                'method': 'put',
+                'data' : {bank_id:bank_id,supplier_id:supplier_id,document_main:document_main},
+                'url': "{{ url('bank_account_attachments') }}/"+id,
                 'async': false,
-                'processData': false,
-                'contentType': false,
                 success:function(data){
                 if(data.validation_error){
                     validation_error(data.validation_error);//if has validation error call this function
