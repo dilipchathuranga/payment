@@ -21,8 +21,8 @@ class MBankAccountController extends Controller
 
     public function index()
     {
-        $banks = m_bank::all();
-        $branches = m_branch::all();
+        $banks = m_bank::where('is_active','=','1')->get();
+        $branches = m_branch::where('is_active','=','1')->get();
     //     $supplier_response = Http::get('http://fin.maga.engineering/api/get_suppliers', [
     //         'api_token' => 'MAGA_AUHT_00001'
     //     ]);

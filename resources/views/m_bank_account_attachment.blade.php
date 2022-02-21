@@ -15,6 +15,8 @@
                     <input type="hidden" id="hid" name="hid">
                     <input type="text" id="bank_id" name="bank_id" value="{{ $attchment->bank_id }}" hidden>
                     <input type="text" id="supplier_id" name="supplier_id" value="{{ $attchment->supplier_id }}" hidden>
+                    <input type="text" id="branch_id" name="branch_id" value="{{ $attchment->branch_id }}" hidden>
+                    <input type="text" id="acc_id" name="acc_id" value="{{ $attchment->id }}" hidden>
                     <div class="row">
                         <div class="form-group col-md-12">
                         <label for="rate">Attachment Desception</label>
@@ -44,7 +46,7 @@
         <div class="col-md-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Master</a></li>
-              <li class="breadcrumb-item"><a href="#">Bank</a></li>
+              <li class="breadcrumb-item"><a href="#">Bank Account</a></li>
               <li class="breadcrumb-item active">Bank Attachment</li>
             </ol>
           </div>
@@ -61,9 +63,7 @@
                     <table class="table table-bordered" id="tbl_bank_attachment">
                         <thead>
                             <tr>
-                                <th style="width:20%">Bank Name</th>
-                                <th style="width:20%">Supplier Name</th>
-                                <th style="width:20%">Document Description</th>
+                                <th style="width:50%">Document Description</th>
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
@@ -104,6 +104,8 @@ $(document).ready(function(){
                 var bank_id = $("#bank_id").val();
                 var supplier_id = $("#supplier_id").val();
                 var document_main = $("#document_main").val();
+                var branch_id = $("#branch_id").val();
+                var acc_id = $("#acc_id").val();
 
                 var formData = new FormData($('#myForm')[0]);
 
@@ -140,68 +142,6 @@ $(document).ready(function(){
             };
         });
     });
-
-    $(document).on('click', '.edit',function(){
-        var id = $(this).attr('data');
-        empty_form();
-        $("#hid").val(id);
-        $("#modal").modal('show');
-        $(".modal-title").html('Edit Attachment');
-        $("#submit").html('Update Attachment');
-
-        $.ajax({
-            'type': 'ajax',
-            'dataType': 'json',
-            'method': 'get',
-            'url': "{{ url('bank_account_attachment') }}/"+id,
-            'async': false,
-            success: function(data){
-            // console.log(data.id);
-                $("#hid").val(data.id);
-                $("#bank_id").val(data.bank_id);
-                $("#supplier_id").val(data.supplier_id);
-                $("#document_main").val(data.document_main);
-            }
-        });
-
-        $("#submit").click(function(){
-            if($("#hid").val() != ""){
-            var id =$("#hid").val();
-
-            var bank_id = $("#bank_id").val();
-            var supplier_id = $("#supplier_id").val();
-            var document_main = $("#document_main").val();
-
-            $.ajax({
-                'type': 'ajax',
-                'dataType': 'json',
-                'method': 'put',
-                'data' : {bank_id:bank_id,supplier_id:supplier_id,document_main:document_main},
-                'url': "{{ url('bank_account_attachments') }}/"+id,
-                'async': false,
-                success:function(data){
-                if(data.validation_error){
-                    validation_error(data.validation_error);//if has validation error call this function
-                    }
-
-                    if(data.db_error){
-                    db_error(data.db_error);
-                    }
-
-                    if(data.db_success){
-                    db_success(data.db_success);
-                    setTimeout(function(){
-                        $("#modal").modal('hide');
-                        location.reload();
-                    }, 2000);
-                    }
-                },
-            });
-            }
-        });
-
-    });
-
 
     $(document).on("click", ".delete", function(){
         var id = $(this).attr('data');
@@ -244,6 +184,8 @@ $(document).ready(function(){
         });
 
     });
+
+
 });
 
 //Data Table show
@@ -264,17 +206,17 @@ $(document).ready(function(){
                             'url': '/bank_account_attachment/show_attachment/'+id,
                         },
                 'columns': [
-                    {data: 'bank_id'},
-                    {data: 'supplier_id'},
                     {data: 'document_main'},
 
                     {
-                    data: null,
-                    render: function(d){
-                        var html = "";
-                        html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
-                        html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
-                        return html;
+                        data: null,
+                        render: function(d){
+                            var html = "";
+                            html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
+                            if(d.document_path){
+                                html+="&nbsp;<a class='btn btn-info btn-sm doc' href='{{ url('bank_account_attachment/download/') }}/"+d.id+"' title='Download'><i class='fas fa-download'></i></a>";
+                            }
+                            return html;
 
                     }
 
@@ -283,35 +225,35 @@ $(document).ready(function(){
             });
     }
 
-function empty_form(){
-    $("#hid").val("");
-    $("#document_main").val("");
-}
+    function empty_form(){
+        $("#hid").val("");
+        $("#document_main").val("");
+    }
 
-function validation_error(error){
-    for(var i=0;i< error.length;i++){
+    function validation_error(error){
+        for(var i=0;i< error.length;i++){
+            Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error[i],
+            });
+        }
+    }
+
+    function db_error(error){
         Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: error[i],
+            icon: 'error',
+            title: 'Database Error',
+            text: error,
         });
     }
-}
 
-function db_error(error){
-    Swal.fire({
-        icon: 'error',
-        title: 'Database Error',
-        text: error,
-    });
-}
-
-function db_success(message){
-    Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: message,
-    });
-}
+    function db_success(message){
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: message,
+        });
+    }
 </script>
 @endsection

@@ -64,8 +64,9 @@ Route::get('/bank_account_attachment/create','MBankAccountAttachmentController@c
 Route::get('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@show');
 Route::put('/bank_account_attachments/{id}', 'MBankAccountAttachmentController@update');
 Route::delete('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@destroy');
-Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentController@showtable');
-Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_rates');
+Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentController@show_table');
+Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_attachment');
+Route::get('/bank_account_attachment/download/{any}', 'MBankAccountAttachmentController@download');
 
 
 

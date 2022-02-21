@@ -14,12 +14,6 @@ class m_bank_account_attachment extends Model
         return $this->belongsTo(m_bank::class, 'bank_id', 'id');
 
     }
-
-    public function bank_account(){
-
-        return $this->belongsTo(m_bank_account::class, 'supplier_id', 'id');
-
-    }
 }
 
 

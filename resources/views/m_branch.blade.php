@@ -53,7 +53,6 @@
         <div class="col-md-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Master</a></li>
-              <li class="breadcrumb-item"><a href="#">Bank</a></li>
               <li class="breadcrumb-item active">Branch</li>
             </ol>
           </div>
@@ -280,8 +279,8 @@ function show_branches(){
             data: null,
             render: function(d){
                 var html = "";
-                html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
-                html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
+                html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
+                html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
 
                 return html;
 
