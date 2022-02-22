@@ -70,7 +70,7 @@ class PPaymentBillController extends Controller
 
     public function create_schedule(Request $request){
         
-        $bill_ids = $request->bill_id;
+        $bills = $request->bills;
         $date = $request->date;
         $refference_no = $request->refference_no;
 
@@ -84,15 +84,15 @@ class PPaymentBillController extends Controller
             $schedule->status = "P";
             $schedule->save();
 
-            foreach($bill_ids as $value){
+            foreach($bills as $value){
                 //payment bill status update
-                $bill = p_payment_bill::find($value);
+                $bill = p_payment_bill::find($value->bill_id);
                 $bill->status = 2; //scheduled
                 $bill->save();
 
                 // new payment bill schedule
                 $payment_schedule = new p_payment_bill_schedule;
-                $payment_schedule->payment_bill_id = $value;
+                $payment_schedule->payment_bill_id = $value->bill_id;
                 $payment_schedule->schedule_id = $schedule->id;
                 $payment_schedule->status = "P";
                 $payment_schedule->save();
