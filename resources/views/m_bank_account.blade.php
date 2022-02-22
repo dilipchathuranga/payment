@@ -19,9 +19,9 @@
                             <label for="levy">Bank Name</label>
                             <select name="bank_id" id="bank_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
                                 <option value="">-- select Bank --</option>
-                                @foreach($banks as $bank)
-                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                @endforeach
+                                    @foreach($banks as $bank)
+                                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                    @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -38,7 +38,7 @@
                         <div class="form-group col-md-6">
                             <label for="rate">Supplier ID</label>
                             <select name="supplier_id" id="supplier_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
-                                
+
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -97,7 +97,6 @@
         <div class="col-md-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Master</a></li>
-              <li class="breadcrumb-item"><a href="#">Bank</a></li>
               <li class="breadcrumb-item active">Bank Account</li>
             </ol>
           </div>
@@ -262,7 +261,6 @@ $(document).ready(function(){
     $(document).on("click",".change_status",function(){
         var id = $(this).attr('data-id');
         var data = $(this).attr('data');
-        console.log(id);
 
         Swal.fire({
             title: 'Are you sure?',
@@ -523,13 +521,14 @@ function show_bank_accounts(){
                     data: null,
                     render: function(d){
                         var html = "";
-                        html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"'><i class='fas fa-edit'></i></button>";
-                        html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'><i class='fas fa-trash'></i></button>";
+                        html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit' ></i></button>";
+                        html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'title='Delete'><i class='fas fa-trash'></i></button>";
+                        html+="&nbsp;<button class='btn btn-secondary btn-sm attachment' data='"+d.id+"' data-id='"+d.bank_id+"' data-sid='"+d.supplier_id+"' title='Attachment'><i class='fas fa-paperclip'></i></button>";
                         if(d.status==0){
-                            html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"'><i class='fas fa-check-circle'></i></button>";
-                            html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"'><i class='fas fa-times-circle'></i></button>";
+                            html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"' title='Approved'><i class='fas fa-check-circle'></i></button>";
+                            html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"' title='Reject'><i class='fas fa-times-circle'></i></button>";
                         }else{
-                            html+="&nbsp;<button class='btn btn-info btn-sm change_status' data='0' data-id='"+d.id+"'><i class='fas fa-spinner'></i></button>";
+                            html+="&nbsp;<button class='btn btn-info btn-sm change_status' data='0' data-id='"+d.id+"'title='Pending'><i class='fas fa-spinner'></i></button>";
                         }
                         return html;
 
@@ -563,12 +562,20 @@ function get_suppliers(){
             $("#supplier_id").html(html);
             $("#supplier_id").selectpicker("refresh");
 
-                
+
         }
 
     });
 
 }
+
+
+$(document).on('click', '.attachment', function(){
+
+    var id = $(this).attr('data');
+    window.open('bank_account_attachment/show_table/'+id, '_blank');
+
+    });
 
 function empty_form(){
     $("#bank_id").selectpicker("val","");

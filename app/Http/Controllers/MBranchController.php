@@ -135,7 +135,11 @@ class MBranchController extends Controller
 
     public function get_by_bank_id($id){
 
-        $result = m_branch::where('bank_id', $id)->get();
+        $result = DB::table('m_branches')
+                    ->where('m_branches.bank_id','=',$id)
+                    ->where('m_branches.is_active','=','1')
+                    ->select('m_branches.*')
+                    ->get();
 
         return response()->json($result);
 
