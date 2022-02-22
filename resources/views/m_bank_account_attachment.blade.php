@@ -19,7 +19,7 @@
                     <input type="text" id="acc_id" name="acc_id" value="{{ $attchment->id }}" hidden>
                     <div class="row">
                         <div class="form-group col-md-12">
-                        <label for="rate">Attachment Desception</label>
+                        <label for="rate">Attachment Deception</label>
                         <textarea type="text" class="form-control" id="document_main" name="document_main" placeholder="Enter Attachment Desception" required></textarea>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <table class="table table-bordered" id="tbl_bank_attachment">
                         <thead>
                             <tr>
-                                <th style="width:50%">Document Description</th>
+                                <th style="width:50%">Document Deception</th>
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
@@ -95,11 +95,11 @@ $(document).ready(function(){
     $(".addNew").click(function(){
         empty_form();
         $("#modal").modal('show');
-        $(".modal-title").html('Save Agreement');
-        $("#submit").html('Save Agreement');
+        $(".modal-title").html('Save Attachment');
+        $("#submit").html('Save Attachment');
         $("#submit").click(function(){
             var hid =$("#hid").val();
-            //save agreement
+            //save Attachment
             if(hid == ""){
                 var bank_id = $("#bank_id").val();
                 var supplier_id = $("#supplier_id").val();
@@ -217,7 +217,6 @@ $(document).ready(function(){
                                 html+="&nbsp;<a class='btn btn-info btn-sm doc' href='{{ url('bank_account_attachment/download/') }}/"+d.id+"' title='Download'><i class='fas fa-download'></i></a>";
                             }
                             return html;
-
                     }
 
                     }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,8 +55,6 @@ Route::post('/payment_bill/bulk_bill_receive', 'PPaymentBillController@bulk_bill
 Route::get('/payment_bill/pending_payment_bills','PPaymentBillController@pending_payment_bills');
 Route::get('/payment_bill/pending_payment_bills_datatable','PPaymentBillController@pending_payment_bills_datatable');
 Route::get('/payment_bill/received_payment_bills_datatable','PPaymentBillController@received_payment_bills_datatable');
-
-
 
 //payment->bank_account_attachment
 Route::get('/bank_account_attachment', 'MBankAccountAttachmentController@index')->name('bank_account_attachment');
