@@ -35,3 +35,9 @@
     <p>&nbsp;Payment Bills</p>
   </a>
 </li>
+<li class="nav-item">
+  <a href="{{ route('payment_schedule') }}" class="nav-link schedule_route">
+    <i class="fas fa-file-invoice-dollar"></i>
+    <p>&nbsp;Payment Schedule</p>
+  </a>
+</li>

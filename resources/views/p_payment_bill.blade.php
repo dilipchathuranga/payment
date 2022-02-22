@@ -26,6 +26,7 @@
     }
 
 </style>
+<!-- pending receive modal -->
 <div class="modal fade" id="modal">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -43,6 +44,58 @@
                                 <h3 class="card-title">Pending Bills</h3>
                             </div>
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                        <select name="module_s1" id="module_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                            <option value="">-- search by module --</option>
+                                            <option value="Security Section">Security Section</option>
+                                            <option value="Sub Contract Section">Sub Contract Section</option>
+                                            <option value="Supply Bill Section">Supply Bill Section</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                        <select name="project_id_s1" id="project_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                            <option value="">-- search by project --</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                        <select name="supplier_id_s1" id="supplier_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                            <option value="">-- search by supplier --</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                            <input type="text" class="form-control datepicker float-right" name="invoice_month_s1" id="invoice_month_s1"  placeholder="Search by Invoice Date" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                                 <table class="table table-hover" id="pending_table" >
                                     <thead>                  
                                         <tr>
@@ -52,6 +105,8 @@
                                             <th style="font-size: 12px;">Supplier</th>
                                             <th style="font-size: 12px;">Amount</th>
                                             <th style="font-size: 12px;">Action</th>
+                                            <th style="display:none;"> Project ID</th>
+                                            <th style="display:none;">Supplier ID</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,6 +130,8 @@
                                             <th style="font-size: 12px;">Supplier</th>
                                             <th style="font-size: 12px;">Amount</th>
                                             <th style="font-size: 12px;">Action</th>
+                                            <th style="display:none;"> Project ID</th>
+                                            <th style="display:none;">Supplier ID</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,6 +149,184 @@
       </div>
     </div>
 </div>
+<!-- new schdule modal -->
+<div class="modal fade" id="modal1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create New Schedule</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-outline card-warning">
+                            <div class="card-header">
+                                <h3 class="card-title">Received Bills</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                        <select name="module_s2" id="module_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                            <option value="">-- search by module --</option>
+                                            <option value="Security Section">Security Section</option>
+                                            <option value="Sub Contract Section">Sub Contract Section</option>
+                                            <option value="Supply Bill Section">Supply Bill Section</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                        <select name="project_id_s2" id="project_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                            <option value="">-- search by project --</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                        <select name="supplier_id_s2" id="supplier_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                            <option value="">-- search by supplier --</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm float-right">
+                                            <input type="text" class="form-control datepicker float-right" name="invoice_month_s2" id="invoice_month_s2"  placeholder="Search by Invoice Date" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <table class="table table-hover" id="received_table" >
+                                    <thead>                  
+                                        <tr>
+                                            <th style="font-size: 12px;">Module</th>
+                                            <th style="font-size: 12px;">Invoice Date</th>
+                                            <th style="font-size: 12px;">Project</th>
+                                            <th style="font-size: 12px;">Supplier</th>
+                                            <th style="font-size: 12px;">Amount</th>
+                                            <th style="font-size: 12px;">Action</th>
+                                            <th style="display:none;"> Project ID</th>
+                                            <th style="display:none;">Supplier ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-outline card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">New Schedule</h3>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <input type="hidden" id="hid" name="hid">
+                                    <div class="row">
+                                    <div class="form-group col-md-6">
+                                        &nbsp;
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                        <label for="date">Date</label>
+                                        <input type="date" class="form-control" id="schedule_date" name="schedule_date" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                        <label for="refference_no">Refference No</label>
+                                        <input type="text" class="form-control" id="refference_no" name="refference_no" placeholder="Enter Refference No" required>
+                                        </div>
+                                    </div>
+                                </form>
+                                <br>
+                                <table class="table table-hover" id="schedule_table" >
+                                    <thead>                  
+                                        <tr>
+                                            <th style="font-size: 12px;">Module</th>
+                                            <th style="font-size: 12px;">Invoice Date</th>
+                                            <th style="font-size: 12px;">Project</th>
+                                            <th style="font-size: 12px;">Supplier</th>
+                                            <th style="font-size: 12px;">Amount</th>
+                                            <th style="font-size: 12px;">Action</th>
+                                            <th style="display:none;"> Project ID</th>
+                                            <th style="display:none;">Supplier ID</th>
+                                            <th style="display:none;">Account ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success add_schedule" id="submit">Create Schedule</button>
+          </div>
+      </div>
+    </div>
+</div>
+
+<!-- supplier_account modal -->
+<div class="modal fade " id="modal2" >
+    <div class="modal-dialog modal-xl  modal-dialog-centered">
+      <div class="modal-content" >
+        <div class="modal-header">
+            <h5 class="modal-title">Select Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card card-outline card-danger">
+                <div class="card-body">
+                    <table class="table table-hover" id="account_table" >
+                        <thead>                  
+                            <tr>
+                                <th style="font-size: 12px;">Bank</th>
+                                <th style="font-size: 12px;">Branch</th>
+                                <th style="font-size: 12px;">Account No</th>
+                                <th style="font-size: 12px;">Account Name</th>
+                                <th style="font-size: 12px;">Action</th>
+                                <th style="display:none;">Supplier ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
@@ -119,7 +354,21 @@
                 
                 </div>
                 <div class="card-body">
-
+                <div class="row">
+                  <div class="col-md-6">
+                        &nbsp;
+                  </div>
+                  <div class="col-md-6">
+                      <div class="input-group input-group-sm float-right" style="width: 450px; ">
+                      <select name="module_s" id="module_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                          <option value="">-- search by module --</option>
+                          <option value="Security Section">Security Section</option>
+                          <option value="Sub Contract Section">Sub Contract Section</option>
+                          <option value="Supply Bill Section">Supply Bill Section</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-md-6">
                         &nbsp;
@@ -152,18 +401,21 @@
                     </div>
                     <div class="col-md-6">
                         <div class="input-group input-group-sm float-right" style="width: 450px; ">
-                            <input type="text" id="table_search" name="table_search" class="form-control float-right" placeholder="Search by Bill Refference No">
+                            <input type="text" class="form-control datepicker float-right" name="invoice_month_s" id="invoice_month_s"  placeholder="Search by Invoice Date" value="" />
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         &nbsp;
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="input-group input-group-sm float-right" >
-                            <button class="btn btn-primary btn-block bulk_receive">Bulk Bill Recieve</button>
+                            <button class="btn btn-primary btn-block bulk_receive" style="display: none;"><i class="fas fa-download"></i> Bulk Bill Recieve</button>
+                        </div>
+                        <div class="input-group input-group-sm float-right" >
+                            <button class="btn btn-success btn-block new_schedule" style="display: none;"><i class="fas fa-plus"></i> Create New Schedule</button>
                         </div>
                     </div>
                 </div>
@@ -177,7 +429,6 @@
                                 <th style="width:10%">Invoice Date</th>
                                 <th style="width:20%">Bill Refference</th>
                                 <th style="width:10%">Amount</th>
-                                <!-- <th style="width:10%">More Details</th> -->
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
@@ -220,6 +471,12 @@
         show_pending_bills();
         }
 
+        $("#invoice_month_s, #invoice_month_s1, #invoice_month_s2").datepicker( {
+            format: "yyyy-mm",
+            startView: "months", 
+            minViewMode: "months"
+        });
+
         $("#option1").click(function(){
 
             var session = 'pending_bill';
@@ -256,7 +513,26 @@
 
         });
 
-        $(".bulk_receive").click(function(){
+        $(document).on('change', '#project_id_s', function(){
+            show_session_bills();
+        })
+
+        $(document).on("change","#supplier_id_s", function(){
+            show_session_bills();
+        });
+
+        $(document).on('change', '#module_s', function(){
+            show_session_bills();
+        });
+
+        $(document).on('change', '#invoice_month_s', function(){
+            show_session_bills();
+        });
+
+        get_supplier_search();
+        get_project_search();
+
+        $(".bulk_receive").click(function(){ // bulk receive modal
 
             $("#modal").modal('show');
 
@@ -266,33 +542,33 @@
             // get pending bills
             var pending_bills = get_pending_bills();
 
-            // two tables
-            var pending_table;
-            var receiving_table;
-
             // bill pending table 
             $('#pending_table').DataTable().clear();
             $('#pending_table').DataTable().destroy();
 
-            pending_table = $("#pending_table").DataTable({
+            var pending_table = $("#pending_table").DataTable({
                 "paging": false,
-                "searching": false,
                 "pageLength": 20,
                 fixedColumns: true
 
             });
+
+            pending_table.columns(6).visible(false);
+            pending_table.columns(7).visible(false);
 
             // bill receiving table
             $('#receiving_table').DataTable().clear();
             $('#receiving_table').DataTable().destroy();
 
-            receiving_table=$("#receiving_table").DataTable({
+            var receiving_table=$("#receiving_table").DataTable({
                 "paging": false,
-                "searching": false,
                 "pageLength": 20,
                 fixedColumns: true
                 
             });
+
+            receiving_table.columns(6).visible(false);
+            receiving_table.columns(7).visible(false);
 
             //add pending table data
             if(pending_bills.length > 0){
@@ -303,11 +579,53 @@
                         pending_bills[i].project_name,
                         pending_bills[i].supplier_name,
                         pending_bills[i].amount,
-                    "<button class='btn btn-success btn-xs add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>"
+                    "<button class='btn btn-success btn-xs add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
+                        pending_bills[i].project_id,
+                        pending_bills[i].supplier_id
                     ]).draw();
 
                 }
+
             }
+
+            //pending table search
+            $(document).on('change', '#project_id_s1', function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    pending_table.columns(6).search(value).draw();
+                }else{
+                    pending_table.columns(6).search("").draw();
+                }
+                
+            });
+
+            $(document).on("change","#supplier_id_s1", function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    pending_table.columns(7).search(value).draw();
+                }else{
+                    pending_table.columns(7).search("").draw();
+                }
+            });
+
+            $(document).on('change', '#module_s1', function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    pending_table.columns(0).search(value).draw();
+                }else{
+                    pending_table.columns(0).search("").draw();
+                }
+            });
+
+            $(document).on('change', '#invoice_month_s1', function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    pending_table.columns(1).search(value).draw();
+                }else{
+                    pending_table.columns(1).search("").draw();
+                }
+            });
+
 
             // add bills to receiving table
             $("#pending_table tbody").on('click','.add',function(){
@@ -334,8 +652,9 @@
                     var project=(row.find('td:nth-child(3)').text());
                     var supplier=(row.find('td:nth-child(4)').text());
                     var amount=(row.find('td:nth-child(5)').text());
-
-                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-xs btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>"
+                    var project_id=(row.find('td:nth-child(6)').text());
+                    var supplier_id=(row.find('td:nth-child(7)').text());
+                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-xs btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",project_id,supplier_id
                     ]).draw();
                     pending_table.row(row).remove().draw();
 
@@ -356,14 +675,15 @@
                 var project=(row.find('td:nth-child(3)').text());
                 var supplier=(row.find('td:nth-child(4)').text());
                 var amount=(row.find('td:nth-child(5)').text());
-
+                var project_id=(row.find('td:nth-child(6)').text());
+                var supplier_id=(row.find('td:nth-child(7)').text());
 
                 const index = recieving_bill.indexOf(bill_id);
 
                 if (index > -1) {
                     recieving_bill.splice(index, 1); 
 
-                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-xs add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>"
+                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-xs add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",project_id,supplier_id
                     ]).draw();
            
                     receiving_table.row(row).remove().draw();
@@ -386,21 +706,342 @@
                         success: function(data){
 
                             if(data.db_error){
-                                db_error(data.db_error);
+                                toastr.error(data.db_error);
                             }
 
                             if(data.db_success){
-                                db_success(data.db_success);
+                                toastr.success(data.db_success);
                                 setTimeout(function(){
                                     $("#modal").modal('hide');
                                     location.reload();
-                                }, 2000);
+                                }, 1000);
+                            }
+                        }
+                    });
+
+                }else{
+                    toastr.error('Add Bills to Receive First');
+                }
+
+            });
+
+        });
+
+        $(document).on('click', '.receive', function(){
+
+            var id = $(this).attr('data');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Reeceive Bill!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        'type': 'ajax',
+                        'dataType': 'json',
+                        'method': 'get',
+                        'async': false,
+                        'url': '/payment_bill/bill_receive/'+id,
+                        success: function(data){
+
+                            if(data.db_error){
+                                toastr.error(data.db_error);
+                            }
+
+                            if(data.db_success){
+                                toastr.success(data.db_success);
+                                setTimeout(function(){
+                                    location.reload();
+                                }, 1000);
                             }
                         }
                     });
 
                 }
+            });
 
+        });
+
+        $(".new_schedule").click(function(){ // new schedule modal
+
+            $("#modal1").modal('show');
+
+            // receiving id array
+            var schedule_bill = [];
+
+            // get received bills
+            var received_bills = get_received_bills();
+
+            // bill received table 
+            $('#received_table').DataTable().clear();
+            $('#received_table').DataTable().destroy();
+
+            var received_table = $("#received_table").DataTable({
+                "paging": false,
+                "pageLength": 20,
+                fixedColumns: true
+
+            });
+
+            received_table.columns(6).visible(false);
+            received_table.columns(7).visible(false);
+
+            // bill schedule table
+            $('#schedule_table').DataTable().clear();
+            $('#schedule_table').DataTable().destroy();
+
+            var schedule_table=$("#schedule_table").DataTable({
+                "paging": false,
+                "searching": false,
+                "pageLength": 20,
+                fixedColumns: true
+                
+            });
+
+            schedule_table.columns(6).visible(false);
+            schedule_table.columns(7).visible(false);
+            schedule_table.columns(8).visible(false);
+
+            //add received bills table data
+            if(received_bills.length > 0){
+                for(var i=0; i < received_bills.length; i++){
+
+                    received_table.row.add([received_bills[i].module,
+                        received_bills[i].invoice_date,
+                        received_bills[i].project_name,
+                        received_bills[i].supplier_name,
+                        received_bills[i].amount,
+                    "<button class='btn btn-success btn-xs add' data='"+ received_bills[i].id+"'  data-supplier_id='"+received_bills[i].supplier_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
+                        received_bills[i].project_id,
+                        received_bills[i].supplier_id
+                    ]).draw();
+
+                }
+
+            }
+            
+            // add bills to receiving table
+            $("#received_table tbody").on('click','.add',function(){
+
+                $("#modal2").modal('show');
+                var bill_id = $(this).attr('data');
+                var supplier_id = $(this).attr('data-supplier_id'); 
+                var project_id = $(this).attr('data-project_id'); 
+                var row = $(this).parents('tr');
+
+                $.ajax({
+                    'type': 'ajax',
+                    'dataType': 'json',
+                    'method': 'get',
+                    'url': '/get_accounts_by_supplier/'+supplier_id,
+                    'async': false,
+                    success: function(data){
+
+                        // bill accounts table 
+                        $('#account_table').DataTable().clear();
+                        $('#account_table').DataTable().destroy();
+
+                        var account_table = $("#account_table").DataTable({
+                            "paging": false,
+                            "pageLength": 20,
+                            fixedColumns: true
+
+                        });
+
+                        account_table.columns(5).visible(false);
+
+                        for(var i=0; i < data.length; i++){
+
+                            account_table.row.add([data[i].bank_name,
+                            data[i].branch_name,
+                            data[i].account_no,
+                            data[i].account_name,
+                            "<button class='btn btn-success btn-xs add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
+                            data[i].supplier_id
+                            ]).draw();
+
+
+                        }
+
+                        $(document).on('click','.add_account',function(){
+
+                            var account_id = $(this).attr('data');
+
+                            // validation
+                            if(schedule_bill.length==20){
+                                toastr.error('Cannot add more than 20 records');
+                                return this;
+                            }
+
+                            if(schedule_bill.includes(bill_id)){
+                                toastr.error('Cannot add duplicates');
+                                return this;
+
+                            }else{
+
+                                schedule_bill.push(bill_id);
+
+                                var module_name=(row.find('td:nth-child(1)').text());
+                                var date=(row.find('td:nth-child(2)').text());
+                                var project=(row.find('td:nth-child(3)').text());
+                                var supplier=(row.find('td:nth-child(4)').text());
+                                var amount=(row.find('td:nth-child(5)').text());
+
+                                schedule_table.row.add([
+                                    module_name,
+                                    date,
+                                    project,
+                                    supplier,
+                                    amount,
+                                    "<button class='btn btn-xs btn-danger remove' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"'><i class='fas fa-arrow-left'></i></button>",
+                                    project_id,
+                                    supplier_id,
+                                    account_id
+                                ]).draw();
+
+                                received_table.row(row).remove().draw();
+
+                                $("#modal2").modal('hide');
+
+                            }
+
+
+                        });
+
+                    }
+
+                });
+
+            });
+
+                // remove bills to receiving table
+            $("#schedule_table tbody").on('click','.remove',function(){
+
+                var row = $(this).parents('tr');
+
+                var bill_id = $(this).attr('data');
+
+                var module_name=(row.find('td:nth-child(1)').text());
+                var date=(row.find('td:nth-child(2)').text());
+                var project=(row.find('td:nth-child(3)').text());
+                var supplier=(row.find('td:nth-child(4)').text());
+                var amount=(row.find('td:nth-child(5)').text());
+                var project_id= $(this).attr('data-project_id');
+                var supplier_id= $(this).attr('data-supplier_id');
+
+
+                const index = schedule_bill.indexOf(bill_id);
+
+                if (index > -1) {
+                    schedule_bill.splice(index, 1); 
+
+                    received_table.row.add([module_name,
+                                            date,
+                                            project, 
+                                            supplier, 
+                                            amount, 
+                                            "<button class='btn btn-success btn-xs add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
+                                            project_id,
+                                            supplier_id
+                                        ]).draw();
+
+                    schedule_table.row(row).remove().draw();
+
+                }
+            
+
+            });
+
+            $(document).on('click','.add_schedule',function(){
+
+            if( schedule_bill.length > 0 ){
+
+                var date = $("#schedule_date").val();
+                var refference_no = $("#refference_no").val();
+
+                //validation
+                if(date==""){
+                    toastr.error("Date Feild is Required");
+                    return this;
+                }
+
+                if(refference_no==""){
+                    toastr.error("Refference No Feild is Required");
+                    return this;
+                }
+
+                $.ajax({
+                    'type': 'ajax',
+                    'dataType': 'json',
+                    'method': 'post',
+                    'async': false,
+                    'data': {bill_id:schedule_bill, date:date, refference_no:refference_no},
+                    'url': 'payment_bill/create_schedule',
+                    success: function(data){
+
+                        if(data.db_error){
+                            toastr.error(data.db_error);
+                        }
+
+                        if(data.db_success){
+                            toastr.success(data.db_success);
+                            setTimeout(function(){
+                                $("#modal1").modal('hide');
+                                location.reload();
+                            }, 1000);
+                        }
+                    }
+                });
+
+            }else{
+                toastr.error('Add Bills First');
+            }
+
+            });
+
+            
+            //received table search
+            $(document).on('change', '#project_id_s2 ', function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    received_table.columns(6).search(value).draw();
+                }else{
+                    received_table.columns(6).search("").draw();
+                }
+                
+            });
+
+            $(document).on("change","#supplier_id_s2", function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    received_table.columns(7).search(value).draw();
+                }else{
+                    received_table.columns(7).search("").draw();
+                }
+            });
+
+            $(document).on('change', '#module_s2', function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    received_table.columns(0).search(value).draw();
+                }else{
+                    received_table.columns(0).search("").draw();
+                }
+            });
+
+            $(document).on('change', '#invoice_month_s2', function(){
+                var value = $(this).val();
+                if(value!= ""){
+                    received_table.columns(1).search(value).draw();
+                }else{
+                    received_table.columns(1).search("").draw();
+                }
             });
 
         });
@@ -434,10 +1075,12 @@
         $("#option2").removeClass('btn-active');
 
         $(".bulk_receive").css("display", "block");
+        $(".new_schedule").css("display", "none");
 
         var project_id = $("#project_id_s").val();
         var supplier_id = $("#supplier_id_s").val();
-        var table_search = $("#table_search").val();
+        var module = $("#module_s").val();
+        var invoice_month = $("#invoice_month_s").val();
 
         $('#dataTable').DataTable().clear();
         $('#dataTable').DataTable().destroy();
@@ -448,7 +1091,8 @@
             "bLengthChange": false,
             'searching': false,
             'ajax': {
-                        'method': 'get',
+                        'method': 'post',
+                        'data': {project_id:project_id, supplier_id:supplier_id, module:module, invoice_month:invoice_month},
                         'url': 'payment_bill/pending_payment_bills_datatable'
             },
             'columns': [
@@ -482,10 +1126,12 @@
         $("#option1").removeClass('btn-active');
 
         $(".bulk_receive").css("display", "none");
+        $(".new_schedule").css("display", "block");
 
         var project_id = $("#project_id_s").val();
         var supplier_id = $("#supplier_id_s").val();
-        var table_search = $("#table_search").val();
+        var module = $("#module_s").val();
+        var invoice_month = $("#invoice_month_s").val();
 
         $('#dataTable').DataTable().clear();
         $('#dataTable').DataTable().destroy();
@@ -496,7 +1142,8 @@
             "bLengthChange": false,
             'searching': false,
             'ajax': {
-                        'method': 'get',
+                        'method': 'post',
+                        'data': {project_id:project_id, supplier_id:supplier_id, module:module, invoice_month:invoice_month},
                         'url': 'payment_bill/received_payment_bills_datatable'
             },
             'columns': [
@@ -543,6 +1190,113 @@
         });
 
         return result;
+    }
+
+    function get_received_bills(){
+
+        var result;
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'payment_bill/received_payment_bills',
+            'async': false,
+            success: function(data){
+
+                result = data;
+                
+            }
+
+        });
+
+        return result;      
+    }
+
+    function get_supplier_search(){
+
+        var result;
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'http://fin.maga.engineering/api/get_suppliers?api_token=MAGA_AUHT_00001',
+            'async': false,
+            success: function(data){
+
+                var html = "";
+
+                html+="<option value=''>-- search by supplier --</option>";
+
+                    for(var i =0; i < data.length; i++){
+                        html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                    }
+
+                // supplier search 
+                $("#supplier_id_s").html(html);
+                $("#supplier_id_s").selectpicker("refresh");
+                $("#supplier_id_s").val("");
+                $("#supplier_id_s").selectpicker("refresh");
+
+                // supplier search 1
+                $("#supplier_id_s1").html(html);
+                $("#supplier_id_s1").selectpicker("refresh");
+                $("#supplier_id_s1").val("");
+                $("#supplier_id_s1").selectpicker("refresh");
+
+                // supplier search 2
+                $("#supplier_id_s2").html(html);
+                $("#supplier_id_s2").selectpicker("refresh");
+                $("#supplier_id_s2").val("");
+                $("#supplier_id_s2").selectpicker("refresh");
+
+                    
+            }
+
+        });
+
+    }
+
+    function get_project_search(){
+
+        var result;
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'http://fin.maga.engineering/api/get_projects?api_token=MAGA_AUHT_00001',
+            'async': false,
+            success: function(data){
+
+                var html = "";
+
+                html+="<option value=''>-- search by project --</option>";
+
+                    for(var i =0; i < data.length; i++){
+                        html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                    }
+
+                $("#project_id_s").html(html);
+                $("#project_id_s").selectpicker("refresh");
+                $("#project_id_s").val("");
+                $("#project_id_s").selectpicker("refresh");
+
+                $("#project_id_s1").html(html);
+                $("#project_id_s1").selectpicker("refresh");
+                $("#project_id_s1").val("");
+                $("#project_id_s1").selectpicker("refresh");
+
+                $("#project_id_s2").html(html);
+                $("#project_id_s2").selectpicker("refresh");
+                $("#project_id_s2").val("");
+                $("#project_id_s2").selectpicker("refresh");
+                    
+            }
+
+        });
+
     }
 
     function validation_error(error){

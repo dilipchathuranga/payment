@@ -47,13 +47,23 @@ Route::put('/bank_account/{id}', 'MBankAccountController@update');
 Route::delete('/bank_account/{id}', 'MBankAccountController@destroy');
 Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
 Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status');
+Route::get('/get_accounts_by_supplier/{id}', 'MBankAccountController@get_accounts');
 
 //payment->bank_account
 Route::get('/payment_bill', 'PPaymentBillController@index')->name('payment_bill');
 Route::post('/payment_bill/bulk_bill_receive', 'PPaymentBillController@bulk_bill_receive');
 Route::get('/payment_bill/pending_payment_bills','PPaymentBillController@pending_payment_bills');
-Route::get('/payment_bill/pending_payment_bills_datatable','PPaymentBillController@pending_payment_bills_datatable');
-Route::get('/payment_bill/received_payment_bills_datatable','PPaymentBillController@received_payment_bills_datatable');
+Route::get('/payment_bill/received_payment_bills','PPaymentBillController@received_payment_bills');
+Route::post('/payment_bill/pending_payment_bills_datatable','PPaymentBillController@pending_payment_bills_datatable');
+Route::post('/payment_bill/received_payment_bills_datatable','PPaymentBillController@received_payment_bills_datatable');
+Route::get('/payment_bill/bill_receive/{id}', 'PPaymentBillController@bill_receive');
+Route::post('/payment_bill/create_schedule', 'PPaymentBillController@create_schedule');
+
+//payment->payment_schedule
+Route::get('/payment_schedule', 'PScheduleController@index')->name('payment_schedule');
+Route::post('/payment_schedule', 'PScheduleController@store');
+Route::get('/payment_schedule/create','PScheduleController@create');
+
 
 
 

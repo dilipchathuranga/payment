@@ -45,7 +45,6 @@ class MBankController extends Controller
                 $type->code = $request->code;
                 $type->is_active = 1;
 
-
                 $type->save();
 
                 DB::commit();

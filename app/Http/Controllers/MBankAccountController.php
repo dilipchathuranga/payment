@@ -23,11 +23,6 @@ class MBankAccountController extends Controller
     {
         $banks = m_bank::all();
         $branches = m_branch::all();
-    //     $supplier_response = Http::get('http://fin.maga.engineering/api/get_suppliers', [
-    //         'api_token' => 'MAGA_AUHT_00001'
-    //     ]);
-
-    //    $suppliers = json_decode($supplier_response,true);
 
        return view('m_bank_account')->with(['banks' => $banks,
                                             'branches' => $branches]);
@@ -81,8 +76,6 @@ class MBankAccountController extends Controller
                 $bank_account->action_by = auth()->user()->id;
                 $bank_account->status = 0;
                 $bank_account->is_active = 1;
-
-
 
                 $bank_account->save();
 
@@ -194,13 +187,24 @@ class MBankAccountController extends Controller
             $bank_account->save();
 
             DB::commit();
-            return response()->json(['db_success' => 'Bank status Added']);
+            return response()->json(['db_success' => 'Bank Status Added']);
 
         }catch(\Throwable $th){
             DB::rollback();
             throw $th;
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
+    }
+
+    public function get_accounts($id){
+
+        $result = DB::table('m_bank_accounts')
+                    ->join('m_banks', 'm_bank_accounts.bank_id', '=', 'm_banks.id')
+                    ->join('m_branches', 'm_bank_accounts.branch_id', '=', 'm_branches.id')
+                    ->select('m_bank_accounts.*', 'm_banks.name as bank_name', 'm_branches.name as branch_name')
+                    ->get();
+
+        return response()->json($result);
     }
 
 }
