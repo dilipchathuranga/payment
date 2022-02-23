@@ -878,6 +878,7 @@
 
             var schedule_table=$("#schedule_table").DataTable({
                 "bLengthChange": false,
+                "searching": false,
                 "pageLength": 4,
                 fixedColumns: true
 
