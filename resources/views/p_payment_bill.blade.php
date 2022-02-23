@@ -517,10 +517,6 @@
 @endif
 
 <script>
-
-
-
-
     $(document).ready(function(){
         // menu active
         $(".payment_bill").addClass('active');
@@ -531,8 +527,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
 
         //session
         var bill_session = $("#bill_session").val();

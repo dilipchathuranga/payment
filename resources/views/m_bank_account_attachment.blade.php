@@ -63,7 +63,7 @@
                     <table class="table table-bordered" id="tbl_bank_attachment">
                         <thead>
                             <tr>
-                                <th style="width:50%">Document Description</th>
+                                <th style="width:50%">Document Desception</th>
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
