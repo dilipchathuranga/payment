@@ -70,7 +70,7 @@
                         <thead>
                         <tr>
                             <th style="width:20%">Bank Name</th>
-                            <th style="width:20%">Branch Code</th>
+                            <th style="width:10%">Branch Code</th>
                             <th style="width:30%">Branch Name</th>
                             <th style="width:20%">Action</th>
                         </tr>

@@ -63,7 +63,9 @@ Route::post('/payment_bill/create_schedule', 'PPaymentBillController@create_sche
 Route::get('/payment_schedule', 'PScheduleController@index')->name('payment_schedule');
 Route::post('/payment_schedule', 'PScheduleController@store');
 Route::get('/payment_schedule/create','PScheduleController@create');
-
+Route::get('/payment_schedule/view_payemt_bill/{id}','PScheduleController@view_payment_bill');
+Route::put('/payment_schedule/approve/{id}','PScheduleController@approve');
+Route::put('/payment_schedule/pending/{id}','PScheduleController@pending');
 
 
 

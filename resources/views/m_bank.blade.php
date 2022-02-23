@@ -59,7 +59,7 @@
                     <table class="table table-bordered" id="tbl_bank">
                         <thead>
                             <tr>
-                                <th style="width:20%">Bank Code</th>
+                                <th style="width:10%">Bank Code</th>
                                 <th style="width:20%">Bank Name</th>
                                 <th style="width:20%">Action</th>
                             </tr>

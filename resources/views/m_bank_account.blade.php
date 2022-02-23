@@ -525,7 +525,7 @@ function show_bank_accounts(){
                         html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'title='Delete'><i class='fas fa-trash'></i></button>";
                         html+="&nbsp;<button class='btn btn-secondary btn-sm attachment' data='"+d.id+"' data-id='"+d.bank_id+"' data-sid='"+d.supplier_id+"' title='Attachment'><i class='fas fa-paperclip'></i></button>";
                         if(d.status==0){
-                            html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"' title='Approved'><i class='fas fa-check-circle'></i></button>";
+                            html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"' title='Approve'><i class='fas fa-check-circle'></i></button>";
                             html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"' title='Reject'><i class='fas fa-times-circle'></i></button>";
                         }else{
                             html+="&nbsp;<button class='btn btn-info btn-sm change_status' data='0' data-id='"+d.id+"'title='Pending'><i class='fas fa-spinner'></i></button>";
