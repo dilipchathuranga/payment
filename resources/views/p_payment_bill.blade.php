@@ -248,7 +248,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card card-outline card-info">
+                        <div class="card card-outline card-info-circle">
                             <div class="card-header">
                                 <h3 class="card-title">New Schedule</h3>
                             </div>
@@ -657,7 +657,7 @@
                         pending_bills[i].project_name,
                         pending_bills[i].supplier_name,
                         pending_bills[i].amount,
-                    "<button class='btn btn-success btn-xs add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
+                    "<button class='btn btn-success btn-sm add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
                         pending_bills[i].project_id,
                         pending_bills[i].supplier_id
                     ]).draw();
@@ -732,7 +732,7 @@
                     var amount=(row.find('td:nth-child(5)').text());
                     var project_id=(row.find('td:nth-child(6)').text());
                     var supplier_id=(row.find('td:nth-child(7)').text());
-                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-xs btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",project_id,supplier_id
+                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-sm btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",project_id,supplier_id
                     ]).draw();
                     pending_table.row(row).remove().draw();
 
@@ -761,7 +761,7 @@
                 if (index > -1) {
                     recieving_bill.splice(index, 1);
 
-                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-xs add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",project_id,supplier_id
+                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-sm add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",project_id,supplier_id
                     ]).draw();
 
                     receiving_table.row(row).remove().draw();
@@ -895,7 +895,7 @@
                         received_bills[i].project_name,
                         received_bills[i].supplier_name,
                         received_bills[i].amount,
-                    "<button class='btn btn-success btn-xs add' data='"+ received_bills[i].id+"'  data-supplier_id='"+received_bills[i].supplier_id+"' data-project_id='"+received_bills[i].project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
+                    "<button class='btn btn-success btn-sm add' data='"+ received_bills[i].id+"'  data-supplier_id='"+received_bills[i].supplier_id+"' data-project_id='"+received_bills[i].project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
                         received_bills[i].project_id,
                         received_bills[i].supplier_id
                     ]).draw();
@@ -939,7 +939,7 @@
                             data[i].branch_name,
                             data[i].account_no,
                             data[i].account_name,
-                            "<button class='btn btn-primary btn-xs add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
+                            "<button class='btn btn-primary btn-sm add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
                             data[i].supplier_id
                             ]).draw();
 
@@ -1006,7 +1006,7 @@
                             supplier,
                             amount,
                             account_no,
-                            "<button class='btn btn-xs btn-danger remove' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"'><i class='fas fa-arrow-left'></i></button>",
+                            "<button class='btn btn-sm btn-danger remove' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"'><i class='fas fa-arrow-left'></i></button>",
                             project_id,
                             supplier_id
                         ]).draw();
@@ -1053,7 +1053,7 @@
                                         project, 
                                         supplier, 
                                         amount, 
-                                        "<button class='btn btn-success btn-xs add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
+                                        "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
                                         project_id,
                                         supplier_id
                                     ]).draw();
@@ -1213,8 +1213,8 @@
 
                     var html = "";
 
-                    html+="<button class='btn btn-success btn-xs receive' data='"+d.id+"' title='Recieve Bill'>Recieve</button>";
-                    html+="&nbsp;<button class='btn btn-warning btn-xs more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='Recieved'>More</button>";
+                    html+="<button class='btn btn-success btn-sm receive' data='"+d.id+"' title='Recieve Bill'><i class='fas fa-arrow-circle-right'></i></button>";
+                    html+="&nbsp;<button class='btn btn-warning btn-sm more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"'><i class='fas fa-info-circle' title='more'></i></button>";
 
                     return html;
                 }
@@ -1265,8 +1265,8 @@
 
                     var html = "";
 
-                    // html+="<button class='btn btn-success btn-xs receive' data='"+d.id+"' title='Recieved'>Recieved</button>";
-                    html+="<button class='btn btn-warning btn-xs more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='Recieved'>More</button>";
+                    // html+="<button class='btn btn-success btn-sm receive' data='"+d.id+"' title='Recieved'>Recieved</button>";
+                    html+="<button class='btn btn-warning btn-sm more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='more'><i class='fas fa-info-circle'></i></button>";
 
                     return html;
                 }
