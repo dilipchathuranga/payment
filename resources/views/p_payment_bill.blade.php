@@ -1265,7 +1265,6 @@
 
                     var html = "";
 
-                    // html+="<button class='btn btn-success btn-sm receive' data='"+d.id+"' title='Recieved'>Recieved</button>";
                     html+="<button class='btn btn-warning btn-sm more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='more'><i class='fas fa-info-circle'></i></button>";
 
                     return html;
