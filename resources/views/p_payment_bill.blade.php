@@ -1057,8 +1057,6 @@
                                         project_id,
                                         supplier_id
                                     ]).draw();
-
-                }
             
 
 
