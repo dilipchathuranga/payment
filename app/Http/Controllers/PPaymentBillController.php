@@ -84,16 +84,19 @@ class PPaymentBillController extends Controller
             $schedule->status = "P";
             $schedule->save();
 
-            foreach($bills as $value){
+
+            for($i=0;$i<sizeof($bills);$i++){
                 //payment bill status update
-                $bill = p_payment_bill::find($value->bill_id);
+                $bill = p_payment_bill::find($bills[$i]['bill_id']);
+                $bill->account_id = $bills[$i]['account_id'];
                 $bill->status = 2; //scheduled
                 $bill->save();
 
                 // new payment bill schedule
                 $payment_schedule = new p_payment_bill_schedule;
-                $payment_schedule->payment_bill_id = $value->bill_id;
+                $payment_schedule->payment_bill_id = $bills[$i]['bill_id'];
                 $payment_schedule->schedule_id = $schedule->id;
+                $payment_schedule->account_id = $bills[$i]['account_id'];
                 $payment_schedule->status = "P";
                 $payment_schedule->save();
             }

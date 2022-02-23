@@ -31,13 +31,13 @@
 </li>
 <li class="nav-item">
   <a href="{{ route('payment_bill') }}" class="nav-link payment_bill_route">
-    <i class="fas fa-file-invoice-dollar"></i>
+    <i class="fas fa-file-invoice"></i>
     <p>&nbsp;Payment Bills</p>
   </a>
 </li>
 <li class="nav-item">
   <a href="{{ route('payment_schedule') }}" class="nav-link schedule_route">
-    <i class="fas fa-file-invoice-dollar"></i>
+  <i class="fas fa-file-alt"></i>
     <p>&nbsp;Payment Schedule</p>
   </a>
 </li>

@@ -203,6 +203,8 @@ class MBankAccountController extends Controller
         $result = DB::table('m_bank_accounts')
                     ->join('m_banks', 'm_bank_accounts.bank_id', '=', 'm_banks.id')
                     ->join('m_branches', 'm_bank_accounts.branch_id', '=', 'm_branches.id')
+                    ->where('m_bank_accounts.is_active', 1)
+                    ->where('m_bank_accounts.status', 1)
                     ->select('m_bank_accounts.*', 'm_banks.name as bank_name', 'm_branches.name as branch_name')
                     ->get();
 

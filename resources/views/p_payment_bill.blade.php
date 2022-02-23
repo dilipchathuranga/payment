@@ -464,6 +464,9 @@
 <script>
     $(document).ready(function(){
 
+        // menu active
+        $(".payment_bill_route").addClass('active');
+
         //csrf token error
         $.ajaxSetup({
             headers: {
@@ -994,7 +997,7 @@
 
             });
 
-            $(document).on('click','.add_schedule',function(){
+            $(".add_schedule").unbind('click').click(function(){
 
             if( schedule_bill.length > 0 ){
 
