@@ -67,7 +67,7 @@
                                         <div class="input-group input-group-sm float-right">
                                         <select name="project_id_s1" id="project_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by project --</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                         <div class="input-group input-group-sm float-right">
                                         <select name="supplier_id_s1" id="supplier_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by supplier --</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                 </div>
                                 <br>
                                 <table class="table table-hover" id="pending_table" >
-                                    <thead>                  
+                                    <thead>
                                         <tr>
                                             <th style="font-size: 12px;">Module</th>
                                             <th style="font-size: 12px;">Invoice Date</th>
@@ -122,7 +122,7 @@
                             </div>
                             <div class="card-body">
                                 <table class="table table-hover" id="receiving_table" >
-                                    <thead>                  
+                                    <thead>
                                         <tr>
                                             <th style="font-size: 12px;">Module</th>
                                             <th style="font-size: 12px;">Invoice Date</th>
@@ -190,7 +190,7 @@
                                         <div class="input-group input-group-sm float-right">
                                         <select name="project_id_s2" id="project_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by project --</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
                                         <div class="input-group input-group-sm float-right">
                                         <select name="supplier_id_s2" id="supplier_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by supplier --</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
                                 </div>
                                 <br>
                                 <table class="table table-hover" id="received_table" >
-                                    <thead>                  
+                                    <thead>
                                         <tr>
                                             <th style="font-size: 12px;">Module</th>
                                             <th style="font-size: 12px;">Invoice Date</th>
@@ -264,7 +264,7 @@
                                 </form>
                                 <br>
                                 <table class="table table-hover" id="schedule_table" >
-                                    <thead>                  
+                                    <thead>
                                         <tr>
                                             <th style="font-size: 12px;">Module</th>
                                             <th style="font-size: 12px;">Invoice Date</th>
@@ -307,7 +307,7 @@
             <div class="card card-outline card-danger">
                 <div class="card-body">
                     <table class="table table-hover" id="account_table" >
-                        <thead>                  
+                        <thead>
                             <tr>
                                 <th style="font-size: 12px;">Bank</th>
                                 <th style="font-size: 12px;">Branch</th>
@@ -326,6 +326,70 @@
       </div>
     </div>
 </div>
+<!-- more details modal -->
+<div class="modal fade" id="modal3">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Payment Bills Details</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="myForm" enctype="multipart/form-data">
+                    <input type="hidden" id="hid" name="hid">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Module</label>
+                            <input type="text" class="form-control" id="module" name="module" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Invoice Date</label>
+                            <input type="date" class="form-control" id="invoice_date" name="invoice_date" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Project Name</label>
+                            <input type="text" class="form-control" id="project_name" name="project_name" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Supplier Name</label>
+                            <input type="text" class="form-control" id="supplier_name" name="supplier_name" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Bill Refference</label>
+                            <input type="text" class="form-control" id="bill_refference" name="bill_refference" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Received Date</label>
+                            <input type="date" class="form-control" id="received_date" name="received_date" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Pic No</label>
+                            <input type="text" class="form-control" id="pic_no" name="pic_no" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Amount</label>
+                            <input type="text" class="form-control" id="amount" name="amount" readonly>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+</div>
+
+
 
 <div class="container-fluid">
     <div class="row">
@@ -345,13 +409,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                   
-                    
+
+
                     <div class="input-group input-group-sm float-right" style="width: 260px; ">
                       <button class="btn btn-flat btn-default" name="option1" id="option1" > Pending Bills</button>
                       <button class="btn btn-flat btn-default btn-active" name="option2" id="option2" > Recieved Bills</button>
                     </div>
-                
+
                 </div>
                 <div class="card-body">
                 <div class="row">
@@ -377,7 +441,7 @@
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
                       <select name="project_id_s" id="project_id_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                           <option value="">-- search by project --</option>
-                              
+
                           </select>
                       </div>
                   </div>
@@ -390,7 +454,7 @@
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
                       <select name="supplier_id_s" id="supplier_id_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                           <option value="">-- search by supplier --</option>
-                              
+
                           </select>
                       </div>
                   </div>
@@ -421,7 +485,7 @@
                 </div>
                 <br>
                     <table class="table table-hover" id="dataTable">
-                        <thead>                  
+                        <thead>
                             <tr>
                                 <th style="width:10%">Module</th>
                                 <th style="width:10%">Project</th>
@@ -433,13 +497,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+
                         </tbody>
                     </table>
                     <br>
                 </div>
                 <div class="card-footer">
-                    
+
                 </div>
             </div>
         </div>
@@ -453,7 +517,13 @@
 @endif
 
 <script>
+
+
+
+
     $(document).ready(function(){
+        // menu active
+        $(".payment_bill").addClass('active');
 
         //csrf token error
         $.ajaxSetup({
@@ -462,18 +532,20 @@
             }
         });
 
-        //session 
+
+
+        //session
         var bill_session = $("#bill_session").val();
         if(bill_session == '1'){
         show_session_bills();
-        
+
         }else{
         show_pending_bills();
         }
 
         $("#invoice_month_s, #invoice_month_s1, #invoice_month_s2").datepicker( {
             format: "yyyy-mm",
-            startView: "months", 
+            startView: "months",
             minViewMode: "months"
         });
 
@@ -488,7 +560,7 @@
                 'data': {session:session},
                 'async': false,
                 'success': function(data){
-                    
+
                 }
             });
             show_pending_bills();
@@ -506,7 +578,7 @@
                     'data': {session:session},
                     'async': false,
                     'success': function(data){
-                    
+
                     }
             });
             show_received_bills();
@@ -542,7 +614,7 @@
             // get pending bills
             var pending_bills = get_pending_bills();
 
-            // bill pending table 
+            // bill pending table
             $('#pending_table').DataTable().clear();
             $('#pending_table').DataTable().destroy();
 
@@ -564,7 +636,7 @@
                 "paging": false,
                 "pageLength": 20,
                 fixedColumns: true
-                
+
             });
 
             receiving_table.columns(6).visible(false);
@@ -596,7 +668,7 @@
                 }else{
                     pending_table.columns(6).search("").draw();
                 }
-                
+
             });
 
             $(document).on("change","#supplier_id_s1", function(){
@@ -632,7 +704,7 @@
 
                 var row = $(this).parents('tr');
                 var bill_id = $(this).attr('data');
-            
+
                 // validation
                 if(recieving_bill.length==20){
                     toastr.error('Cannot add more than 20 records');
@@ -681,11 +753,11 @@
                 const index = recieving_bill.indexOf(bill_id);
 
                 if (index > -1) {
-                    recieving_bill.splice(index, 1); 
+                    recieving_bill.splice(index, 1);
 
                     pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-xs add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",project_id,supplier_id
                     ]).draw();
-           
+
                     receiving_table.row(row).remove().draw();
 
                 }
@@ -778,7 +850,7 @@
             // get received bills
             var received_bills = get_received_bills();
 
-            // bill received table 
+            // bill received table
             $('#received_table').DataTable().clear();
             $('#received_table').DataTable().destroy();
 
@@ -801,7 +873,7 @@
                 "searching": false,
                 "pageLength": 20,
                 fixedColumns: true
-                
+
             });
 
             schedule_table.columns(6).visible(false);
@@ -825,14 +897,14 @@
                 }
 
             }
-            
+
             // add bills to receiving table
             $("#received_table tbody").on('click','.add',function(){
 
                 $("#modal2").modal('show');
                 var bill_id = $(this).attr('data');
-                var supplier_id = $(this).attr('data-supplier_id'); 
-                var project_id = $(this).attr('data-project_id'); 
+                var supplier_id = $(this).attr('data-supplier_id');
+                var project_id = $(this).attr('data-project_id');
                 var row = $(this).parents('tr');
 
                 $.ajax({
@@ -843,7 +915,7 @@
                     'async': false,
                     success: function(data){
 
-                        // bill accounts table 
+                        // bill accounts table
                         $('#account_table').DataTable().clear();
                         $('#account_table').DataTable().destroy();
 
@@ -939,13 +1011,13 @@
                 const index = schedule_bill.indexOf(bill_id);
 
                 if (index > -1) {
-                    schedule_bill.splice(index, 1); 
+                    schedule_bill.splice(index, 1);
 
                     received_table.row.add([module_name,
                                             date,
-                                            project, 
-                                            supplier, 
-                                            amount, 
+                                            project,
+                                            supplier,
+                                            amount,
                                             "<button class='btn btn-success btn-xs add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
                                             project_id,
                                             supplier_id
@@ -954,7 +1026,7 @@
                     schedule_table.row(row).remove().draw();
 
                 }
-            
+
 
             });
 
@@ -1005,7 +1077,7 @@
 
             });
 
-            
+
             //received table search
             $(document).on('change', '#project_id_s2 ', function(){
                 var value = $(this).val();
@@ -1014,7 +1086,7 @@
                 }else{
                     received_table.columns(6).search("").draw();
                 }
-                
+
             });
 
             $(document).on("change","#supplier_id_s2", function(){
@@ -1110,7 +1182,8 @@
                     var html = "";
 
                     html+="<button class='btn btn-success btn-xs receive' data='"+d.id+"' title='Recieve Bill'>Recieve</button>";
-                    
+                    html+="&nbsp;<button class='btn btn-warning btn-xs more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='Recieved'>More</button>";
+
                     return html;
                 }
                 }
@@ -1161,7 +1234,8 @@
                     var html = "";
 
                     // html+="<button class='btn btn-success btn-xs receive' data='"+d.id+"' title='Recieved'>Recieved</button>";
-                    
+                    html+="<button class='btn btn-warning btn-xs more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='Recieved'>More</button>";
+
                     return html;
                 }
                 }
@@ -1170,6 +1244,39 @@
 
 
     }
+
+    $(document).on('click', '.more', function(){
+
+        var id = $(this).attr('data');
+
+        var project_name = $(this).attr('data-project');
+        var p_names = $("#project_name").val(project_name);
+
+        var supplier_name = $(this).attr('data-supplier');
+        var s_names = $("#supplier_name").val(supplier_name);
+
+        var module = $(this).attr('data-module');
+        var modules = $("#module").val(module);
+
+        var invoicedate = $(this).attr('data-invoicedate');
+        var invoicedates = $("#invoice_date").val(invoicedate);
+
+        var bill_refference = $(this).attr('data-billrefference');
+        var bill_refferences = $("#bill_refference").val(bill_refference);
+
+        var pic_no = $(this).attr('data-picno');
+        var pic_nos = $("#pic_no").val(pic_no);
+
+        var amount = $(this).attr('data-amount');
+        var amounts = $("#amount").val(amount);
+
+        var received_date = $(this).attr('data-receiveddate');
+        var amounts = $("#received_date").val(received_date);
+
+        $("#modal3").modal('show');
+
+
+    });
 
     function get_pending_bills(){
 
@@ -1184,7 +1291,7 @@
             success: function(data){
 
                 result = data;
-                
+
             }
 
         });
@@ -1205,12 +1312,12 @@
             success: function(data){
 
                 result = data;
-                
+
             }
 
         });
 
-        return result;      
+        return result;
     }
 
     function get_supplier_search(){
@@ -1233,7 +1340,7 @@
                         html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
                     }
 
-                // supplier search 
+                // supplier search
                 $("#supplier_id_s").html(html);
                 $("#supplier_id_s").selectpicker("refresh");
                 $("#supplier_id_s").val("");
@@ -1251,7 +1358,7 @@
                 $("#supplier_id_s2").val("");
                 $("#supplier_id_s2").selectpicker("refresh");
 
-                    
+
             }
 
         });
@@ -1292,7 +1399,7 @@
                 $("#project_id_s2").selectpicker("refresh");
                 $("#project_id_s2").val("");
                 $("#project_id_s2").selectpicker("refresh");
-                    
+
             }
 
         });

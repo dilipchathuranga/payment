@@ -225,6 +225,8 @@ $(document).ready(function(){
             });
     }
 
+
+
     function empty_form(){
         $("#hid").val("");
         $("#document_main").val("");
