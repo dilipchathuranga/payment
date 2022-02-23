@@ -625,8 +625,8 @@
             $('#pending_table').DataTable().destroy();
 
             var pending_table = $("#pending_table").DataTable({
-                "paging": false,
-                "pageLength": 20,
+                "bLengthChange": false,
+                "pageLength": 4,
                 fixedColumns: true
 
             });
@@ -639,8 +639,8 @@
             $('#receiving_table').DataTable().destroy();
 
             var receiving_table=$("#receiving_table").DataTable({
-                "paging": false,
-                "pageLength": 20,
+                "bLengthChange": false,
+                "pageLength": 4,
                 fixedColumns: true
 
             });
@@ -861,8 +861,8 @@
             $('#received_table').DataTable().destroy();
 
             var received_table = $("#received_table").DataTable({
-                "paging": false,
-                "pageLength": 20,
+                "bLengthChange": false,
+                "pageLength": 4,
                 fixedColumns: true
 
             });
@@ -875,9 +875,8 @@
             $('#schedule_table').DataTable().destroy();
 
             var schedule_table=$("#schedule_table").DataTable({
-                "paging": false,
-                "searching": false,
-                "pageLength": 20,
+                "bLengthChange": false,
+                "pageLength": 4,
                 fixedColumns: true
 
             });
@@ -925,8 +924,8 @@
                         $('#account_table').DataTable().destroy();
 
                         var account_table = $("#account_table").DataTable({
-                            "paging": false,
-                            "pageLength": 20,
+                            "bLengthChange": false,
+                            "pageLength": 4,
                             fixedColumns: true
 
                         });
@@ -1058,7 +1057,7 @@
                                         supplier_id
                                     ]).draw();
             
-
+                schedule_table.row(row).remove().draw();
 
             });
 
