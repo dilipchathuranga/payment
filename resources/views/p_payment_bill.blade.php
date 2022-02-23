@@ -349,30 +349,28 @@
                 <form id="myForm" enctype="multipart/form-data">
                     <input type="hidden" id="hid" name="hid">
                     <div class="row">
+                        <div class="form-group col-md-6"></div>
                         <div class="form-group col-md-6">
-                            <label for="rate">Module</label>
-                            <input type="text" class="form-control" id="module" name="module" readonly>
+                            <label for="rate">Pic No</label>
+                            <input type="text" class="form-control" id="pic_no" name="pic_no" readonly >
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6"></div>
                         <div class="form-group col-md-6">
                             <label for="rate">Invoice Date</label>
                             <input type="date" class="form-control" id="invoice_date" name="invoice_date" readonly>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="rate">Project Name</label>
-                            <input type="text" class="form-control" id="project_name" name="project_name" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="rate">Supplier Name</label>
-                            <input type="text" class="form-control" id="supplier_name" name="supplier_name" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
+                        <div class="form-group col-md-6"></div>
                         <div class="form-group col-md-6">
                             <label for="rate">Bill Refference</label>
                             <input type="text" class="form-control" id="bill_refference" name="bill_refference" readonly>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6"></div>
                         <div class="form-group col-md-6">
                             <label for="rate">Received Date</label>
                             <input type="date" class="form-control" id="received_date" name="received_date" readonly>
@@ -380,12 +378,28 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="rate">Pic No</label>
-                            <input type="text" class="form-control" id="pic_no" name="pic_no" readonly>
+                            <label for="rate">Module</label>
+                            <input type="text" class="form-control" id="module" name="module" readonly>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Project Name</label>
+                            <input type="text" class="form-control" id="project_name" name="project_name" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Supplier Name</label>
+                            <input type="text" class="form-control" id="supplier_name" name="supplier_name" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6"></div>
                         <div class="form-group col-md-6">
                             <label for="rate">Amount</label>
-                            <input type="text" class="form-control" id="amount" name="amount" readonly>
+                            <input type="text" class="form-control" id="amount" name="amount" readonly style="text-align:right;">
                         </div>
                     </div>
 
@@ -397,6 +411,7 @@
       </div>
     </div>
 </div>
+
 
 
 
@@ -852,7 +867,7 @@
 
             // receiving id array
             var schedule_bill = [];
-            
+
             // get received bills
             var received_bills = get_received_bills();
 
@@ -1010,9 +1025,9 @@
                             supplier_id
                         ]).draw();
 
-                        
+
                         $("#modal2").modal('hide');
-                        
+
 
                     }
 
@@ -1049,14 +1064,14 @@
 
                 received_table.row.add([module_name,
                                         date,
-                                        project, 
-                                        supplier, 
-                                        amount, 
+                                        project,
+                                        supplier,
+                                        amount,
                                         "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
                                         project_id,
                                         supplier_id
                                     ]).draw();
-            
+
                 schedule_table.row(row).remove().draw();
 
             });
