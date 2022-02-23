@@ -25,6 +25,15 @@
         font-size: 12px;
     }
 
+    .table#schedule_table  {
+        table-layout: fixed;
+         width: 100% !important;
+    }
+
+    .table#schedule_table td {
+        font-size: 10px;
+    }
+
 </style>
 <!-- pending receive modal -->
 <div class="modal fade" id="modal">
@@ -266,15 +275,15 @@
                                 <table class="table table-hover" id="schedule_table" >
                                     <thead>
                                         <tr>
-                                            <th style="font-size: 12px;">Module</th>
-                                            <th style="font-size: 12px;">Invoice Date</th>
-                                            <th style="font-size: 12px;">Project</th>
-                                            <th style="font-size: 12px;">Supplier</th>
-                                            <th style="font-size: 12px;">Amount</th>
-                                            <th style="font-size: 12px;">Action</th>
+                                            <th style="font-size: 10px;">Module</th>
+                                            <th style="font-size: 10px;">Invoice Date</th>
+                                            <th style="font-size: 10px;">Project</th>
+                                            <th style="font-size: 10px;">Supplier</th>
+                                            <th style="font-size: 10px;">Amount</th>
+                                            <th style="font-size: 10px;">Account No</th>
+                                            <th style="font-size: 10px;">Action</th>
                                             <th style="display:none;"> Project ID</th>
                                             <th style="display:none;">Supplier ID</th>
-                                            <th style="display:none;">Account ID</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -340,37 +349,13 @@
                 <form id="myForm" enctype="multipart/form-data">
                     <input type="hidden" id="hid" name="hid">
                     <div class="row">
-                        <div class="form-group col-md-6"></div>
-                        <div class="form-group col-md-6">
-                            <label for="rate">Pic No</label>
-                            <input type="text" class="form-control" id="pic_no" name="pic_no" readonly >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6"></div>
-                        <div class="form-group col-md-6">
-                            <label for="rate">Invoice Date</label>
-                            <input type="date" class="form-control" id="invoice_date" name="invoice_date" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6"></div>
-                        <div class="form-group col-md-6">
-                            <label for="rate">Bill Refference</label>
-                            <input type="text" class="form-control" id="bill_refference" name="bill_refference" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6"></div>
-                        <div class="form-group col-md-6">
-                            <label for="rate">Received Date</label>
-                            <input type="date" class="form-control" id="received_date" name="received_date" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="rate">Module</label>
                             <input type="text" class="form-control" id="module" name="module" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Invoice Date</label>
+                            <input type="date" class="form-control" id="invoice_date" name="invoice_date" readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -378,19 +363,29 @@
                             <label for="rate">Project Name</label>
                             <input type="text" class="form-control" id="project_name" name="project_name" readonly>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="rate">Supplier Name</label>
                             <input type="text" class="form-control" id="supplier_name" name="supplier_name" readonly>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="form-group col-md-6"></div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Bill Refference</label>
+                            <input type="text" class="form-control" id="bill_refference" name="bill_refference" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rate">Received Date</label>
+                            <input type="date" class="form-control" id="received_date" name="received_date" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rate">Pic No</label>
+                            <input type="text" class="form-control" id="pic_no" name="pic_no" readonly>
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="rate">Amount</label>
-                            <input type="text" class="form-control" id="amount" name="amount" readonly style="text-align:right;">
+                            <input type="text" class="form-control" id="amount" name="amount" readonly>
                         </div>
                     </div>
 
@@ -534,6 +529,9 @@
     $(document).ready(function(){
         // menu active
         $(".payment_bill").addClass('active');
+
+        // menu active
+        $(".payment_bill_route").addClass('active');
 
         //csrf token error
         $.ajaxSetup({
@@ -854,7 +852,7 @@
 
             // receiving id array
             var schedule_bill = [];
-
+            
             // get received bills
             var received_bills = get_received_bills();
 
@@ -878,15 +876,14 @@
 
             var schedule_table=$("#schedule_table").DataTable({
                 "bLengthChange": false,
-                "searching": false,
                 "pageLength": 4,
                 fixedColumns: true
 
             });
 
-            schedule_table.columns(6).visible(false);
             schedule_table.columns(7).visible(false);
             schedule_table.columns(8).visible(false);
+
 
             //add received bills table data
             if(received_bills.length > 0){
@@ -908,7 +905,6 @@
 
             // add bills to receiving table
             $("#received_table tbody").on('click','.add',function(){
-
                 $("#modal2").modal('show');
                 var bill_id = $(this).attr('data');
                 var supplier_id = $(this).attr('data-supplier_id');
@@ -942,55 +938,48 @@
                             data[i].branch_name,
                             data[i].account_no,
                             data[i].account_name,
-                            "<button class='btn btn-primary btn-xs add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
+                            "<button class='btn btn-primary btn-sm add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
                             data[i].supplier_id
                             ]).draw();
 
 
                         }
 
-                        $(document).on('click','.add_account',function(){
+                    }
 
-                            var account_id = $(this).attr('data');
+                });
 
-                            // validation
-                            if(schedule_bill.length==20){
-                                toastr.error('Cannot add more than 20 records');
-                                return this;
-                            }
+                $('.add_account').unbind('click').click(function() {
 
-                            if(schedule_bill.includes(bill_id)){
-                                toastr.error('Cannot add duplicates');
-                                return this;
+                    var account_id = $(this).attr('data');
+                    var account_no = "";
 
-                            }else{
+                    // validation
+                    var validation = 0;
+                    for(var i=0; i < schedule_bill.length; i++){
 
-                                schedule_bill.push(bill_id);
+                        if(schedule_bill[i].bill_id == bill_id){
+                            validation++;
+                        }
 
-                                var module_name=(row.find('td:nth-child(1)').text());
-                                var date=(row.find('td:nth-child(2)').text());
-                                var project=(row.find('td:nth-child(3)').text());
-                                var supplier=(row.find('td:nth-child(4)').text());
-                                var amount=(row.find('td:nth-child(5)').text());
+                    }
 
-                                schedule_table.row.add([
-                                    module_name,
-                                    date,
-                                    project,
-                                    supplier,
-                                    amount,
-                                    "<button class='btn btn-xs btn-danger remove' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"'><i class='fas fa-arrow-left'></i></button>",
-                                    project_id,
-                                    supplier_id,
-                                    account_id
-                                ]).draw();
+                    if(validation > 0 ){
+                        toastr.error('Cannot add duplicates');
 
-                                received_table.row(row).remove().draw();
+                    }else{
 
-                                $("#modal2").modal('hide');
+                        $.ajax({
+                            'type': 'ajax',
+                            'dataType': 'json',
+                            'method': 'get',
+                            'url': 'bank_account/'+account_id,
+                            'async': false,
+                            success: function(data){
+
+                                account_no = data.account_no;
 
                             }
-
 
                         });
 
@@ -1021,10 +1010,13 @@
                             supplier_id
                         ]).draw();
 
-
-
+                        
+                        $("#modal2").modal('hide');
+                        
 
                     }
+
+
 
                 });
 
@@ -1046,40 +1038,30 @@
                 var supplier_id= $(this).attr('data-supplier_id');
 
 
-                const index = schedule_bill.indexOf(bill_id);
+                for(var i=0; i < schedule_bill.length; i++){
 
-                if (index > -1) {
-                    schedule_bill.splice(index, 1);
-
-                    received_table.row.add([module_name,
-                                            date,
-                                            project,
-                                            supplier,
-                                            amount,
-                                            "<button class='btn btn-success btn-xs add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
-                                            project_id,
-                                            supplier_id
-                                        ]).draw();
-
-
-                    schedule_table.row(row).remove().draw();
+                    if(schedule_bill[i].bill_id == bill_id){
+                        schedule_bill.splice(i,1);
+                        break;
+                    }
 
                 }
+
                 received_table.row.add([module_name,
                                         date,
                                         project, 
                                         supplier, 
                                         amount, 
-                                        "<button class='btn btn-success btn-xs add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
+                                        "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
                                         project_id,
                                         supplier_id
                                     ]).draw();
             
-
+                schedule_table.row(row).remove().draw();
 
             });
 
-            $(document).on('click','.add_schedule',function(){
+            $(".add_schedule").unbind('click').click(function(){
 
             if( schedule_bill.length > 0 ){
 
@@ -1102,7 +1084,7 @@
                     'dataType': 'json',
                     'method': 'post',
                     'async': false,
-                    'data': {bill_id:schedule_bill, date:date, refference_no:refference_no},
+                    'data': {bills:schedule_bill, date:date, refference_no:refference_no},
                     'url': 'payment_bill/create_schedule',
                     success: function(data){
 
