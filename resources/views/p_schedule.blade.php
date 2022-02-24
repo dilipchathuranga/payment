@@ -6,13 +6,13 @@
     <div class="modal-dialog modal-xl  modal-dialog-centered">
       <div class="modal-content" >
         <div class="modal-header">
-            <h5 class="modal-title">View Payment Bills</h5>
+            <h5 class="modal-title">Payment Bills</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <div class="card card-outline card-danger">
+            <div class="card card-outline card-warning">
                 <div class="card-body">
                     <table class="table table-hover" id="account_table" >
                         <thead>
@@ -119,7 +119,7 @@ var acc_table;
                     data: null,
                     render: function(d){
                         var html = "";
-                        html+="<td><button class='btn btn-warning btn-sm view_bill' data='"+d.id+"'>View Payment Bills</button>";
+                        html+="<td><button class='btn btn-warning btn-sm view_bill' data='"+d.id+"' title='View Payment Bills'><i class='fa fa-sitemap'></i></button>";
                         return html;
 
                     }
@@ -128,6 +128,7 @@ var acc_table;
                 ]
             });
     }
+
     $(document).on('click', '.view_bill', function(){
 
     var id = $(this).attr('data');
@@ -146,9 +147,9 @@ var acc_table;
         });
     });
 
-    function show_account_table(id)
-    {
-        acc_table=$('#account_table').DataTable().clear();
+    function show_account_table(id){
+
+        $('#account_table').DataTable().clear();
         $('#account_table').DataTable().destroy();
 
         $("#account_table").DataTable({
@@ -170,13 +171,12 @@ var acc_table;
                         render: function(d){
                             var html = "";
                             if(d.bill_status=='A'){
-                                 html+= "<i class='fas fa-check' style='color:green;margin-top: 10px;'></i> <b style='color:green'> Approved</b>";
+                                html+= "<i class='fas fa-check' style='color:green;margin-top: 10px;'></i> <b style='color:green'> Approved</b>";
+                                html+="&nbsp;<button class='btn btn-info btn-sm pending' data='"+d.schedule_id+"'title='Pending'><i class='fas fa-spinner'></i></button>";
                             }else{
-                                html+="<td><button class='btn btn-success btn-sm approve' title='Approve' data='"+d.id+"'><i class='fas fa-check-circle'></i></button>";
-                            }
-                            if(d.bill_status=='A')
-                            {
-                                html+="&nbsp;<button class='btn btn-info btn-sm pending' data='"+d.id+"'title='Pending'><i class='fas fa-spinner'></i></button>";
+                                html+="<td><button class='btn btn-success btn-sm approve' title='Approve' data='"+d.schedule_id+"'><i class='fas fa-check-circle'></i></button>";
+                                html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.schedule_id+"'title='Pending'><i class='fas fa-trash'></i></button>";
+                                
                             }
                             return html;
 
@@ -191,7 +191,7 @@ var acc_table;
     //approve  add view payment bills
     $(document).on('click', '.approve', function(){
 
-            var id = $(this).attr('data');
+        var id = $(this).attr('data');
 
         Swal.fire({
                 title: 'Are you sure?',
@@ -212,7 +212,7 @@ var acc_table;
                             success: function(data){
 
                             if(data){
-                                toastr.success('Bill Status Changed');
+                                toastr.success(data.db_success);
                                 setTimeout(function(){
                                     $('#account_table').DataTable().ajax.reload();
                                 }, 500);
@@ -227,7 +227,7 @@ var acc_table;
         });
     });
 
-    //pending  add view payment bills
+    //pending add payment bills
     $(document).on('click', '.pending', function(){
 
         var id = $(this).attr('data');
@@ -251,7 +251,46 @@ var acc_table;
                         success: function(data){
 
                         if(data){
-                            toastr.success('Bill Status Changed');
+                            toastr.success(data.db_success);
+                            setTimeout(function(){
+                                $('#account_table').DataTable().ajax.reload();
+                            }, 500);
+
+                        }
+
+                        }
+                    });
+
+                }
+
+        });
+    });
+
+    //pending add payment bills
+    $(document).on('click', '.delete', function(){
+
+        var id = $(this).attr('data');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        'type': 'ajax',
+                        'dataType': 'json',
+                        'method': 'get',
+                        'url': 'payment_schedule/delete/'+id,
+                        'async': false,
+                        success: function(data){
+
+                        if(data){
+                            toastr.success(data.db_success);
                             setTimeout(function(){
                                 $('#account_table').DataTable().ajax.reload();
                             }, 500);

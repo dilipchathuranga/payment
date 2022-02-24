@@ -248,7 +248,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card card-outline card-info-circle">
+                        <div class="card card-outline card-success">
                             <div class="card-header">
                                 <h3 class="card-title">New Schedule</h3>
                             </div>
@@ -890,6 +890,7 @@
             $('#schedule_table').DataTable().destroy();
 
             var schedule_table=$("#schedule_table").DataTable({
+                "searching": false,
                 "bLengthChange": false,
                 "pageLength": 4,
                 fixedColumns: true
