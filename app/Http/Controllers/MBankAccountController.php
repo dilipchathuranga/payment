@@ -205,6 +205,7 @@ class MBankAccountController extends Controller
                     ->join('m_branches', 'm_bank_accounts.branch_id', '=', 'm_branches.id')
                     ->where('m_bank_accounts.is_active', 1)
                     ->where('m_bank_accounts.status', 1)
+                    ->where('m_bank_accounts.supplier_id', $id)
                     ->select('m_bank_accounts.*', 'm_banks.name as bank_name', 'm_branches.name as branch_name')
                     ->get();
 

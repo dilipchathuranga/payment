@@ -411,10 +411,6 @@
       </div>
     </div>
 </div>
-
-
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
@@ -1318,28 +1314,28 @@
         var id = $(this).attr('data');
 
         var project_name = $(this).attr('data-project');
-        var p_names = $("#project_name").val(project_name);
+        $("#project_name").val(project_name);
 
         var supplier_name = $(this).attr('data-supplier');
-        var s_names = $("#supplier_name").val(supplier_name);
+        $("#supplier_name").val(supplier_name);
 
         var module = $(this).attr('data-module');
-        var modules = $("#module").val(module);
+        $("#module").val(module);
 
         var invoicedate = $(this).attr('data-invoicedate');
-        var invoicedates = $("#invoice_date").val(invoicedate);
+        $("#invoice_date").val(invoicedate);
 
         var bill_refference = $(this).attr('data-billrefference');
-        var bill_refferences = $("#bill_refference").val(bill_refference);
+        $("#bill_refference").val(bill_refference);
 
         var pic_no = $(this).attr('data-picno');
-        var pic_nos = $("#pic_no").val(pic_no);
+        $("#pic_no").val(pic_no);
 
         var amount = $(this).attr('data-amount');
-        var amounts = $("#amount").val(amount);
+        $("#amount").val(amount);
 
         var received_date = $(this).attr('data-receiveddate');
-        var amounts = $("#received_date").val(received_date);
+        $("#received_date").val(received_date);
 
         $("#modal3").modal('show');
 
