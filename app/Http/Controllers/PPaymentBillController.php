@@ -21,7 +21,7 @@ class PPaymentBillController extends Controller
     }
 
     public function bulk_bill_receive(Request $request){
-        
+
         $bill_ids = $request->bill_id;
 
         try{
@@ -69,7 +69,7 @@ class PPaymentBillController extends Controller
     }
 
     public function create_schedule(Request $request){
-        
+
         $bills = $request->bills;
         $date = $request->date;
         $refference_no = $request->refference_no;
@@ -155,7 +155,7 @@ class PPaymentBillController extends Controller
         return DataTables($result)->make(true);
 
     }
-    
+
     public function received_payment_bills(){
 
         $result = p_payment_bill::where('status', '1')->get();
@@ -163,7 +163,7 @@ class PPaymentBillController extends Controller
         return response()->json($result);
 
     }
-    
+
     public function received_payment_bills_datatable(Request $request){
 
         $project_id = $request->project_id;
@@ -197,4 +197,66 @@ class PPaymentBillController extends Controller
 
     }
 
+    public function default(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+
+            $p_payment_bill = p_payment_bill::find($request->id);
+            $p_payment_bill->priority = 'D';
+
+            $p_payment_bill->save();
+
+            DB::commit();
+            return response()->json(['db_success' => 'Payment Bill Priority Added']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
+    }
+
+    public function hold(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+
+            $p_payment_bill = p_payment_bill::find($request->id);
+            $p_payment_bill->priority = 'H';
+
+            $p_payment_bill->save();
+
+            DB::commit();
+            return response()->json(['db_success' => 'Payment Bill Priority Added']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
+    }
+
+    public function agent(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+
+            $p_payment_bill = p_payment_bill::find($request->id);
+            $p_payment_bill->priority = 'U';
+
+            $p_payment_bill->save();
+
+            DB::commit();
+            return response()->json(['db_success' => 'Payment Bill Priority Added']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
+    }
 }
