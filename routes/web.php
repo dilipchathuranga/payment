@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,7 @@ Route::get('/payment_schedule/view_payemt_bill/{id}','PScheduleController@view_p
 Route::put('/payment_schedule/approve/{id}','PScheduleController@approve');
 Route::put('/payment_schedule/pending/{id}','PScheduleController@pending');
 Route::get('/payment_schedule/delete/{id}','PScheduleController@delete');
+Route::put('/payment_schedule/add_all_approve','PScheduleController@add_all_approve');
 
 
 //payment->bank_account_attachment

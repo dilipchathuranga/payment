@@ -22,7 +22,7 @@ class PScheduleController extends Controller
 
     public function create(){
 
-        $result = p_schedule::where('status', 'P')->get();
+        $result = p_schedule::all();
 
         return DataTables($result)->make(true);
 
@@ -32,7 +32,7 @@ class PScheduleController extends Controller
         $result = DB::table('p_payment_bill_schedules')
                 ->where('p_payment_bill_schedules.schedule_id',$id)
                 ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
-                ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id')
+                ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id','p_payment_bill_schedules.schedule_id AS p_scheduleid')
                 ->get();
 
         return DataTables($result)->make(true);
@@ -103,6 +103,35 @@ class PScheduleController extends Controller
             DB::rollback();
             throw $th;
             return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
+    }
+
+    public function add_all_approve(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+                $approve=$request->acc_tables;
+                $p=count($approve);
+                for($i=0;$i<$p;$i++){
+                    $p_payment_bill_schedule = p_payment_bill_schedule::find($request->acc_tables[$i]);
+                    $p_payment_bill_schedule->status = 'A';
+
+                    $p_payment_bill_schedule->save();
+                }
+
+                $p_schedule=p_schedule::find($request->p_scheduleid[0]);
+                $p_schedule->status = 'A';
+
+                $p_schedule->save();
+
+        DB::commit();
+                return response()->json(['db_success' => 'Payment Bill Schedule Status Added']);
+
+        }catch(\Throwable $th){
+                DB::rollback();
+                throw $th;
+                return response()->json(['db_error' =>'Database Error'.$th]);
         }
 
     }

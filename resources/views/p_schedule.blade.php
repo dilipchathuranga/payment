@@ -11,13 +11,16 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
         <div class="modal-body">
             <div class="card card-outline card-warning">
                 <div class="card-body">
-
+                    <button class="btn btn-success all_approve"><i class="fa fa-plus"></i> Add All Approve</button>
                     <table class="table table-hover" id="account_table" >
                         <thead>
                             <tr>
+                                <th style="display:none;">Schedule ID</th>
+                                <th style="display:none;">Schedule ID</th>
                                 <th style="font-size: 12px;">Module</th>
                                 <th style="font-size: 12px;">Invoice Date</th>
                                 <th style="font-size: 12px;">Project</th>
@@ -64,7 +67,8 @@
                         <thead>
                             <tr>
                                 <th style="width:20%">Date</th>
-                                <th style="width:50%">Refference No</th>
+                                <th style="width:30%">Refference No</th>
+                                <th style="width:20%">Status</th>
                                 <th style="width:30%">Action</th>
                             </tr>
                         </thead>
@@ -115,6 +119,20 @@ var acc_table;
                 'columns': [
                     {data: 'date'},
                     {data: 'refference_no'},
+                    {
+                        data: null,
+                        render: function(d){
+                            var html = "";
+                            if(d.status=='A'){
+                                html+= "<i class='fas fa-check' style='color:green;margin-top: 10px;'></i> <b style='color:green'> Approved</b>";
+                            }else{
+                                html+= "<i class='fas fa-spinner' style='color:#ff9900;margin-top: 10px;'></i> <b style='color:#ff9900'> Pending</b>";
+                            }
+
+                            return html;
+
+                        }
+                    },
 
                     {
                     data: null,
@@ -156,12 +174,15 @@ var acc_table;
         $("#account_table").DataTable({
             'processing': true,
             'serverSide': true,
+            "autoWidth": false,
             "bLengthChange": false,
             'ajax': {
                 'method': 'get',
                 'url': 'payment_schedule/view_payemt_bill/'+id,
             },
                 'columns': [
+                    {data: 'schedule_id',"visible": false},
+                    {data: 'p_scheduleid',"visible": false},
                     {data: 'module'},
                     {data: 'invoice_date'},
                     {data: 'project_name'},
@@ -173,12 +194,10 @@ var acc_table;
                             var html = "";
                             if(d.bill_status=='A'){
                                 html+= "<i class='fas fa-check' style='color:green;margin-top: 10px;'></i> <b style='color:green'> Approved</b>";
-                                html+="&nbsp;<button class='btn btn-info btn-sm pending' data='"+d.schedule_id+"'title='Pending'><i class='fas fa-spinner'></i></button>";
                             }else{
-                                html+="<td><button class='btn btn-success btn-sm approve' title='Approve' data='"+d.schedule_id+"'><i class='fas fa-check-circle'></i></button>";
-                                html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.schedule_id+"'title='Pending'><i class='fas fa-trash'></i></button>";
-                                
+                                html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.schedule_id+"'title='Delete'><i class='fas fa-trash'></i></button>";
                             }
+
                             return html;
 
                         }
@@ -187,6 +206,47 @@ var acc_table;
                 ]
         });
     }
+
+    $(document).on('click', '.all_approve', function(){
+       var acc_tables=$('#account_table').DataTable().column(0).data().toArray();
+       var p_scheduleid=$('#account_table').DataTable().column(1).data().toArray();
+
+
+       Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Update it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            'type': 'ajax',
+                            'dataType': 'json',
+                            'method': 'put',
+                            'url': 'payment_schedule/add_all_approve',
+                            'async': false,
+                            'data':{acc_tables:acc_tables,p_scheduleid:p_scheduleid},
+                            success: function(data){
+
+                                if(data){
+                                    toastr.success(data.db_success);
+                                    setTimeout(function(){
+                                        location.reload();
+                                    }, 500);
+
+                                }
+
+                            }
+                        });
+
+                    }
+
+        });
+
+    });
 
 
     //approve  add view payment bills
@@ -215,8 +275,8 @@ var acc_table;
                             if(data){
                                 toastr.success(data.db_success);
                                 setTimeout(function(){
-                                    $('#account_table').DataTable().ajax.reload();
-                                }, 500);
+                                    location.reload();
+                                }, 2000);
 
                             }
 
