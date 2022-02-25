@@ -17,7 +17,9 @@ class PScheduleController extends Controller
 
     public function index()
     {
-        return view('p_schedule');
+        $result = p_payment_bill_schedule::all();
+        return view('p_schedule')->with([
+                                    'result'=> $result[0] ]);
     }
 
     public function create(){
@@ -36,47 +38,6 @@ class PScheduleController extends Controller
                 ->get();
 
         return DataTables($result)->make(true);
-
-    }
-    public function approve(Request $request)
-    {
-        try{
-            DB::beginTransaction();
-
-            $p_payment_bill_schedule = p_payment_bill_schedule::find($request->id);
-            $p_payment_bill_schedule->status = 'A';
-
-            $p_payment_bill_schedule->save();
-
-            DB::commit();
-            return response()->json(['db_success' => 'Payment Bill Schedule Status Added']);
-
-        }catch(\Throwable $th){
-            DB::rollback();
-            throw $th;
-            return response()->json(['db_error' =>'Database Error'.$th]);
-        }
-
-    }
-
-    public function pending(Request $request)
-    {
-        try{
-            DB::beginTransaction();
-
-            $p_payment_bill_schedule = p_payment_bill_schedule::find($request->id);
-            $p_payment_bill_schedule->status = 'P';
-
-            $p_payment_bill_schedule->save();
-
-            DB::commit();
-            return response()->json(['db_success' => 'Payment Bill Schedule Status Added']);
-
-        }catch(\Throwable $th){
-            DB::rollback();
-            throw $th;
-            return response()->json(['db_error' =>'Database Error'.$th]);
-        }
 
     }
 
@@ -134,5 +95,13 @@ class PScheduleController extends Controller
                 return response()->json(['db_error' =>'Database Error'.$th]);
         }
 
+    }
+    public function show_approve($id)
+    {
+
+        $result = p_payment_bill_schedule::where(['schedule_id'=> $id])->get();
+
+        return view('p_schedule')->with([
+                                        'result'=> $result[0] ]);
     }
 }

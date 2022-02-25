@@ -1,6 +1,20 @@
+
 @extends('layouts.app')
 
 @section('content')
+@if ($result->status=='A')
+    <style>
+    .all_approve{
+            display: none;
+    }
+    </style>
+@else
+    <style>
+        .all_approve{
+                display: block;
+        }
+    </style>
+@endif
 <!-- view payment bill modal -->
 <div class="modal fade " id="modal1" >
     <div class="modal-dialog modal-xl  modal-dialog-centered">
@@ -15,7 +29,7 @@
         <div class="modal-body">
             <div class="card card-outline card-warning">
                 <div class="card-body">
-                    <button class="btn btn-success all_approve"><i class="fa fa-plus"></i> Add All Approve</button>
+                    <button class="btn btn-success all_approve"> Approve All Bill</button>
                     <table class="table table-hover" id="account_table" >
                         <thead>
                             <tr>
@@ -34,9 +48,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -124,9 +135,9 @@ var acc_table;
                         render: function(d){
                             var html = "";
                             if(d.status=='A'){
-                                html+= "<i class='fas fa-check' style='color:green;margin-top: 10px;'></i> <b style='color:green'> Approved</b>";
+                                html+= "Approved";
                             }else{
-                                html+= "<i class='fas fa-spinner' style='color:#ff9900;margin-top: 10px;'></i> <b style='color:#ff9900'> Pending</b>";
+                                html+= "Pending";
                             }
 
                             return html;
@@ -219,7 +230,7 @@ var acc_table;
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Update it!'
+                confirmButtonText: 'Yes, Approve it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
@@ -234,7 +245,8 @@ var acc_table;
                                 if(data){
                                     toastr.success(data.db_success);
                                     setTimeout(function(){
-                                        location.reload();
+                                        $('#account_table').DataTable().ajax.reload();
+                                        $('#tbl_schedule').DataTable().ajax.reload();
                                     }, 1000);
 
                                 }
@@ -248,86 +260,24 @@ var acc_table;
 
     });
 
-
-    //approve  add view payment bills
-    $(document).on('click', '.approve', function(){
+    $(document).on('click', '.view_bill', function(){
 
         var id = $(this).attr('data');
-
-        Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Update it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            'type': 'ajax',
-                            'dataType': 'json',
-                            'method': 'put',
-                            'url': 'payment_schedule/approve/'+id,
-                            'async': false,
-                            success: function(data){
-
-                            if(data){
-                                toastr.success(data.db_success);
-                                setTimeout(function(){
-                                    location.reload();
-                                }, 2000);
-
-                            }
-
-                            }
-                        });
-
-                    }
-
-        });
-    });
-
-    //pending add payment bills
-    $(document).on('click', '.pending', function(){
-
-        var id = $(this).attr('data');
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Update it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        'type': 'ajax',
-                        'dataType': 'json',
-                        'method': 'put',
-                        'url': 'payment_schedule/pending/'+id,
-                        'async': false,
-                        success: function(data){
-
-                        if(data){
-                            toastr.success(data.db_success);
-                            setTimeout(function(){
-                                $('#account_table').DataTable().ajax.reload();
-                            }, 500);
-
-                        }
-
-                        }
-                    });
+            $.ajax({
+                'type': 'ajax',
+                'dataType': 'json',
+                'method': 'get',
+                'url': 'payment_schedule/show_approve/'+id,
+                'async': false,
+                success: function(){
 
                 }
 
-        });
+            });
     });
 
-    //pending add payment bills
+
+    //pending delete payment bills
     $(document).on('click', '.delete', function(){
 
         var id = $(this).attr('data');

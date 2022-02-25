@@ -72,6 +72,7 @@ Route::put('/payment_schedule/approve/{id}','PScheduleController@approve');
 Route::put('/payment_schedule/pending/{id}','PScheduleController@pending');
 Route::get('/payment_schedule/delete/{id}','PScheduleController@delete');
 Route::put('/payment_schedule/add_all_approve','PScheduleController@add_all_approve');
+Route::get('/payment_schedule/show_approve/{id}', 'PScheduleController@show_approve');
 
 
 //payment->bank_account_attachment
