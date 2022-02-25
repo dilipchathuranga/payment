@@ -200,11 +200,11 @@ $(document).ready(function(){
                     }
 
                     if(data.db_success){
-                    db_success(data.db_success);
+                        toastr.success(data.db_success);
                     setTimeout(function(){
                         $("#modal").modal('hide');
                         location.reload();
-                    }, 2000);
+                    }, 1000);
                     }
                 },
             });
@@ -236,11 +236,7 @@ $(document).ready(function(){
                     success: function(data){
 
                         if(data){
-                        Swal.fire(
-                            'Deleted!',
-                            'Branch has been deleted.',
-                            'success'
-                            );
+                            toastr.success(data.db_success);
                         setTimeout(function(){
                             location.reload();
                         }, 2000);

@@ -56,23 +56,23 @@
     </nav>
 
     <!-- Left side column. contains the logo and sidebar -->
-@include('layouts.sidebar')
+    @include('layouts.sidebar')
 
-<!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <section class="content">
-            @yield('content')
-        </section>
-    </div>
+    <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <section class="content">
+                @yield('content')
+            </section>
+        </div>
 
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.5
-        </div> -->
-        <strong>Copyright &copy; 2021 <a href="https://www.maga.lk/">Maga Engineering</a>.</strong> All rights
-        reserved.
-    </footer>
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.0.5
+            </div> -->
+            <strong>Copyright &copy; 2022 <a href="https://www.maga.lk/">Maga Engineering</a>.</strong> All rights
+            reserved.
+        </footer>
 </div>
 
 <script src="{{ mix('js/app.js') }}" ></script>

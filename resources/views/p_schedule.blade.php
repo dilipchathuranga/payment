@@ -235,7 +235,7 @@ var acc_table;
                                     toastr.success(data.db_success);
                                     setTimeout(function(){
                                         location.reload();
-                                    }, 500);
+                                    }, 1000);
 
                                 }
 

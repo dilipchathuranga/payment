@@ -282,11 +282,7 @@ $(document).ready(function(){
                         success: function(data){
 
                         if(data){
-                            Swal.fire(
-                                'Status!',
-                                'Bank Account Status Updated.',
-                                'success'
-                            );
+                            toastr.success(data.db_success);
                             setTimeout(function(){
                             location.reload();
                             }, 2000);
@@ -456,11 +452,7 @@ $(document).ready(function(){
                         success: function(data){
 
                         if(data){
-                            Swal.fire(
-                                'Deleted!',
-                                'Bank Account has been deleted.',
-                                'success'
-                            );
+                            toastr.success(data.db_success);
                             setTimeout(function(){
                             location.reload();
                             }, 2000);

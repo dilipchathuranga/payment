@@ -19,8 +19,8 @@
                     <input type="text" id="acc_id" name="acc_id" value="{{ $attchment->id }}" hidden>
                     <div class="row">
                         <div class="form-group col-md-12">
-                        <label for="rate">Attachment Desception</label>
-                        <textarea type="text" class="form-control" id="document_main" name="document_main" placeholder="Enter Attachment Desception" required></textarea>
+                        <label for="rate">Attachment Description</label>
+                        <textarea type="text" class="form-control" id="document_main" name="document_main" placeholder="Enter Attachment Description" required></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -63,7 +63,7 @@
                     <table class="table table-bordered" id="tbl_bank_attachment">
                         <thead>
                             <tr>
-                                <th style="width:50%">Document Desception</th>
+                                <th style="width:50%">Document Description</th>
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
@@ -95,11 +95,11 @@ $(document).ready(function(){
     $(".addNew").click(function(){
         empty_form();
         $("#modal").modal('show');
-        $(".modal-title").html('Save Agreement');
-        $("#submit").html('Save Agreement');
+        $(".modal-title").html('Save Attachment');
+        $("#submit").html('Save Attachment');
         $("#submit").click(function(){
             var hid =$("#hid").val();
-            //save agreement
+            //save Attachment
             if(hid == ""){
                 var bank_id = $("#bank_id").val();
                 var supplier_id = $("#supplier_id").val();
