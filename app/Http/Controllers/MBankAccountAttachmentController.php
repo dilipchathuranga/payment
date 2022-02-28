@@ -20,15 +20,14 @@ class MBankAccountAttachmentController extends Controller
 
     public function index()
     {
-
         return view('m_bank_account_attachment');
     }
 
     public function create(){
 
         $result = DB::table('m_bank_account_attachments')
-                ->select('m_bank_account_attachments.*')
-                ->get();
+                            ->select('m_bank_account_attachments.*')
+                            ->get();
 
         return DataTables($result)->make(true);
 

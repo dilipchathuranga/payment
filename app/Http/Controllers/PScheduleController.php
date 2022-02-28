@@ -32,12 +32,12 @@ class PScheduleController extends Controller
     public function view_payment_bill($id)
     {
         $result = DB::table('p_payment_bill_schedules')
-                ->where('p_payment_bill_schedules.schedule_id',$id)
-                ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
-                ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id','p_payment_bill_schedules.schedule_id AS p_scheduleid')
-                ->get();
+                            ->where('p_payment_bill_schedules.schedule_id',$id)
+                            ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
+                            ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id','p_payment_bill_schedules.schedule_id AS p_scheduleid')
+                            ->get();
 
-        return DataTables($result)->make(true);
+            return DataTables($result)->make(true);
 
     }
 
@@ -86,14 +86,14 @@ class PScheduleController extends Controller
 
                 $p_schedule->save();
 
-        DB::commit();
+                DB::commit();
                 return response()->json(['db_success' => 'Payment Bill Schedule Status Added']);
 
         }catch(\Throwable $th){
                 DB::rollback();
                 throw $th;
                 return response()->json(['db_error' =>'Database Error'.$th]);
-        }
+            }
 
     }
     public function show_approve($id)

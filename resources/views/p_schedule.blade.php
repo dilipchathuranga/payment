@@ -2,17 +2,18 @@
 @extends('layouts.app')
 
 @section('content')
+
 @if ($result->status=='A')
     <style>
     .all_approve{
             display: none;
-    }
+        }
     </style>
 @else
     <style>
         .all_approve{
                 display: block;
-        }
+            }
     </style>
 @endif
 <!-- view payment bill modal -->
@@ -22,7 +23,7 @@
         <div class="modal-header">
             <h5 class="modal-title">Payment Bills</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
@@ -34,13 +35,13 @@
                         <thead>
                             <tr>
                                 <th style="display:none;">Schedule ID</th>
-                                <th style="display:none;">Schedule ID</th>
+                                <th style="display:none;">p_scheduleid</th>
                                 <th style="font-size: 12px;">Module</th>
                                 <th style="font-size: 12px;">Invoice Date</th>
                                 <th style="font-size: 12px;">Project</th>
                                 <th style="font-size: 12px;">Supplier</th>
                                 <th style="font-size: 12px;">Amount</th>
-                                <th style="font-size: 12px;">Action</th>
+                                <th style="font-size: 12px;">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -213,7 +214,7 @@ var acc_table;
 
                         }
 
-                    }
+                    },
                 ]
         });
     }
@@ -247,6 +248,7 @@ var acc_table;
                                     setTimeout(function(){
                                         $('#account_table').DataTable().ajax.reload();
                                         $('#tbl_schedule').DataTable().ajax.reload();
+
                                     }, 1000);
 
                                 }
