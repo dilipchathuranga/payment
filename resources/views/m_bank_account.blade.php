@@ -117,8 +117,8 @@
                                 <th style="width:10%">Branch Name</th>
                                 <th style="width:10%">Supplier Name</th>
                                 <th style="width:20%">Account No</th>
-                                <th style="width:10%">Account Name</th>
-                                <th style="width:20%">Status</th>
+                                <th style="width:20%">Account Name</th>
+                                <th style="width:10%">Status</th>
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
@@ -136,6 +136,9 @@ $(document).ready(function(){
 
     // menu active
     $(".bank_account_route").addClass('active');
+    $(".bank_tree").addClass('active');
+    $(".bank_tree_open").addClass('menu-open');
+    $(".bank_tree_open").addClass('menu-is-opening');
 
     //csrf token error
     $.ajaxSetup({

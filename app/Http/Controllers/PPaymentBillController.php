@@ -44,7 +44,6 @@ class PPaymentBillController extends Controller
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
 
-
     }
 
     public function bill_receive($id){

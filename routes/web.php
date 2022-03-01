@@ -86,5 +86,14 @@ Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentCo
 Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_attachment');
 Route::get('/bank_account_attachment/download/{any}', 'MBankAccountAttachmentController@download');
 
+//master->supplier
+Route::get('/supplier', 'SupplierController@index')->name('supplier');
+Route::get('/supplier/create','SupplierController@create');
+
+//master->project
+Route::get('/project', 'ProjectController@index')->name('project');
+Route::get('/project/create','ProjectController@create');
+
+
 
 

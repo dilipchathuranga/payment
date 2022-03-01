@@ -89,6 +89,9 @@ $(document).ready(function(){
 
     // menu active
     $(".branch_route").addClass('active');
+    $(".bank_tree").addClass('active');
+    $(".bank_tree_open").addClass('menu-open');
+    $(".bank_tree_open").addClass('menu-is-opening');
 
     //csrf token error
     $.ajaxSetup({
