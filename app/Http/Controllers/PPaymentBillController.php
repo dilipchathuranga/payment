@@ -196,55 +196,13 @@ class PPaymentBillController extends Controller
 
     }
 
-    public function default(Request $request)
+    public function priority(Request $request)
     {
         try{
             DB::beginTransaction();
 
             $p_payment_bill = p_payment_bill::find($request->id);
-            $p_payment_bill->priority = 'D';
-
-            $p_payment_bill->save();
-
-            DB::commit();
-            return response()->json(['db_success' => 'Payment Bill Priority Added']);
-
-        }catch(\Throwable $th){
-            DB::rollback();
-            throw $th;
-            return response()->json(['db_error' =>'Database Error'.$th]);
-        }
-
-    }
-
-    public function hold(Request $request)
-    {
-        try{
-            DB::beginTransaction();
-
-            $p_payment_bill = p_payment_bill::find($request->id);
-            $p_payment_bill->priority = 'H';
-
-            $p_payment_bill->save();
-
-            DB::commit();
-            return response()->json(['db_success' => 'Payment Bill Priority Added']);
-
-        }catch(\Throwable $th){
-            DB::rollback();
-            throw $th;
-            return response()->json(['db_error' =>'Database Error'.$th]);
-        }
-
-    }
-
-    public function agent(Request $request)
-    {
-        try{
-            DB::beginTransaction();
-
-            $p_payment_bill = p_payment_bill::find($request->id);
-            $p_payment_bill->priority = 'U';
+            $p_payment_bill->priority = $request->data;
 
             $p_payment_bill->save();
 

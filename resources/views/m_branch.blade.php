@@ -161,7 +161,7 @@ $(document).ready(function(){
         $("#hid").val(id);
         $("#modal").modal('show');
         $(".modal-title").html('Edit Branch');
-        $("#submit").html('Update Bank');
+        $("#submit").html('Update Branch');
             $.ajax({
                 'type': 'ajax',
                 'dataType': 'json',
@@ -185,32 +185,43 @@ $(document).ready(function(){
             var bank_id =$("#bank_id").val();
             var name =$("#name").val();
             var code =$("#code").val();
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Update it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                            $.ajax({
+                                'type': 'ajax',
+                                'dataType': 'json',
+                                'method': 'put',
+                                'data' : {bank_id:bank_id,name:name,code:code},
+                                'url': 'branch/'+id,
+                                'async': false,
+                                success:function(data){
+                                if(data.validation_error){
+                                    validation_error(data.validation_error);//if has validation error call this function
+                                    }
 
-            $.ajax({
-                'type': 'ajax',
-                'dataType': 'json',
-                'method': 'put',
-                'data' : {bank_id:bank_id,name:name,code:code},
-                'url': 'branch/'+id,
-                'async': false,
-                success:function(data){
-                if(data.validation_error){
-                    validation_error(data.validation_error);//if has validation error call this function
-                    }
+                                    if(data.db_error){
+                                    db_error(data.db_error);
+                                    }
 
-                    if(data.db_error){
-                    db_error(data.db_error);
-                    }
-
-                    if(data.db_success){
-                        toastr.success(data.db_success);
-                    setTimeout(function(){
-                        $("#modal").modal('hide');
-                        location.reload();
-                    }, 1000);
-                    }
-                },
-            });
+                                    if(data.db_success){
+                                        toastr.success(data.db_success);
+                                    setTimeout(function(){
+                                        $("#modal").modal('hide');
+                                        location.reload();
+                                    }, 1000);
+                                    }
+                                },
+                            });
+                        }
+                });
             }
         });
     });

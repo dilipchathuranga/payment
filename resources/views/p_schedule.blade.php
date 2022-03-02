@@ -3,19 +3,6 @@
 
 @section('content')
 
-@if ($result->status=='A')
-    <style>
-    .all_approve{
-            display: none;
-        }
-    </style>
-@else
-    <style>
-        .all_approve{
-                display: block;
-            }
-    </style>
-@endif
 <!-- view payment bill modal -->
 <div class="modal fade " id="modal1" >
     <div class="modal-dialog modal-xl  modal-dialog-centered">
@@ -30,7 +17,7 @@
         <div class="modal-body">
             <div class="card card-outline card-warning">
                 <div class="card-body">
-                    <button class="btn btn-success all_approve"> Approve All Bill</button>
+                    <button class="btn btn-success all_approve" style="display: none"> Approve All Bill</button>
                     <table class="table table-hover" id="account_table" >
                         <thead>
                             <tr>
@@ -162,23 +149,24 @@ var acc_table;
 
     $(document).on('click', '.view_bill', function(){
 
-    var id = $(this).attr('data');
+        var id = $(this).attr('data');
+        $("#modal1").modal('show');
+
         $.ajax({
             'type': 'ajax',
             'dataType': 'json',
             'method': 'get',
-            'url': 'payment_schedule/view_payemt_bill/'+id,
+            'url': 'payment_schedule/check_schedule/'+id,
             'async': false,
-            success: function(){
-                show_account_table(id);
-                $("#modal1").modal('show');
+             success: function(data){
+                if(data==true){
+                    $(".all_approve").css("display","block");
+                }else{
+                    $(".all_approve").css("display","none");
+                }
 
-            }
-
+            },
         });
-    });
-
-    function show_account_table(id){
 
         $('#account_table').DataTable().clear();
         $('#account_table').DataTable().destroy();
@@ -217,7 +205,7 @@ var acc_table;
                     },
                 ]
         });
-    }
+    });
 
     $(document).on('click', '.all_approve', function(){
        var acc_tables=$('#account_table').DataTable().column(0).data().toArray();
@@ -244,6 +232,7 @@ var acc_table;
                             success: function(data){
 
                                 if(data){
+                                    $(".all_approve").css("display", "none");
                                     toastr.success(data.db_success);
                                     setTimeout(function(){
                                         $('#account_table').DataTable().ajax.reload();
@@ -261,24 +250,6 @@ var acc_table;
         });
 
     });
-
-    $(document).on('click', '.view_bill', function(){
-
-        var id = $(this).attr('data');
-            $.ajax({
-                'type': 'ajax',
-                'dataType': 'json',
-                'method': 'get',
-                'url': 'payment_schedule/show_approve/'+id,
-                'async': false,
-                success: function(){
-
-                }
-
-            });
-    });
-
-
     //pending delete payment bills
     $(document).on('click', '.delete', function(){
 

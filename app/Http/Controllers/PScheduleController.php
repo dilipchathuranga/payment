@@ -17,9 +17,7 @@ class PScheduleController extends Controller
 
     public function index()
     {
-        $result = p_payment_bill_schedule::all();
-        return view('p_schedule')->with([
-                                    'result'=> $result[0] ]);
+        return view('p_schedule');
     }
 
     public function create(){
@@ -96,12 +94,17 @@ class PScheduleController extends Controller
             }
 
     }
-    public function show_approve($id)
+    public function check_schedule($id)
     {
+        $result = DB::table('p_payment_bill_schedules')
+                            ->where('p_payment_bill_schedules.schedule_id',$id)
+                            ->where('p_payment_bill_schedules.status','P')
+                            ->get();
+                        if(count($result) == 0){
+                                return response()->json(false);
+                        }else{
+                                return response()->json(true);
+                            }
 
-        $result = p_payment_bill_schedule::where(['schedule_id'=> $id])->get();
-
-        return view('p_schedule')->with([
-                                        'result'=> $result[0] ]);
     }
 }

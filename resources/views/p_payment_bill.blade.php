@@ -1247,7 +1247,6 @@
 
                         html+="<button class='btn btn-success btn-sm receive' data='"+d.id+"' title='Recieve Bill'><i class='fas fa-arrow-circle-right'></i></button>";
                         html+="&nbsp;<button class='btn btn-warning btn-sm more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"'><i class='fas fa-info-circle' title='more'></i></button>";
-                        html+="&nbsp;&nbsp;<td><div class='btn-group'><button  class='btn btn-sm btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Priority</button><div class='dropdown-menu'><a class='dropdown-item default' data='"+d.id+"'>Default</a><a class='dropdown-item hold' data='"+d.id+"'>Hold</a><a class='dropdown-item agent' data='"+d.id+"'> Ugent</a></div> </div></td>"
                         return html;
                     }
                 }
@@ -1318,7 +1317,7 @@
 
                     html+="<button class='btn btn-warning btn-sm more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"' title='more'><i class='fas fa-info-circle'></i></button>";
 
-                    html+="&nbsp;&nbsp;<td><div class='btn-group'><button  class='btn btn-sm btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Priority</button><div class='dropdown-menu'><a class='dropdown-item default' data='"+d.id+"'>Default</a><a class='dropdown-item hold' data='"+d.id+"'>Hold</a><a class='dropdown-item agent' data='"+d.id+"'> Ugent</a></div> </div></td>"
+                    html+="&nbsp;&nbsp;<td><div class='btn-group'><button  class='btn btn-sm btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Priority</button><div class='dropdown-menu'><a class='dropdown-item priority' data='"+d.id+"' data-id='D'>Default</a><a class='dropdown-item priority' data='"+d.id+"' data-id='H'>Hold</a><a class='dropdown-item priority' data='"+d.id+"' data-id='U'> Ugent</a></div> </div></td>"
 
                     return html;
                 }
@@ -1328,6 +1327,46 @@
 
 
     }
+
+    $(document).on('click', '.priority', function(){
+        var id = $(this).attr('data');
+        var data = $(this).attr('data-id');
+
+        Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Update it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            'type': 'ajax',
+                            'dataType': 'json',
+                            'method': 'put',
+                            'url': 'payment_bill/priority/'+id,
+                            'data' : {data:data },
+                            'async': false,
+                            success: function(data){
+
+                            if(data){
+                                toastr.success('Payment Bill Status Changed');
+                                setTimeout(function(){
+                                    $('#dataTable').DataTable().ajax.reload();
+                                }, 500);
+
+                            }
+
+                            }
+                        });
+
+                    }
+
+            });
+    });
+
 
     $(document).on('click', '.more', function(){
 
@@ -1361,121 +1400,6 @@
 
 
     });
-
-
-    $(document).on('click', '.default', function(){
-
-            var id = $(this).attr('data');
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Update it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            'type': 'ajax',
-                            'dataType': 'json',
-                            'method': 'put',
-                            'url': 'payment_bill/default/'+id,
-                            'async': false,
-                            success: function(data){
-
-                            if(data){
-                                toastr.success('Payment Bill Status Changed');
-                                setTimeout(function(){
-                                    $('#dataTable').DataTable().ajax.reload();
-                                }, 500);
-
-                            }
-
-                            }
-                        });
-
-                    }
-
-            });
-    });
-
-    $(document).on('click', '.hold', function(){
-
-        var id = $(this).attr('data');
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, Update it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    'type': 'ajax',
-                                    'dataType': 'json',
-                                    'method': 'put',
-                                    'url': 'payment_bill/hold/'+id,
-                                    'async': false,
-                                    success: function(data){
-
-                                    if(data){
-                                        toastr.success('Payment Bill Status Changed');
-                                        setTimeout(function(){
-                                            $('#dataTable').DataTable().ajax.reload();
-                                        }, 500);
-
-                                    }
-
-                                    }
-                                });
-
-                            }
-
-                    });
-        });
-
-        $(document).on('click', '.agent', function(){
-
-            var id = $(this).attr('data');
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Update it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            'type': 'ajax',
-                            'dataType': 'json',
-                            'method': 'put',
-                            'url': 'payment_bill/agent/'+id,
-                            'async': false,
-                            success: function(data){
-
-                            if(data){
-                                toastr.success('Payment Bill Status Changed');
-                                setTimeout(function(){
-                                    $('#dataTable').DataTable().ajax.reload();
-                                }, 500);
-
-                            }
-
-                            }
-                        });
-
-                    }
-
-            });
-});
 
     function get_pending_bills(){
 
