@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\supplier;
+use App\m_supplier;
 use Illuminate\Http\Request;
 
-class SupplierController extends Controller
+class MSupplierController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -14,11 +15,11 @@ class SupplierController extends Controller
 
     public function index()
     {
-        return view('supplier');
+        return view('m_supplier');
     }
     public function create(){
 
-        $result = supplier::all();
+        $result = m_supplier::all();
 
         return DataTables($result)->make(true);
     }

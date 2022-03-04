@@ -127,7 +127,7 @@ $(document).ready(function(){
                     }
 
                     if(data.db_success){
-                    db_success(data.db_success);
+                        toastr.success(data.db_success);
                     setTimeout(function(){
                         $("#modal").modal('hide');
                         location.reload();
@@ -165,11 +165,7 @@ $(document).ready(function(){
                         success: function(data){
 
                         if(data){
-                            Swal.fire(
-                                'Deleted!',
-                                'Attachment has been deleted.',
-                                'success'
-                            );
+                            toastr.success("Attachment Delete");
                             setTimeout(function(){
                             location.reload();
                             }, 2000);

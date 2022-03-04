@@ -258,9 +258,6 @@ $(document).ready(function(){
     });
 
 
-
-
-
     $(document).on("click",".change_status",function(){
         var id = $(this).attr('data-id');
         var data = $(this).attr('data');
@@ -287,7 +284,7 @@ $(document).ready(function(){
                         if(data){
                             toastr.success(data.db_success);
                             setTimeout(function(){
-                            location.reload();
+                                $('#tbl_bank_account').DataTable().ajax.reload();
                             }, 2000);
 
                         }
@@ -341,7 +338,7 @@ $(document).ready(function(){
                     }
 
                     if(data.db_success){
-                    db_success(data.db_success);
+                        toastr.success(data.db_success);
                     setTimeout(function(){
                         $("#modal").modal('hide');
                         location.reload();
@@ -422,34 +419,34 @@ $(document).ready(function(){
                         }).then((result) => {
                             if (result.isConfirmed) {
 
-                            $.ajax({
-                                'type': 'ajax',
-                                'dataType': 'json',
-                                'method': 'put',
-                                'data' : {supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
-                                'url': 'bank_account/'+id,
-                                'async': false,
-                                success:function(data){
-                                if(data.validation_error){
-                                    validation_error(data.validation_error);//if has validation error call this function
-                                    }
+                                $.ajax({
+                                    'type': 'ajax',
+                                    'dataType': 'json',
+                                    'method': 'put',
+                                    'data' : {supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
+                                    'url': 'bank_account/'+id,
+                                    'async': false,
+                                    success:function(data){
+                                    if(data.validation_error){
+                                        validation_error(data.validation_error);//if has validation error call this function
+                                        }
 
-                                    if(data.db_error){
-                                    db_error(data.db_error);
-                                    }
+                                        if(data.db_error){
+                                        db_error(data.db_error);
+                                        }
 
-                                    if(data.db_success){
-                                    toastr.success(data.db_success);
-                                    setTimeout(function(){
-                                        $("#modal").modal('hide');
-                                        location.reload();
-                                    }, 2000);
-                                    }
-                                },
-                            });
-                        }
-                });
-            }
+                                        if(data.db_success){
+                                        toastr.success(data.db_success);
+                                        setTimeout(function(){
+                                            $("#modal").modal('hide');
+                                            location.reload();
+                                        }, 2000);
+                                        }
+                                    },
+                                });
+                            }
+                        });
+                }
         });
     });
 

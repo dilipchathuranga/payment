@@ -50,6 +50,7 @@ Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
 Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status');
 Route::get('/get_accounts_by_supplier/{id}', 'MBankAccountController@get_accounts');
 
+
 //payment->payment bill
 Route::get('/payment_bill', 'PPaymentBillController@index')->name('payment_bill');
 Route::post('/payment_bill/bulk_bill_receive', 'PPaymentBillController@bulk_bill_receive');
@@ -81,17 +82,17 @@ Route::get('/bank_account_attachment/create','MBankAccountAttachmentController@c
 Route::get('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@show');
 Route::put('/bank_account_attachments/{id}', 'MBankAccountAttachmentController@update');
 Route::delete('/bank_account_attachment/{id}', 'MBankAccountAttachmentController@destroy');
-Route::get('/bank_account_attach ment/show_table/{id}', 'MBankAccountAttachmentController@show_table');
+Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentController@show_table');
 Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_attachment');
 Route::get('/bank_account_attachment/download/{any}', 'MBankAccountAttachmentController@download');
 
 //master->supplier
-Route::get('/supplier', 'SupplierController@index')->name('supplier');
-Route::get('/supplier/create','SupplierController@create');
+Route::get('/supplier', 'MSupplierController@index')->name('supplier');
+Route::get('/supplier/create','MSupplierController@create');
 
 //master->project
-Route::get('/project', 'ProjectController@index')->name('project');
-Route::get('/project/create','ProjectController@create');
+Route::get('/project', 'MProjectController@index')->name('project');
+Route::get('/project/create','MProjectController@create');
 
 
 

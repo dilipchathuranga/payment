@@ -124,20 +124,20 @@ class PPaymentBillController extends Controller
 
     public function pending_payment_bills_datatable(Request $request){
 
-        $project_id = $request->project_id;
-        $supplier_id = $request->supplier_id;
+        $maser_no = $request->maser_no;
+        $bp_no = $request->bp_no;
         $module = $request->module;
         $invoice_month = $request->invoice_month;
 
         $result = DB::table('p_payment_bills')
             ->where('p_payment_bills.status', 0);
 
-        if($project_id != null){
-            $result= $result->where('p_payment_bills.project_id', '=', $project_id);
+        if($maser_no != null){
+            $result= $result->where('p_payment_bills.maser_no', '=', $maser_no);
         }
 
-        if($supplier_id != null){
-            $result= $result->where('p_payment_bills.supplier_id', '=', $supplier_id);
+        if($bp_no != null){
+            $result= $result->where('p_payment_bills.bp_no', '=', $bp_no);
         }
 
         if($module != null){
@@ -165,20 +165,20 @@ class PPaymentBillController extends Controller
 
     public function received_payment_bills_datatable(Request $request){
 
-        $project_id = $request->project_id;
-        $supplier_id = $request->supplier_id;
+        $maser_no = $request->maser_no;
+        $bp_no = $request->bp_no;
         $module = $request->module;
         $invoice_month = $request->invoice_month;
 
         $result = DB::table('p_payment_bills')
             ->where('p_payment_bills.status', 1);
 
-        if($project_id != null){
-            $result= $result->where('p_payment_bills.project_id', '=', $project_id);
+        if($maser_no != null){
+            $result= $result->where('p_payment_bills.maser_no', '=', $maser_no);
         }
 
-        if($supplier_id != null){
-            $result= $result->where('p_payment_bills.supplier_id', '=', $supplier_id);
+        if($bp_no != null){
+            $result= $result->where('p_payment_bills.bp_no', '=', $bp_no);
         }
 
         if($module != null){

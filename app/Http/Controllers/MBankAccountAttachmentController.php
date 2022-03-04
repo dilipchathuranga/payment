@@ -81,13 +81,15 @@ class MBankAccountAttachmentController extends Controller
 
     public function destroy($id){
 
-        $result=m_bank_account_attachment::find($id);
-        $img=$result->document_path;
-        if(File::exists($img)){
-            $delete= File::delete($img);
-        }
-        $acc_attachment=$result->delete();
-        return response($acc_attachment);
+
+                $result=m_bank_account_attachment::find($id);
+                $img=$result->document_path;
+                if(File::exists($img)){
+                    $delete= File::delete($img);
+                }
+
+                $acc_attachment=$result->delete();
+                return response($acc_attachment);
 
     }
 

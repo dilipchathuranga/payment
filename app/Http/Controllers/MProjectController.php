@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\project;
+use App\m_project;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class MProjectController extends Controller
 {
     public function __construct()
     {
@@ -14,11 +14,11 @@ class ProjectController extends Controller
 
     public function index()
     {
-        return view('project');
+        return view('m_project');
     }
     public function create(){
 
-        $result = project::all();
+        $result = m_project::all();
 
         return DataTables($result)->make(true);
     }

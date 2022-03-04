@@ -79,7 +79,7 @@ class PScheduleController extends Controller
                     $p_payment_bill_schedule->save();
                 }
 
-                $p_schedule=p_schedule::find($request->p_scheduleid[0]);
+                $p_schedule=p_schedule::find($request->p_schedule_id[0]);
                 $p_schedule->status = 'A';
 
                 $p_schedule->save();

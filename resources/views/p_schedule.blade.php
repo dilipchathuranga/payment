@@ -209,7 +209,7 @@ var acc_table;
 
     $(document).on('click', '.all_approve', function(){
        var acc_tables=$('#account_table').DataTable().column(0).data().toArray();
-       var p_scheduleid=$('#account_table').DataTable().column(1).data().toArray();
+       var p_schedule_id=$('#account_table').DataTable().column(1).data().toArray();
 
 
        Swal.fire({
@@ -228,7 +228,7 @@ var acc_table;
                             'method': 'put',
                             'url': 'payment_schedule/add_all_approve',
                             'async': false,
-                            'data':{acc_tables:acc_tables,p_scheduleid:p_scheduleid},
+                            'data':{acc_tables:acc_tables,p_schedule_id:p_schedule_id},
                             success: function(data){
 
                                 if(data){
