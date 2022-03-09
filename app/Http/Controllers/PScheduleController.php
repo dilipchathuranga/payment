@@ -32,7 +32,7 @@ class PScheduleController extends Controller
         $result = DB::table('p_payment_bill_schedules')
                             ->where('p_payment_bill_schedules.schedule_id',$id)
                             ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
-                            ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id','p_payment_bill_schedules.schedule_id AS p_scheduleid')
+                            ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id','p_payment_bill_schedules.schedule_id AS p_schedule_id')
                             ->get();
 
             return DataTables($result)->make(true);
@@ -69,23 +69,24 @@ class PScheduleController extends Controller
     public function add_all_approve(Request $request)
     {
         try{
+            
             DB::beginTransaction();
-                $approve=$request->acc_tables;
-                $p=count($approve);
-                for($i=0;$i<$p;$i++){
+            
+                for($i=0; $i< sizeof($request->acc_tables) ;$i++){
+                    
                     $p_payment_bill_schedule = p_payment_bill_schedule::find($request->acc_tables[$i]);
                     $p_payment_bill_schedule->status = 'A';
 
                     $p_payment_bill_schedule->save();
                 }
 
-                $p_schedule=p_schedule::find($request->p_schedule_id[0]);
+                $p_schedule=p_schedule::find($request->p_schedule_id);
                 $p_schedule->status = 'A';
 
                 $p_schedule->save();
 
-                DB::commit();
-                return response()->json(['db_success' => 'Payment Bill Schedule Status Added']);
+            DB::commit();
+            return response()->json(['db_success' => 'Payment Bill Schedule Status Added']);
 
         }catch(\Throwable $th){
                 DB::rollback();
@@ -94,17 +95,22 @@ class PScheduleController extends Controller
             }
 
     }
-    public function check_schedule($id)
-    {
-        $result = DB::table('p_payment_bill_schedules')
-                            ->where('p_payment_bill_schedules.schedule_id',$id)
-                            ->where('p_payment_bill_schedules.status','P')
-                            ->get();
-                        if(count($result) == 0){
-                                return response()->json(false);
-                        }else{
-                                return response()->json(true);
-                            }
-
+    
+    public function check_schedule($id){
+        
+        $result = DB::table("p_payment_bill_schedules")
+                        ->where("p_payment_bill_schedules.schedule_id", $id)
+                        ->where("p_payment_bill_schedules.status", "P")
+                        ->get();
+                        
+                        
+        if($result->count() == 0){
+            return response()->json(false);
+        }else{
+            return response()->json(true);
+        }
+        
     }
+    
+    
 }

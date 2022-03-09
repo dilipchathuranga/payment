@@ -17,12 +17,12 @@
         <div class="modal-body">
             <div class="card card-outline card-warning">
                 <div class="card-body">
-                    <button class="btn btn-success all_approve" style="display: none"> Approve All Bill</button>
+                    <button class="btn btn-success all_approve" style="display:none"> Approve all Bills</button>
                     <table class="table table-hover" id="account_table" >
                         <thead>
                             <tr>
                                 <th style="display:none;">Schedule ID</th>
-                                <th style="display:none;">p_scheduleid</th>
+                                <th style="display:none;">p_schedule_id</th>
                                 <th style="font-size: 12px;">Module</th>
                                 <th style="font-size: 12px;">Invoice Date</th>
                                 <th style="font-size: 12px;">Project</th>
@@ -104,6 +104,7 @@ var acc_table;
 
     //Data Table show
     function show_schedules(){
+        
             $('#tbl_schedule').DataTable().clear();
             $('#tbl_schedule').DataTable().destroy();
 
@@ -150,24 +151,28 @@ var acc_table;
     $(document).on('click', '.view_bill', function(){
 
         var id = $(this).attr('data');
+     
         $("#modal1").modal('show');
-
+        
+        // check if all bills are approved
         $.ajax({
             'type': 'ajax',
             'dataType': 'json',
             'method': 'get',
             'url': 'payment_schedule/check_schedule/'+id,
             'async': false,
-             success: function(data){
-                if(data==true){
-                    $(".all_approve").css("display","block");
+            success: function(data){
+    
+                if(data == true){
+                    $(".all_approve").css("display", "block");
                 }else{
-                    $(".all_approve").css("display","none");
+                    $(".all_approve").css("display", "none");
                 }
-
-            },
+            
+            }
         });
-
+        
+    
         $('#account_table').DataTable().clear();
         $('#account_table').DataTable().destroy();
 
@@ -178,11 +183,11 @@ var acc_table;
             "bLengthChange": false,
             'ajax': {
                 'method': 'get',
-                'url': 'payment_schedule/view_payemt_bill/'+id,
+                'url': 'payment_schedule/view_payment_bill/'+id,
             },
                 'columns': [
                     {data: 'schedule_id',"visible": false},
-                    {data: 'p_scheduleid',"visible": false},
+                    {data: 'p_schedule_id',"visible": false},
                     {data: 'module'},
                     {data: 'invoice_date'},
                     {data: 'project_name'},
@@ -205,12 +210,18 @@ var acc_table;
                     },
                 ]
         });
+            
     });
 
-    $(document).on('click', '.all_approve', function(){
-       var acc_tables=$('#account_table').DataTable().column(0).data().toArray();
-       var p_schedule_id=$('#account_table').DataTable().column(1).data().toArray();
 
+    $(document).on('click', '.all_approve', function(){
+        
+       var acc_tables=$('#account_table').DataTable().column(0).data().toArray();
+       var p_schedule=$('#account_table').DataTable().column(1).data().toArray();
+       
+       var p_schedule_id=p_schedule[0];
+
+    
 
        Swal.fire({
                 title: 'Are you sure?',
@@ -250,6 +261,7 @@ var acc_table;
         });
 
     });
+
     //pending delete payment bills
     $(document).on('click', '.delete', function(){
 

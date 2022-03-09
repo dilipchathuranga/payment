@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="maser_no_s1" id="maser_no_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                        <select name="project_id_s1" id="project_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by project --</option>
 
                                             </select>
@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="bp_no_s1" id="bp_no_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                        <select name="supplier_id_s1" id="supplier_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by supplier --</option>
 
                                             </select>
@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="maser_no_s2" id="maser_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                        <select name="project_id_s2" id="project_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by project --</option>
 
                                             </select>
@@ -210,7 +210,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="bp_no_s2" id="bp_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                        <select name="supplier_id_s2" id="supplier_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by supplier --</option>
 
                                             </select>
@@ -306,32 +306,32 @@
 <div class="modal fade " id="modal2" >
     <div class="modal-dialog modal-xl  modal-dialog-centered">
       <div class="modal-content" >
-            <div class="modal-header">
-                <h5 class="modal-title">Select Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card card-outline card-danger">
-                    <div class="card-body">
-                        <table class="table table-hover" id="account_table" >
-                            <thead>
-                                <tr>
-                                    <th style="font-size: 12px;">Bank</th>
-                                    <th style="font-size: 12px;">Branch</th>
-                                    <th style="font-size: 12px;">Account No</th>
-                                    <th style="font-size: 12px;">Account Name</th>
-                                    <th style="font-size: 12px;">Action</th>
-                                    <th style="display:none;">Supplier ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="modal-header">
+            <h5 class="modal-title">Select Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card card-outline card-danger">
+                <div class="card-body">
+                    <table class="table table-hover" id="account_table" >
+                        <thead>
+                            <tr>
+                                <th style="font-size: 12px;">Bank</th>
+                                <th style="font-size: 12px;">Branch</th>
+                                <th style="font-size: 12px;">Account No</th>
+                                <th style="font-size: 12px;">Account Name</th>
+                                <th style="font-size: 12px;">Action</th>
+                                <th style="display:none;">Supplier ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
       </div>
     </div>
 </div>
@@ -459,7 +459,7 @@
                   </div>
                   <div class="col-md-6">
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
-                      <select name="maser_no_s" id="maser_no_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                      <select name="project_id_s" id="project_id_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                           <option value="">-- search by project --</option>
 
                           </select>
@@ -472,7 +472,7 @@
                   </div>
                   <div class="col-md-6">
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
-                      <select name="bp_no_s" id="bp_no_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                      <select name="supplier_id_s" id="supplier_id_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                           <option value="">-- search by supplier --</option>
 
                           </select>
@@ -603,11 +603,11 @@
 
         });
 
-        $(document).on('change', '#maser_no_s', function(){
+        $(document).on('change', '#project_id_s', function(){
             show_session_bills();
         })
 
-        $(document).on("change","#bp_no_s", function(){
+        $(document).on("change","#supplier_id_s", function(){
             show_session_bills();
         });
 
@@ -670,8 +670,8 @@
                         pending_bills[i].supplier_name,
                         pending_bills[i].amount,
                     "<button class='btn btn-success btn-sm add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
-                        pending_bills[i].maser_no,
-                        pending_bills[i].bp_no
+                        pending_bills[i].project_id,
+                        pending_bills[i].supplier_id
                     ]).draw();
 
                 }
@@ -679,7 +679,7 @@
             }
 
             //pending table search
-            $(document).on('change', '#maser_no_s1', function(){
+            $(document).on('change', '#project_id_s1', function(){
                 var value = $(this).val();
                 if(value!= ""){
                     pending_table.columns(6).search(value).draw();
@@ -689,7 +689,7 @@
 
             });
 
-            $(document).on("change","#bp_no_s1", function(){
+            $(document).on("change","#supplier_id_s1", function(){
                 var value = $(this).val();
                 if(value!= ""){
                     pending_table.columns(7).search(value).draw();
@@ -742,9 +742,9 @@
                     var project=(row.find('td:nth-child(3)').text());
                     var supplier=(row.find('td:nth-child(4)').text());
                     var amount=(row.find('td:nth-child(5)').text());
-                    var maser_no=(row.find('td:nth-child(6)').text());
-                    var bp_no=(row.find('td:nth-child(7)').text());
-                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-sm btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",maser_no,bp_no
+                    var project_id=(row.find('td:nth-child(6)').text());
+                    var supplier_id=(row.find('td:nth-child(7)').text());
+                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-sm btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",project_id,supplier_id
                     ]).draw();
                     pending_table.row(row).remove().draw();
 
@@ -765,15 +765,15 @@
                 var project=(row.find('td:nth-child(3)').text());
                 var supplier=(row.find('td:nth-child(4)').text());
                 var amount=(row.find('td:nth-child(5)').text());
-                var maser_no=(row.find('td:nth-child(6)').text());
-                var bp_no=(row.find('td:nth-child(7)').text());
+                var project_id=(row.find('td:nth-child(6)').text());
+                var supplier_id=(row.find('td:nth-child(7)').text());
 
                 const index = recieving_bill.indexOf(bill_id);
 
                 if (index > -1) {
                     recieving_bill.splice(index, 1);
 
-                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-sm add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",maser_no,bp_no
+                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-sm add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",project_id,supplier_id
                     ]).draw();
 
                     receiving_table.row(row).remove().draw();
@@ -907,9 +907,9 @@
                         received_bills[i].project_name,
                         received_bills[i].supplier_name,
                         received_bills[i].amount,
-                    "<button class='btn btn-success btn-sm add' data='"+ received_bills[i].id+"'  data-bp_no='"+received_bills[i].bp_no+"' data-maser_no='"+received_bills[i].maser_no+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
-                        received_bills[i].maser_no,
-                        received_bills[i].bp_no
+                    "<button class='btn btn-success btn-sm add' data='"+ received_bills[i].id+"'  data-supplier_id='"+received_bills[i].supplier_id+"' data-project_id='"+received_bills[i].project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
+                        received_bills[i].project_id,
+                        received_bills[i].supplier_id
                     ]).draw();
 
                 }
@@ -920,15 +920,15 @@
             $("#received_table tbody").on('click','.add',function(){
                 $("#modal2").modal('show');
                 var bill_id = $(this).attr('data');
-                var bp_no = $(this).attr('data-bp_no');
-                var maser_no = $(this).attr('data-maser_no');
+                var supplier_id = $(this).attr('data-supplier_id');
+                var project_id = $(this).attr('data-project_id');
                 var row = $(this).parents('tr');
 
                 $.ajax({
                     'type': 'ajax',
                     'dataType': 'json',
                     'method': 'get',
-                    'url': '/get_accounts_by_supplier/'+bp_no,
+                    'url': '/get_accounts_by_supplier/'+supplier_id,
                     'async': false,
                     success: function(data){
 
@@ -952,7 +952,7 @@
                             data[i].account_no,
                             data[i].account_name,
                             "<button class='btn btn-primary btn-sm add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
-                            data[i].bp_no
+                            data[i].supplier_id
                             ]).draw();
 
 
@@ -1018,9 +1018,9 @@
                             supplier,
                             amount,
                             account_no,
-                            "<button class='btn btn-sm btn-danger remove' data='"+bill_id+"' data-bp_no='"+bp_no+"' data-maser_no='"+maser_no+"'><i class='fas fa-arrow-left'></i></button>",
-                            maser_no,
-                            bp_no
+                            "<button class='btn btn-sm btn-danger remove' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"'><i class='fas fa-arrow-left'></i></button>",
+                            project_id,
+                            supplier_id
                         ]).draw();
 
 
@@ -1047,8 +1047,8 @@
                 var project=(row.find('td:nth-child(3)').text());
                 var supplier=(row.find('td:nth-child(4)').text());
                 var amount=(row.find('td:nth-child(5)').text());
-                var maser_no= $(this).attr('data-maser_no');
-                var bp_no= $(this).attr('data-bp_no');
+                var project_id= $(this).attr('data-project_id');
+                var supplier_id= $(this).attr('data-supplier_id');
 
 
                 for(var i=0; i < schedule_bill.length; i++){
@@ -1065,9 +1065,9 @@
                                         project,
                                         supplier,
                                         amount,
-                                        "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-bp_no='"+bp_no+"' data-maser_no='"+maser_no+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
-                                        maser_no,
-                                        bp_no
+                                        "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
+                                        project_id,
+                                        supplier_id
                                     ]).draw();
 
                 schedule_table.row(row).remove().draw();
@@ -1123,7 +1123,7 @@
 
 
             //received table search
-            $(document).on('change', '#maser_no_s2 ', function(){
+            $(document).on('change', '#project_id_s2 ', function(){
                 var value = $(this).val();
                 if(value!= ""){
                     received_table.columns(6).search(value).draw();
@@ -1133,7 +1133,7 @@
 
             });
 
-            $(document).on("change","#bp_no_s2", function(){
+            $(document).on("change","#supplier_id_s2", function(){
                 var value = $(this).val();
                 if(value!= ""){
                     received_table.columns(7).search(value).draw();
@@ -1193,8 +1193,8 @@
         $(".bulk_receive").css("display", "block");
         $(".new_schedule").css("display", "none");
 
-        var maser_no = $("#maser_no_s").val();
-        var bp_no = $("#bp_no_s").val();
+        var project_id = $("#project_id_s").val();
+        var supplier_id = $("#supplier_id_s").val();
         var module = $("#module_s").val();
         var invoice_month = $("#invoice_month_s").val();
 
@@ -1208,7 +1208,7 @@
             'searching': false,
             'ajax': {
                         'method': 'post',
-                        'data': {maser_no:maser_no, bp_no:bp_no, module:module, invoice_month:invoice_month},
+                        'data': {project_id:project_id, supplier_id:supplier_id, module:module, invoice_month:invoice_month},
                         'url': 'payment_bill/pending_payment_bills_datatable'
             },
             'columns': [
@@ -1247,6 +1247,7 @@
 
                         html+="<button class='btn btn-success btn-sm receive' data='"+d.id+"' title='Recieve Bill'><i class='fas fa-arrow-circle-right'></i></button>";
                         html+="&nbsp;<button class='btn btn-warning btn-sm more' data='"+d.id+"' data-project='"+d.project_name+"' data-supplier='"+d.supplier_name+"' data-module='"+d.module+"' data-invoicedate='"+d.invoice_date+"'  data-billrefference='"+d.bill_refference+"' data-picno='"+d.pic_no+"' data-amount='"+d.amount+"'  data-receiveddate='"+d.received_date+"'><i class='fas fa-info-circle' title='more'></i></button>";
+                        
                         return html;
                     }
                 }
@@ -1264,8 +1265,8 @@
         $(".bulk_receive").css("display", "none");
         $(".new_schedule").css("display", "block");
 
-        var maser_no = $("#maser_no_s").val();
-        var bp_no = $("#bp_no_s").val();
+        var project_id = $("#project_id_s").val();
+        var supplier_id = $("#supplier_id_s").val();
         var module = $("#module_s").val();
         var invoice_month = $("#invoice_month_s").val();
 
@@ -1279,7 +1280,7 @@
             'searching': false,
             'ajax': {
                         'method': 'post',
-                        'data': {maser_no:maser_no, bp_no:bp_no, module:module, invoice_month:invoice_month},
+                        'data': {project_id:project_id, supplier_id:supplier_id, module:module, invoice_month:invoice_month},
                         'url': 'payment_bill/received_payment_bills_datatable'
             },
             'columns': [
@@ -1328,6 +1329,40 @@
 
     }
 
+    $(document).on('click', '.more', function(){
+
+        var id = $(this).attr('data');
+
+        var project_name = $(this).attr('data-project');
+        $("#project_name").val(project_name);
+
+        var supplier_name = $(this).attr('data-supplier');
+        $("#supplier_name").val(supplier_name);
+
+        var module = $(this).attr('data-module');
+        $("#module").val(module);
+
+        var invoicedate = $(this).attr('data-invoicedate');
+        $("#invoice_date").val(invoicedate);
+
+        var bill_refference = $(this).attr('data-billrefference');
+        $("#bill_refference").val(bill_refference);
+
+        var pic_no = $(this).attr('data-picno');
+        $("#pic_no").val(pic_no);
+
+        var amount = $(this).attr('data-amount');
+        $("#amount").val(amount);
+
+        var received_date = $(this).attr('data-receiveddate');
+        $("#received_date").val(received_date);
+
+        $("#modal3").modal('show');
+
+
+    });
+
+
     $(document).on('click', '.priority', function(){
         var id = $(this).attr('data');
         var data = $(this).attr('data-id');
@@ -1366,41 +1401,7 @@
 
             });
     });
-
-
-    $(document).on('click', '.more', function(){
-
-        var id = $(this).attr('data');
-
-        var project_name = $(this).attr('data-project');
-        $("#project_name").val(project_name);
-
-        var supplier_name = $(this).attr('data-supplier');
-        $("#supplier_name").val(supplier_name);
-
-        var module = $(this).attr('data-module');
-        $("#module").val(module);
-
-        var invoicedate = $(this).attr('data-invoicedate');
-        $("#invoice_date").val(invoicedate);
-
-        var bill_refference = $(this).attr('data-billrefference');
-        $("#bill_refference").val(bill_refference);
-
-        var pic_no = $(this).attr('data-picno');
-        $("#pic_no").val(pic_no);
-
-        var amount = $(this).attr('data-amount');
-        $("#amount").val(amount);
-
-        var received_date = $(this).attr('data-receiveddate');
-        $("#received_date").val(received_date);
-
-        $("#modal3").modal('show');
-
-
-    });
-
+    
     function get_pending_bills(){
 
         var result;
@@ -1464,22 +1465,22 @@
                     }
 
                 // supplier search
-                $("#bp_no_s").html(html);
-                $("#bp_no_s").selectpicker("refresh");
-                $("#bp_no_s").val("");
-                $("#bp_no_s").selectpicker("refresh");
+                $("#supplier_id_s").html(html);
+                $("#supplier_id_s").selectpicker("refresh");
+                $("#supplier_id_s").val("");
+                $("#supplier_id_s").selectpicker("refresh");
 
                 // supplier search 1
-                $("#bp_no_s1").html(html);
-                $("#bp_no_s1").selectpicker("refresh");
-                $("#bp_no_s1").val("");
-                $("#bp_no_s1").selectpicker("refresh");
+                $("#supplier_id_s1").html(html);
+                $("#supplier_id_s1").selectpicker("refresh");
+                $("#supplier_id_s1").val("");
+                $("#supplier_id_s1").selectpicker("refresh");
 
                 // supplier search 2
-                $("#bp_no_s2").html(html);
-                $("#bp_no_s2").selectpicker("refresh");
-                $("#bp_no_s2").val("");
-                $("#bp_no_s2").selectpicker("refresh");
+                $("#supplier_id_s2").html(html);
+                $("#supplier_id_s2").selectpicker("refresh");
+                $("#supplier_id_s2").val("");
+                $("#supplier_id_s2").selectpicker("refresh");
 
 
             }
@@ -1508,20 +1509,20 @@
                         html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
                     }
 
-                $("#maser_no_s").html(html);
-                $("#maser_no_s").selectpicker("refresh");
-                $("#maser_no_s").val("");
-                $("#maser_no_s").selectpicker("refresh");
+                $("#project_id_s").html(html);
+                $("#project_id_s").selectpicker("refresh");
+                $("#project_id_s").val("");
+                $("#project_id_s").selectpicker("refresh");
 
-                $("#maser_no_s1").html(html);
-                $("#maser_no_s1").selectpicker("refresh");
-                $("#maser_no_s1").val("");
-                $("#maser_no_s1").selectpicker("refresh");
+                $("#project_id_s1").html(html);
+                $("#project_id_s1").selectpicker("refresh");
+                $("#project_id_s1").val("");
+                $("#project_id_s1").selectpicker("refresh");
 
-                $("#maser_no_s2").html(html);
-                $("#maser_no_s2").selectpicker("refresh");
-                $("#maser_no_s2").val("");
-                $("#maser_no_s2").selectpicker("refresh");
+                $("#project_id_s2").html(html);
+                $("#project_id_s2").selectpicker("refresh");
+                $("#project_id_s2").val("");
+                $("#project_id_s2").selectpicker("refresh");
 
             }
 

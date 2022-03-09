@@ -61,14 +61,12 @@ Route::post('/payment_bill/received_payment_bills_datatable','PPaymentBillContro
 Route::get('/payment_bill/bill_receive/{id}', 'PPaymentBillController@bill_receive');
 Route::post('/payment_bill/create_schedule', 'PPaymentBillController@create_schedule');
 Route::put('/payment_bill/priority/{id}', 'PPaymentBillController@priority');
-Route::put('/payment_bill/hold/{id}', 'PPaymentBillController@hold');
-Route::put('/payment_bill/agent/{id}', 'PPaymentBillController@agent');
 
 //payment->payment_schedule
 Route::get('/payment_schedule', 'PScheduleController@index')->name('payment_schedule');
 Route::post('/payment_schedule', 'PScheduleController@store');
 Route::get('/payment_schedule/create','PScheduleController@create');
-Route::get('/payment_schedule/view_payemt_bill/{id}','PScheduleController@view_payment_bill');
+Route::get('/payment_schedule/view_payment_bill/{id}','PScheduleController@view_payment_bill');
 Route::get('/payment_schedule/check_schedule/{id}','PScheduleController@check_schedule');
 Route::put('/payment_schedule/approve/{id}','PScheduleController@approve');
 Route::put('/payment_schedule/pending/{id}','PScheduleController@pending');

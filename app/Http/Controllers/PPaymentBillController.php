@@ -44,6 +44,7 @@ class PPaymentBillController extends Controller
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
 
+
     }
 
     public function bill_receive($id){
@@ -124,20 +125,20 @@ class PPaymentBillController extends Controller
 
     public function pending_payment_bills_datatable(Request $request){
 
-        $maser_no = $request->maser_no;
-        $bp_no = $request->bp_no;
+        $project_id = $request->project_id;
+        $supplier_id = $request->supplier_id;
         $module = $request->module;
         $invoice_month = $request->invoice_month;
 
         $result = DB::table('p_payment_bills')
             ->where('p_payment_bills.status', 0);
 
-        if($maser_no != null){
-            $result= $result->where('p_payment_bills.maser_no', '=', $maser_no);
+        if($project_id != null){
+            $result= $result->where('p_payment_bills.project_id', '=', $project_id);
         }
 
-        if($bp_no != null){
-            $result= $result->where('p_payment_bills.bp_no', '=', $bp_no);
+        if($supplier_id != null){
+            $result= $result->where('p_payment_bills.supplier_id', '=', $supplier_id);
         }
 
         if($module != null){
@@ -165,20 +166,20 @@ class PPaymentBillController extends Controller
 
     public function received_payment_bills_datatable(Request $request){
 
-        $maser_no = $request->maser_no;
-        $bp_no = $request->bp_no;
+        $project_id = $request->project_id;
+        $supplier_id = $request->supplier_id;
         $module = $request->module;
         $invoice_month = $request->invoice_month;
 
         $result = DB::table('p_payment_bills')
             ->where('p_payment_bills.status', 1);
 
-        if($maser_no != null){
-            $result= $result->where('p_payment_bills.maser_no', '=', $maser_no);
+        if($project_id != null){
+            $result= $result->where('p_payment_bills.project_id', '=', $project_id);
         }
 
-        if($bp_no != null){
-            $result= $result->where('p_payment_bills.bp_no', '=', $bp_no);
+        if($supplier_id != null){
+            $result= $result->where('p_payment_bills.supplier_id', '=', $supplier_id);
         }
 
         if($module != null){
@@ -200,20 +201,23 @@ class PPaymentBillController extends Controller
     {
         try{
             DB::beginTransaction();
-
+    
             $p_payment_bill = p_payment_bill::find($request->id);
             $p_payment_bill->priority = $request->data;
-
+    
             $p_payment_bill->save();
-
+    
             DB::commit();
             return response()->json(['db_success' => 'Payment Bill Priority Added']);
-
+    
         }catch(\Throwable $th){
             DB::rollback();
             throw $th;
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
-
+    
     }
 }
+
+
+
