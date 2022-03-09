@@ -117,8 +117,8 @@
                                 <th style="width:10%">Branch Name</th>
                                 <th style="width:10%">Supplier Name</th>
                                 <th style="width:20%">Account No</th>
-                                <th style="width:10%">Account Name</th>
-                                <th style="width:20%">Status</th>
+                                <th style="width:20%">Account Name</th>
+                                <th style="width:10%">Status</th>
                                 <th style="width:20%">Action</th>
                             </tr>
                         </thead>
@@ -136,6 +136,9 @@ $(document).ready(function(){
 
     // menu active
     $(".bank_account_route").addClass('active');
+    $(".bank_tree").addClass('active');
+    $(".bank_tree_open").addClass('menu-open');
+    $(".bank_tree_open").addClass('menu-is-opening');
 
     //csrf token error
     $.ajaxSetup({
@@ -255,9 +258,6 @@ $(document).ready(function(){
     });
 
 
-
-
-
     $(document).on("click",".change_status",function(){
         var id = $(this).attr('data-id');
         var data = $(this).attr('data');
@@ -284,7 +284,7 @@ $(document).ready(function(){
                         if(data){
                             toastr.success(data.db_success);
                             setTimeout(function(){
-                            location.reload();
+                                $('#tbl_bank_account').DataTable().ajax.reload();
                             }, 2000);
 
                         }
@@ -338,7 +338,7 @@ $(document).ready(function(){
                     }
 
                     if(data.db_success){
-                    db_success(data.db_success);
+                        toastr.success(data.db_success);
                     setTimeout(function(){
                         $("#modal").modal('hide');
                         location.reload();
@@ -371,9 +371,20 @@ $(document).ready(function(){
             'url': 'bank_account/'+id,
             'async': false,
             success: function(data){
-                $("#bank_id").selectpicker('val',data.bank_id);
-                $("#branch_id").selectpicker('val',data.branch_id);
-                $("#supplier_id").selectpicker('val',data.supplier_id);
+
+                $("#bank_id").val(data.bank_id);
+                $("#branch_id").val(data.branch_id);
+                $("#supplier_id").val(data.supplier_id);
+
+                $("#bank_id").attr("disabled","disabled");
+                $("#branch_id").attr("disabled","disabled");
+                $("#supplier_id").attr("disabled","disabled");
+
+                $("#bank_id").selectpicker('refresh');
+                $("#branch_id").selectpicker('refresh');
+                $("#supplier_id").selectpicker('refresh');
+
+
                 $("#supplier_name").val(data.supplier_name);
                 $("#bp_no").val(data.bp_no);
                 $("#supplier_email").val(data.supplier_email);
@@ -390,9 +401,6 @@ $(document).ready(function(){
             if($("#hid").val() != ""){
             var id =$("#hid").val();
 
-            var bank_id = $("#bank_id").val();
-            var branch_id = $("#branch_id").val();
-            var supplier_id = $("#supplier_id").val();
             var supplier_name = $("#supplier_name").val();
             var bp_no = $("#bp_no").val();
             var supplier_email = $("#supplier_email").val();
@@ -400,33 +408,45 @@ $(document).ready(function(){
             var account_no = $("#account_no").val();
             var account_name = $("#account_name").val();
             var holder_nic = $("#holder_nic").val();
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Update it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
 
-            $.ajax({
-                'type': 'ajax',
-                'dataType': 'json',
-                'method': 'put',
-                'data' : {bank_id:bank_id,branch_id:branch_id,supplier_id:supplier_id,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
-                'url': 'bank_account/'+id,
-                'async': false,
-                success:function(data){
-                if(data.validation_error){
-                    validation_error(data.validation_error);//if has validation error call this function
-                    }
+                                $.ajax({
+                                    'type': 'ajax',
+                                    'dataType': 'json',
+                                    'method': 'put',
+                                    'data' : {supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
+                                    'url': 'bank_account/'+id,
+                                    'async': false,
+                                    success:function(data){
+                                    if(data.validation_error){
+                                        validation_error(data.validation_error);//if has validation error call this function
+                                        }
 
-                    if(data.db_error){
-                    db_error(data.db_error);
-                    }
+                                        if(data.db_error){
+                                        db_error(data.db_error);
+                                        }
 
-                    if(data.db_success){
-                    db_success(data.db_success);
-                    setTimeout(function(){
-                        $("#modal").modal('hide');
-                        location.reload();
-                    }, 2000);
-                    }
-                },
-            });
-            }
+                                        if(data.db_success){
+                                        toastr.success(data.db_success);
+                                        setTimeout(function(){
+                                            $("#modal").modal('hide');
+                                            location.reload();
+                                        }, 2000);
+                                        }
+                                    },
+                                });
+                            }
+                        });
+                }
         });
     });
 

@@ -78,6 +78,10 @@ $(document).ready(function(){
 
     // menu active
     $(".bank_route").addClass('active');
+    $(".bank_tree").addClass('active');
+    $(".bank_tree_open").addClass('menu-open');
+    $(".bank_tree_open").addClass('menu-is-opening');
+
 
     //csrf token error
     $.ajaxSetup({
@@ -171,31 +175,43 @@ $(document).ready(function(){
                 var id = $("#hid").val();
                 var name = $("#name").val();
                 var code = $("#code").val();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Update it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
 
-                $.ajax({
-                    'type': 'ajax',
-                    'dataType': 'json',
-                    'method': 'put',
-                    'data' : {name:name,code:code},
-                    'url': 'bank/'+id,
-                    'async': false,
-                    success:function(data){
-                    if(data.validation_error){
-                        validation_error(data.validation_error);//if has validation error call this function
-                        }
+                            $.ajax({
+                                'type': 'ajax',
+                                'dataType': 'json',
+                                'method': 'put',
+                                'data' : {name:name,code:code},
+                                'url': 'bank/'+id,
+                                'async': false,
+                                success:function(data){
+                                if(data.validation_error){
+                                    validation_error(data.validation_error);//if has validation error call this function
+                                    }
 
-                        if(data.db_error){
-                        db_error(data.db_error);
-                        }
+                                    if(data.db_error){
+                                    db_error(data.db_error);
+                                    }
 
-                        if(data.db_success){
-                            toastr.success(data.db_success);
-                        setTimeout(function(){
-                            $("#modal").modal('hide');
-                            location.reload();
-                        }, 1000);
+                                    if(data.db_success){
+                                        toastr.success(data.db_success);
+                                    setTimeout(function(){
+                                        $("#modal").modal('hide');
+                                        location.reload();
+                                    }, 1000);
+                                    }
+                                },
+                            });
                         }
-                    },
                 });
             }
         });

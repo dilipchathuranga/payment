@@ -50,6 +50,7 @@ Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
 Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status');
 Route::get('/get_accounts_by_supplier/{id}', 'MBankAccountController@get_accounts');
 
+
 //payment->payment bill
 Route::get('/payment_bill', 'PPaymentBillController@index')->name('payment_bill');
 Route::post('/payment_bill/bulk_bill_receive', 'PPaymentBillController@bulk_bill_receive');
@@ -59,7 +60,7 @@ Route::post('/payment_bill/pending_payment_bills_datatable','PPaymentBillControl
 Route::post('/payment_bill/received_payment_bills_datatable','PPaymentBillController@received_payment_bills_datatable');
 Route::get('/payment_bill/bill_receive/{id}', 'PPaymentBillController@bill_receive');
 Route::post('/payment_bill/create_schedule', 'PPaymentBillController@create_schedule');
-Route::put('/payment_bill/default/{id}', 'PPaymentBillController@default');
+Route::put('/payment_bill/priority/{id}', 'PPaymentBillController@priority');
 Route::put('/payment_bill/hold/{id}', 'PPaymentBillController@hold');
 Route::put('/payment_bill/agent/{id}', 'PPaymentBillController@agent');
 
@@ -68,12 +69,11 @@ Route::get('/payment_schedule', 'PScheduleController@index')->name('payment_sche
 Route::post('/payment_schedule', 'PScheduleController@store');
 Route::get('/payment_schedule/create','PScheduleController@create');
 Route::get('/payment_schedule/view_payemt_bill/{id}','PScheduleController@view_payment_bill');
+Route::get('/payment_schedule/check_schedule/{id}','PScheduleController@check_schedule');
 Route::put('/payment_schedule/approve/{id}','PScheduleController@approve');
 Route::put('/payment_schedule/pending/{id}','PScheduleController@pending');
 Route::get('/payment_schedule/delete/{id}','PScheduleController@delete');
 Route::put('/payment_schedule/add_all_approve','PScheduleController@add_all_approve');
-Route::get('/payment_schedule/show_approve/{id}', 'PScheduleController@show_approve');
-
 
 //payment->bank_account_attachment
 Route::get('/bank_account_attachment', 'MBankAccountAttachmentController@index')->name('bank_account_attachment');
@@ -85,6 +85,15 @@ Route::delete('/bank_account_attachment/{id}', 'MBankAccountAttachmentController
 Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentController@show_table');
 Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_attachment');
 Route::get('/bank_account_attachment/download/{any}', 'MBankAccountAttachmentController@download');
+
+//master->supplier
+Route::get('/supplier', 'MSupplierController@index')->name('supplier');
+Route::get('/supplier/create','MSupplierController@create');
+
+//master->project
+Route::get('/project', 'MProjectController@index')->name('project');
+Route::get('/project/create','MProjectController@create');
+
 
 
 

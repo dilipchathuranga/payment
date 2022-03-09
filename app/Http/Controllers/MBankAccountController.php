@@ -106,9 +106,7 @@ class MBankAccountController extends Controller
     public function update(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'bank_id'=>'required',
-            'branch_id' => 'required',
-            'supplier_id' => 'required',
+
             'supplier_name'=>'required',
             'account_no'=>'required',
             'account_name' => 'required'
@@ -121,9 +119,7 @@ class MBankAccountController extends Controller
                 DB::beginTransaction();
 
                 $bank_account = m_bank_account::find($request->id);
-                $bank_account->bank_id = $request->bank_id;
-                $bank_account->branch_id = $request->branch_id;
-                $bank_account->supplier_id = $request->supplier_id;
+
                 $bank_account->supplier_name = $request->supplier_name;
                 $bank_account->bp_no = $request->bp_no;
                 $bank_account->supplier_email = $request->supplier_email;
@@ -205,7 +201,7 @@ class MBankAccountController extends Controller
                     ->join('m_branches', 'm_bank_accounts.branch_id', '=', 'm_branches.id')
                     ->where('m_bank_accounts.is_active', 1)
                     ->where('m_bank_accounts.status', 1)
-                    ->where('m_bank_accounts.supplier_id', $id)
+                    ->where('m_bank_accounts.bp_no', $id)
                     ->select('m_bank_accounts.*', 'm_banks.name as bank_name', 'm_branches.name as branch_name')
                     ->get();
 
