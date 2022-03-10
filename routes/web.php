@@ -94,6 +94,10 @@ Route::get('/supplier/create','MSupplierController@create');
 Route::get('/project', 'MProjectController@index')->name('project');
 Route::get('/project/create','MProjectController@create');
 
+//payment->payement_search
+Route::get('/paymentsearch', 'PPaymentSearchController@index')->name('paymentsearch');
+Route::get('/paymentsearch/create','PPaymentSearchController@create');
+
 
 
 
