@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-group input-group-sm float-right">
-                            <select name="module_s2" id="module_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                            <select name="module" id="module" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                 <option value="">-- search by module --</option>
                                 <option value="Security Section">Security Section</option>
                                 <option value="Sub Contract Section">Sub Contract Section</option>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-group input-group-sm float-right">
-                            <select name="maser_no_s2" id="maser_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                            <select name="master_no" id="master_no" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                 <option value="">-- search by project --</option>
 
                                 </select>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-group input-group-sm float-right">
-                            <select name="bp_no_s2" id="bp_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                            <select name="bp_no" id="bp_no" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                 <option value="">-- search by supplier --</option>
 
                                 </select>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-group input-group-sm float-right">
-                                <input type="text" class="form-control datepicker float-right" name="invoice_month_s2" id="invoice_month_s2"  placeholder="Search by Invoice Date" value="" />
+                                <input type="text" class="form-control datepicker float-right" name="invoice_month" id="invoice_month"  placeholder="Search by Invoice Date" value="" />
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                 }
             });
 
-            $("#invoice_month_s2").datepicker( {
+            $("#invoice_month").datepicker( {
                 format: "yyyy-mm",
                 startView: "months",
                 minViewMode: "months"
@@ -166,7 +166,7 @@
                 });
 
              //bill search table search
-            $(document).on('change', '#maser_no_s2 ', function(){
+            $(document).on('change', '#master_no ', function(){
                 var value = $(this).val();
                 if(value!= ""){
                     paymentsearch.columns(6).search(value).draw();
@@ -176,7 +176,7 @@
 
             });
 
-            $(document).on("change","#bp_no_s2", function(){
+            $(document).on("change","#bp_no", function(){
 
                 var value = $(this).val();
                 if(value!= ""){
@@ -186,7 +186,7 @@
                 }
             });
 
-            $(document).on('change', '#module_s2', function(){
+            $(document).on('change', '#module', function(){
 
                 var value = $(this).val();
                 if(value!= ""){
@@ -196,7 +196,7 @@
                 }
             });
 
-            $(document).on('change', '#invoice_month_s2', function(){
+            $(document).on('change', '#invoice_month', function(){
 
                 var value = $(this).val();
                 if(value!= ""){
@@ -230,10 +230,10 @@
                         }
 
                     // supplier search 2
-                    $("#bp_no_s2").html(html);
-                    $("#bp_no_s2").selectpicker("refresh");
-                    $("#bp_no_s2").val("");
-                    $("#bp_no_s2").selectpicker("refresh");
+                    $("#bp_no").html(html);
+                    $("#bp_no").selectpicker("refresh");
+                    $("#bp_no").val("");
+                    $("#bp_no").selectpicker("refresh");
 
 
                 }
@@ -263,10 +263,10 @@
                             }
 
 
-                        $("#maser_no_s2").html(html);
-                        $("#maser_no_s2").selectpicker("refresh");
-                        $("#maser_no_s2").val("");
-                        $("#maser_no_s2").selectpicker("refresh");
+                        $("#master_no").html(html);
+                        $("#master_no").selectpicker("refresh");
+                        $("#master_no").val("");
+                        $("#master_no").selectpicker("refresh");
 
                     }
 
