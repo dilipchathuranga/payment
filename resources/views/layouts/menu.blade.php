@@ -68,7 +68,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('paymentsearch') }}" class="nav-link paymentsearch_route">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-file-invoice-dollar"></i>
                     <p>&nbsp;Payment Search</p>
                 </a>
             </li>

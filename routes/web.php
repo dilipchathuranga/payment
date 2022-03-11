@@ -74,6 +74,7 @@ Route::put('/payment_schedule/approve/{id}','PScheduleController@approve');
 Route::put('/payment_schedule/pending/{id}','PScheduleController@pending');
 Route::get('/payment_schedule/delete/{id}','PScheduleController@delete');
 Route::put('/payment_schedule/add_all_approve','PScheduleController@add_all_approve');
+Route::put('/payment_schedule/pay/{id}','PScheduleController@pay');
 
 //payment->bank_account_attachment
 Route::get('/bank_account_attachment', 'MBankAccountAttachmentController@index')->name('bank_account_attachment');
@@ -97,6 +98,7 @@ Route::get('/project/create','MProjectController@create');
 //payment->payement_search
 Route::get('/paymentsearch', 'PPaymentSearchController@index')->name('paymentsearch');
 Route::get('/paymentsearch/create','PPaymentSearchController@create');
+Route::get('/payment_search/tranfer_log/{id}','PPaymentSearchController@tranfer_log');
 
 
 

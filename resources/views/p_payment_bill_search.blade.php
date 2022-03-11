@@ -1,6 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+
+<!-- supplier_account modal -->
+<div class="modal fade " id="modal1" >
+    <div class="modal-dialog modal-xl  modal-dialog-centered">
+      <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title">Transaction Log</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-outline card-danger">
+                    <div class="card-body">
+                        <table class="table table-hover" id="tranfer_log" >
+                            <thead>
+                                <tr>
+                                    <th style="width:30%">Date</th>
+                                    <th style="width:40%">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
@@ -80,8 +111,10 @@
                                 <th style="width:10%">Invoice Date</th>
                                 <th style="width:20%">Bill Refference</th>
                                 <th style="width:10%">Amount</th>
-                                <th style="width:10%">Pay Date</th>
-                                <th style="width:20%">Status</th>
+                                <th style="width:10%">Paid Date</th>
+                                <th style="width:10%">Status</th>
+                                <th style="width:10%">Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -96,7 +129,7 @@
     $(document).ready(function(){
         var paymentsearch
         // menu active
-            $(".paymentsearch_route").addClass('active');
+            $(".payment_search_route").addClass('active');
 
             show_payment_bill();
             get_supplier_search();
@@ -147,21 +180,32 @@
 
                                 var html = "";
                                 if(d.status=='0'){
-                                    html+= "Pending";
+                                    html = "<span style='padding:5px' class='badge badge-warning'>Pending</span>";
                                 }
                                 if(d.status=='1'){
-                                    html+= "Recived";
+                                    html = "<span style='padding:5px' class='badge badge-success'>Received</span>";
                                 }
                                 if(d.status=='2'){
-                                    html+= "Sheduled";
+                                    html = "<span style='padding:5px' class='badge badge-info'>Scheduled</span>";
                                 }
                                 if(d.status=='3'){
-                                    html+= "Paied";
+                                    html = "<span style='padding:5px' class='badge badge-danger'>Paid</span>";
                                 }
 
                                 return html;
                             }
                         },
+                        {
+                            data: null,
+                            render: function(d){
+
+                                var html = "";
+
+                                html+="<button class='btn btn-warning btn-sm tranfer_log' data='"+d.id+"' title='Tranfer Log'><i class='fas fa-file-invoice'></i></button>";
+
+                                return html;
+                            }
+                        }
                     ]
                 });
 
@@ -207,6 +251,63 @@
             });
 
         }
+
+        $(document).on('click', '.tranfer_log', function(){
+
+            var id = $(this).attr('data');
+
+            $.ajax({
+                'type': 'ajax',
+                'dataType': 'json',
+                'method': 'get',
+                'url': 'payment_search/tranfer_log/'+id,
+                'async': false,
+                success: function(data){
+                    $("#modal1").modal('show');
+                },
+            });
+
+            $('#tranfer_log').DataTable().clear();
+            $('#tranfer_log').DataTable().destroy();
+
+            $("#tranfer_log").DataTable({
+                'processing': true,
+                'serverSide': true,
+                "autoWidth": false,
+                "bLengthChange": false,
+                "aaSorting": [[1,'asc']],
+                'ajax': {
+                    'method': 'get',
+                    'url': 'payment_search/tranfer_log/'+id,
+                },
+                    'columns': [
+                        {data: 'date'},
+                        {
+                            data: null,
+
+                            render:function(d){
+
+                                var html = "";
+                                if(d.status=='0'){
+                                    html = "Pending";
+                                }
+                                if(d.status=='1'){
+                                    html = "Received";
+                                }
+                                if(d.status=='2'){
+                                    html = "Scheduled";
+                                }
+                                if(d.status=='3'){
+                                    html = "Paid";
+                                }
+
+                                return html;
+                            }
+                        },
+                    ]
+            });
+
+        });
 
 
         function get_supplier_search(){

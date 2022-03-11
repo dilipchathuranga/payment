@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\p_payment_bill;
+use App\r_transaction_log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class APaymentBillReceiveController extends Controller
 {
     public function store(Request $request){
-        
+
         try{
             DB::beginTransaction();
 
@@ -31,6 +32,14 @@ class APaymentBillReceiveController extends Controller
 
             $payment->save();
 
+            //tranfer log
+            $r_transaction_log = new r_transaction_log;
+            $r_transaction_log->bill_id = $request->id;
+            $r_transaction_log->date = date('Y-m-d H:i:s');
+            $r_transaction_log->status = 0; // pending
+
+            $r_transaction_log->save();
+
             DB::commit();
             return response()->json(['db_success' => 'Added New Bill']);
 
@@ -39,6 +48,6 @@ class APaymentBillReceiveController extends Controller
             throw $th;
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
-        
+
     }
 }
