@@ -163,7 +163,7 @@
                     "bLengthChange": false,
                     'ajax': {
                                 'method': 'get',
-                                'url': 'paymentsearch/create'
+                                'url': 'payment_search/create'
                     },
                     'columns': [
                         {data: 'module'},

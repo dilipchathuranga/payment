@@ -96,8 +96,8 @@ Route::get('/project', 'MProjectController@index')->name('project');
 Route::get('/project/create','MProjectController@create');
 
 //payment->payement_search
-Route::get('/paymentsearch', 'PPaymentSearchController@index')->name('paymentsearch');
-Route::get('/paymentsearch/create','PPaymentSearchController@create');
+Route::get('/payment_search', 'PPaymentSearchController@index')->name('payment_search');
+Route::get('/payment_search/create','PPaymentSearchController@create');
 Route::get('/payment_search/tranfer_log/{id}','PPaymentSearchController@tranfer_log');
 
 
