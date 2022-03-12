@@ -141,7 +141,7 @@ var acc_table;
                         var html = "";
                         html+="<td><button class='btn btn-warning btn-sm view_bill' data='"+d.id+"' title='View Payment Bills'><i class='fa fa-sitemap'></i></button>";
                             if(d.status=='A'){
-                                html+="&nbsp;<button class='btn btn-success btn-sm pay' data='"+d.id+"' title='Bill Pay'><i class='fas fa-money-bill'></i></i></button>";
+                                html+="&nbsp;<button class='btn btn-success btn-sm pay' data='"+d.id+"' title='Bill Pay'><i class='fas fa-money-bill'></i></button>";
                             }
 
                         return html;

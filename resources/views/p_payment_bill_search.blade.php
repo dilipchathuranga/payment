@@ -114,7 +114,6 @@
                                 <th style="width:10%">Paid Date</th>
                                 <th style="width:10%">Status</th>
                                 <th style="width:10%">Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -135,9 +134,7 @@
             get_supplier_search();
             get_project_search();
 
-
-
-        //csrf token error
+            //csrf token error
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -151,7 +148,7 @@
             });
     });
 
-    //Data Table show
+        //Data Table show
         function show_payment_bill(){
 
                 $('#tbl_paymentsearch').DataTable().clear();
@@ -264,49 +261,50 @@
                 'async': false,
                 success: function(data){
                     $("#modal1").modal('show');
+
+                    $('#tranfer_log').DataTable().clear();
+                    $('#tranfer_log').DataTable().destroy();
+
+                    $("#tranfer_log").DataTable({
+                        'processing': true,
+                        'serverSide': true,
+                        "autoWidth": false,
+                        "bLengthChange": false,
+                        "aaSorting": [[1,'asc']],
+
+                            'ajax': {
+                                'method': 'get',
+                                'url': 'payment_search/tranfer_log/'+id,
+                            },
+
+                            'columns': [
+                                {data: 'date'},
+                                {
+                                    data: null,
+
+                                    render:function(d){
+
+                                        var html = "";
+                                        if(d.status=='0'){
+                                            html = "Pending";
+                                        }
+                                        if(d.status=='1'){
+                                            html = "Received";
+                                        }
+                                        if(d.status=='2'){
+                                            html = "Scheduled";
+                                        }
+                                        if(d.status=='3'){
+                                            html = "Paid";
+                                        }
+
+                                        return html;
+                                    }
+                                },
+                            ]
+                    });
                 },
             });
-
-            $('#tranfer_log').DataTable().clear();
-            $('#tranfer_log').DataTable().destroy();
-
-            $("#tranfer_log").DataTable({
-                'processing': true,
-                'serverSide': true,
-                "autoWidth": false,
-                "bLengthChange": false,
-                "aaSorting": [[1,'asc']],
-                'ajax': {
-                    'method': 'get',
-                    'url': 'payment_search/tranfer_log/'+id,
-                },
-                    'columns': [
-                        {data: 'date'},
-                        {
-                            data: null,
-
-                            render:function(d){
-
-                                var html = "";
-                                if(d.status=='0'){
-                                    html = "Pending";
-                                }
-                                if(d.status=='1'){
-                                    html = "Received";
-                                }
-                                if(d.status=='2'){
-                                    html = "Scheduled";
-                                }
-                                if(d.status=='3'){
-                                    html = "Paid";
-                                }
-
-                                return html;
-                            }
-                        },
-                    ]
-            });
-
         });
 
 
@@ -329,14 +327,11 @@
                         for(var i =0; i < data.length; i++){
                             html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
                         }
-
-                    // supplier search 2
-                    $("#bp_no").html(html);
-                    $("#bp_no").selectpicker("refresh");
-                    $("#bp_no").val("");
-                    $("#bp_no").selectpicker("refresh");
-
-
+                        // supplier search
+                        $("#bp_no").html(html);
+                        $("#bp_no").selectpicker("refresh");
+                        $("#bp_no").val("");
+                        $("#bp_no").selectpicker("refresh");
                 }
 
             });
@@ -363,11 +358,10 @@
                                 html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
                             }
 
-
-                        $("#master_no").html(html);
-                        $("#master_no").selectpicker("refresh");
-                        $("#master_no").val("");
-                        $("#master_no").selectpicker("refresh");
+                            $("#master_no").html(html);
+                            $("#master_no").selectpicker("refresh");
+                            $("#master_no").val("");
+                            $("#master_no").selectpicker("refresh");
 
                     }
 

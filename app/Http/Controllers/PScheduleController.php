@@ -123,7 +123,7 @@ class PScheduleController extends Controller
                                                 ->where('p_payment_bill_schedules.schedule_id',$id)
                                                 ->update(['p_payment_bill_schedules.status'=>'C']);
 
-            $p_payment_bills = DB::table('p_payment_bill_schedules')
+            $payment_bill_schedules = DB::table('p_payment_bill_schedules')
                                                 ->where('p_payment_bill_schedules.schedule_id',$id)
                                                 ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
                                                 ->update(['p_payment_bills.status'=>'3']);
@@ -145,7 +145,7 @@ class PScheduleController extends Controller
 
 
             DB::commit();
-            return response()->json(['db_success' => 'Payment Added']);
+            return response()->json(['db_success' => 'Bills Paid']);
 
         }catch(\Throwable $th){
             DB::rollback();
