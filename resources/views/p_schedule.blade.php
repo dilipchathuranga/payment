@@ -143,7 +143,6 @@ var acc_table;
                             if(d.status=='A'){
                                 html+="&nbsp;<button class='btn btn-success btn-sm pay' data='"+d.id+"' title='Bill Pay'><i class='fas fa-money-bill'></i></button>";
                             }
-
                         return html;
 
                     }
@@ -277,6 +276,7 @@ var acc_table;
                             'url': 'payment_schedule/pay/'+id,
                             'async': false,
                             success: function(data){
+                                excel_sheet(id);
 
                                 if(data){
                                     toastr.success(data.db_success);
@@ -295,7 +295,9 @@ var acc_table;
 
     });
 
-
+    function excel_sheet(id){
+            window.open('billexport/'+id, '_blank')
+    }
 
     //pending delete payment bills
     $(document).on('click', '.delete', function(){

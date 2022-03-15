@@ -101,5 +101,9 @@ Route::get('/payment_search/create','PPaymentSearchController@create');
 Route::get('/payment_search/tranfer_log/{id}','PPaymentSearchController@tranfer_log');
 
 
+//payment->payement_export
+Route::get('/billexport/{id}', 'PPaymentExcelController@export');
+
+
 
 
