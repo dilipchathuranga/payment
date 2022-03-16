@@ -15,7 +15,7 @@ class CreateMProjectsTable extends Migration
     {
         Schema::create('m_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('maser_no');
+            $table->string('master_no');
             $table->string('name');
             $table->string('address');
             $table->string('tele_no');

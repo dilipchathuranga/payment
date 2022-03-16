@@ -66,7 +66,7 @@
                                 'url': 'project/create'
                     },
                     'columns': [
-                        {data: 'maser_no'},
+                        {data: 'master_no'},
                         {data: 'name'},
                         {data: 'address'},
                         {data: 'tele_no'},

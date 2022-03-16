@@ -143,6 +143,10 @@ var acc_table;
                             if(d.status=='A'){
                                 html+="&nbsp;<button class='btn btn-success btn-sm pay' data='"+d.id+"' title='Bill Pay'><i class='fas fa-money-bill'></i></button>";
                             }
+                            if(d.status=='C'){
+                                html+="&nbsp;<button class='btn btn-primary btn-sm excel' data='"+d.id+"' data-ref='"+d.refference_no+"' title='Excel Download'><i class='fas fa-file-excel'></i></button>";
+                            }
+
                         return html;
 
                     }
@@ -292,6 +296,29 @@ var acc_table;
                     }
 
         });
+
+    });
+
+
+    $(document).on('click', '.excel', function(){
+
+        var id = $(this).attr('data');
+        var ref = $(this).attr('data-ref');
+
+        Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't to download this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Download it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        excel_sheet(id);
+                    }
+
+                });
 
     });
 

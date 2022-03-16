@@ -102,7 +102,7 @@ Route::get('/payment_search/tranfer_log/{id}','PPaymentSearchController@tranfer_
 
 
 //payment->payement_export
-Route::get('/billexport/{id}', 'PPaymentExcelController@export');
+Route::get('/billexport/{id}', 'Report\PPaymentExcelController@export');
 
 
 

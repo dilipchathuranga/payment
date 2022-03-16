@@ -14,7 +14,7 @@ class AddMaserNoToPPaymentBillsTable extends Migration
     public function up()
     {
         Schema::table('p_payment_bills', function (Blueprint $table) {
-            $table->string('maser_no');
+            $table->string('master_no');
         });
     }
 
@@ -26,7 +26,7 @@ class AddMaserNoToPPaymentBillsTable extends Migration
     public function down()
     {
         Schema::table('p_payment_bills', function (Blueprint $table) {
-            $table->dropColumn('maser_no');
+            $table->dropColumn('master_no');
         });
     }
 }
