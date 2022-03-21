@@ -125,8 +125,10 @@ var acc_table;
                             var html = "";
                             if(d.status=='A'){
                                 html+= "Approved";
-                            }else{
+                            }if(d.status=='P'){
                                 html+= "Pending";
+                            }if(d.status=='C'){
+                                html+= "Complete";
                             }
 
                             return html;
@@ -139,6 +141,13 @@ var acc_table;
                     render: function(d){
                         var html = "";
                         html+="<td><button class='btn btn-warning btn-sm view_bill' data='"+d.id+"' title='View Payment Bills'><i class='fa fa-sitemap'></i></button>";
+                            if(d.status=='A'){
+                                html+="&nbsp;<button class='btn btn-success btn-sm pay' data='"+d.id+"' title='Bill Pay'><i class='fas fa-money-bill'></i></button>";
+                            }
+                            if(d.status=='C'){
+                                html+="&nbsp;<button class='btn btn-primary btn-sm excel' data='"+d.id+"' data-ref='"+d.refference_no+"' title='Excel Download'><i class='fas fa-file-excel'></i></button>";
+                            }
+
                         return html;
 
                     }
@@ -197,7 +206,7 @@ var acc_table;
                      data: null,
                         render: function(d){
                             var html = "";
-                            if(d.bill_status=='A'){
+                            if((d.bill_status=='A')||(d.bill_status=='C')){
                                 html+= "<i class='fas fa-check' style='color:green;margin-top: 10px;'></i> <b style='color:green'> Approved</b>";
                             }else{
                                 html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.schedule_id+"'title='Delete'><i class='fas fa-trash'></i></button>";
@@ -262,6 +271,75 @@ var acc_table;
 
     });
 
+<<<<<<< HEAD
+=======
+    $(document).on('click', '.pay', function(){
+        var id = $(this).attr('data');
+
+       Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Pay it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            'type': 'ajax',
+                            'dataType': 'json',
+                            'method': 'put',
+                            'url': 'payment_schedule/pay/'+id,
+                            'async': false,
+                            success: function(data){
+                                excel_sheet(id);
+
+                                if(data){
+                                    toastr.success(data.db_success);
+                                    setTimeout(function(){
+                                        $('#tbl_schedule').DataTable().ajax.reload();
+                                    }, 1000);
+
+                                }
+
+                            }
+                        });
+
+                    }
+
+        });
+
+    });
+
+
+    $(document).on('click', '.excel', function(){
+
+        var id = $(this).attr('data');
+        var ref = $(this).attr('data-ref');
+
+        Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't to download this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Download it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        excel_sheet(id);
+                    }
+
+                });
+
+    });
+
+    function excel_sheet(id){
+            window.open('billexport/'+id, '_blank')
+    }
+
+>>>>>>> supplier-project-creation
     //pending delete payment bills
     $(document).on('click', '.delete', function(){
 

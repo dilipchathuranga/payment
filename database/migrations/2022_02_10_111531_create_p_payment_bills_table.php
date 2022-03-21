@@ -18,8 +18,6 @@ class CreatePPaymentBillsTable extends Migration
             $table->string('module');
             $table->integer('bill_id');
             $table->date('invoice_date');
-            $table->integer('project_id');
-            $table->integer('supplier_id');
             $table->string('bill_refference');
             $table->string('pic_no')->nullable();
             $table->decimal('amount',$precision = 12, $scale = 2);

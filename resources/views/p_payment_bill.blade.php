@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="project_id_s1" id="project_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                        <select name="master_no_s1" id="master_no_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by project --</option>
 
                                             </select>
@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="project_id_s2" id="project_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                        <select name="master_no_s2" id="master_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                             <option value="">-- search by project --</option>
 
                                             </select>
@@ -459,7 +459,7 @@
                   </div>
                   <div class="col-md-6">
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
-                      <select name="project_id_s" id="project_id_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                      <select name="master_no_s" id="master_no_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                           <option value="">-- search by project --</option>
 
                           </select>
@@ -603,7 +603,7 @@
 
         });
 
-        $(document).on('change', '#project_id_s', function(){
+        $(document).on('change', '#master_no_s', function(){
             show_session_bills();
         })
 
@@ -670,8 +670,8 @@
                         pending_bills[i].supplier_name,
                         pending_bills[i].amount,
                     "<button class='btn btn-success btn-sm add' data='"+ pending_bills[i].id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
-                        pending_bills[i].project_id,
-                        pending_bills[i].supplier_id
+                        pending_bills[i].master_no,
+                        pending_bills[i].bp_no
                     ]).draw();
 
                 }
@@ -679,7 +679,7 @@
             }
 
             //pending table search
-            $(document).on('change', '#project_id_s1', function(){
+            $(document).on('change', '#master_no_s1', function(){
                 var value = $(this).val();
                 if(value!= ""){
                     pending_table.columns(6).search(value).draw();
@@ -742,9 +742,9 @@
                     var project=(row.find('td:nth-child(3)').text());
                     var supplier=(row.find('td:nth-child(4)').text());
                     var amount=(row.find('td:nth-child(5)').text());
-                    var project_id=(row.find('td:nth-child(6)').text());
-                    var supplier_id=(row.find('td:nth-child(7)').text());
-                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-sm btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",project_id,supplier_id
+                    var master_no=(row.find('td:nth-child(6)').text());
+                    var bp_no=(row.find('td:nth-child(7)').text());
+                    receiving_table.row.add([module_name,date,project,supplier,amount,"<button class='btn btn-sm btn-danger remove' data='"+bill_id+"'><i class='fas fa-arrow-left'></i></button>",master_no,bp_no
                     ]).draw();
                     pending_table.row(row).remove().draw();
 
@@ -765,15 +765,15 @@
                 var project=(row.find('td:nth-child(3)').text());
                 var supplier=(row.find('td:nth-child(4)').text());
                 var amount=(row.find('td:nth-child(5)').text());
-                var project_id=(row.find('td:nth-child(6)').text());
-                var supplier_id=(row.find('td:nth-child(7)').text());
+                var master_no=(row.find('td:nth-child(6)').text());
+                var bp_no=(row.find('td:nth-child(7)').text());
 
                 const index = recieving_bill.indexOf(bill_id);
 
                 if (index > -1) {
                     recieving_bill.splice(index, 1);
 
-                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-sm add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",project_id,supplier_id
+                    pending_table.row.add([module_name, date, project, supplier, amount, "<button class='btn btn-success btn-sm add' data='"+bill_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",master_no,bp_no
                     ]).draw();
 
                     receiving_table.row(row).remove().draw();
@@ -907,9 +907,9 @@
                         received_bills[i].project_name,
                         received_bills[i].supplier_name,
                         received_bills[i].amount,
-                    "<button class='btn btn-success btn-sm add' data='"+ received_bills[i].id+"'  data-supplier_id='"+received_bills[i].supplier_id+"' data-project_id='"+received_bills[i].project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
-                        received_bills[i].project_id,
-                        received_bills[i].supplier_id
+                    "<button class='btn btn-success btn-sm add' data='"+ received_bills[i].id+"'  data-bp_no='"+received_bills[i].bp_no+"' data-master_no='"+received_bills[i].master_no+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>",
+                        received_bills[i].master_no,
+                        received_bills[i].bp_no
                     ]).draw();
 
                 }
@@ -920,8 +920,8 @@
             $("#received_table tbody").on('click','.add',function(){
                 $("#modal2").modal('show');
                 var bill_id = $(this).attr('data');
-                var supplier_id = $(this).attr('data-supplier_id');
-                var project_id = $(this).attr('data-project_id');
+                var bp_no = $(this).attr('data-bp_no');
+                var master_no = $(this).attr('data-master_no');
                 var row = $(this).parents('tr');
 
                 $.ajax({
@@ -1018,9 +1018,9 @@
                             supplier,
                             amount,
                             account_no,
-                            "<button class='btn btn-sm btn-danger remove' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"'><i class='fas fa-arrow-left'></i></button>",
-                            project_id,
-                            supplier_id
+                            "<button class='btn btn-sm btn-danger remove' data='"+bill_id+"' data-bp_no='"+bp_no+"' data-master_no='"+master_no+"'><i class='fas fa-arrow-left'></i></button>",
+                            master_no,
+                            bp_no
                         ]).draw();
 
 
@@ -1047,8 +1047,8 @@
                 var project=(row.find('td:nth-child(3)').text());
                 var supplier=(row.find('td:nth-child(4)').text());
                 var amount=(row.find('td:nth-child(5)').text());
-                var project_id= $(this).attr('data-project_id');
-                var supplier_id= $(this).attr('data-supplier_id');
+                var master_no= $(this).attr('data-master_no');
+                var bp_no= $(this).attr('data-bp_no');
 
 
                 for(var i=0; i < schedule_bill.length; i++){
@@ -1065,9 +1065,9 @@
                                         project,
                                         supplier,
                                         amount,
-                                        "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-supplier_id='"+supplier_id+"' data-project_id='"+project_id+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
-                                        project_id,
-                                        supplier_id
+                                        "<button class='btn btn-success btn-sm add' data='"+bill_id+"' data-bp_no='"+bp_no+"' data-master_no='"+master_no+"' title='Recieve Bill'><i class='fas fa-arrow-right'></i></button>" ,
+                                        master_no,
+                                        bp_no
                                     ]).draw();
 
                 schedule_table.row(row).remove().draw();
@@ -1123,7 +1123,7 @@
 
 
             //received table search
-            $(document).on('change', '#project_id_s2 ', function(){
+            $(document).on('change', '#master_no_s2 ', function(){
                 var value = $(this).val();
                 if(value!= ""){
                     received_table.columns(6).search(value).draw();
@@ -1193,8 +1193,8 @@
         $(".bulk_receive").css("display", "block");
         $(".new_schedule").css("display", "none");
 
-        var project_id = $("#project_id_s").val();
-        var supplier_id = $("#supplier_id_s").val();
+        var master_no = $("#master_no_s").val();
+        var bp_no = $("#bp_no_s").val();
         var module = $("#module_s").val();
         var invoice_month = $("#invoice_month_s").val();
 
@@ -1208,7 +1208,7 @@
             'searching': false,
             'ajax': {
                         'method': 'post',
-                        'data': {project_id:project_id, supplier_id:supplier_id, module:module, invoice_month:invoice_month},
+                        'data': {master_no:master_no, bp_no:bp_no, module:module, invoice_month:invoice_month},
                         'url': 'payment_bill/pending_payment_bills_datatable'
             },
             'columns': [
@@ -1265,8 +1265,8 @@
         $(".bulk_receive").css("display", "none");
         $(".new_schedule").css("display", "block");
 
-        var project_id = $("#project_id_s").val();
-        var supplier_id = $("#supplier_id_s").val();
+        var master_no = $("#master_no_s").val();
+        var bp_no = $("#bp_no_s").val();
         var module = $("#module_s").val();
         var invoice_month = $("#invoice_month_s").val();
 
@@ -1280,7 +1280,7 @@
             'searching': false,
             'ajax': {
                         'method': 'post',
-                        'data': {project_id:project_id, supplier_id:supplier_id, module:module, invoice_month:invoice_month},
+                        'data': {master_no:master_no, bp_no:bp_no, module:module, invoice_month:invoice_month},
                         'url': 'payment_bill/received_payment_bills_datatable'
             },
             'columns': [
@@ -1509,20 +1509,20 @@
                         html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
                     }
 
-                $("#project_id_s").html(html);
-                $("#project_id_s").selectpicker("refresh");
-                $("#project_id_s").val("");
-                $("#project_id_s").selectpicker("refresh");
+                $("#master_no_s").html(html);
+                $("#master_no_s").selectpicker("refresh");
+                $("#master_no_s").val("");
+                $("#master_no_s").selectpicker("refresh");
 
-                $("#project_id_s1").html(html);
-                $("#project_id_s1").selectpicker("refresh");
-                $("#project_id_s1").val("");
-                $("#project_id_s1").selectpicker("refresh");
+                $("#master_no_s1").html(html);
+                $("#master_no_s1").selectpicker("refresh");
+                $("#master_no_s1").val("");
+                $("#master_no_s1").selectpicker("refresh");
 
-                $("#project_id_s2").html(html);
-                $("#project_id_s2").selectpicker("refresh");
-                $("#project_id_s2").val("");
-                $("#project_id_s2").selectpicker("refresh");
+                $("#master_no_s2").html(html);
+                $("#master_no_s2").selectpicker("refresh");
+                $("#master_no_s2").val("");
+                $("#master_no_s2").selectpicker("refresh");
 
             }
 

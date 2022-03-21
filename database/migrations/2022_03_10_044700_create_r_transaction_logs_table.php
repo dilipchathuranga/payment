@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMProjectsTable extends Migration
+class CreateRTransactionLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateMProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_projects', function (Blueprint $table) {
+        Schema::create('r_transaction_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('master_no');
-            $table->string('name');
-            $table->string('address');
-            $table->string('tele_no');
+            $table->integer('bill_id');
+            $table->string('date');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateMProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_projects');
+        Schema::dropIfExists('r_transaction_logs');
     }
 }

@@ -66,4 +66,12 @@
                     <p>&nbsp;Payment Schedule</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('payment_search') }}" class="nav-link payment_search_route">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <p>&nbsp;Payment Search</p>
+                </a>
+            </li>
+
+
 

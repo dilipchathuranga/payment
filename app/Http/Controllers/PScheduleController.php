@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\p_payment_bill;
 use App\p_payment_bill_schedule;
 use App\p_schedule;
+use App\r_transaction_log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -111,6 +112,50 @@ class PScheduleController extends Controller
         }
         
     }
-    
-    
+
+    public function pay($id)
+    {
+        try{
+            DB::beginTransaction();
+
+            $p_schedule=p_schedule::find($id);
+            $p_schedule->status = 'C';
+
+            $p_schedule->save();
+
+            $p_payment_bill_schedule = DB::table('p_payment_bill_schedules')
+                                                ->where('p_payment_bill_schedules.schedule_id',$id)
+                                                ->update(['p_payment_bill_schedules.status'=>'C']);
+
+            $payment_bill_schedules = DB::table('p_payment_bill_schedules')
+                                                ->where('p_payment_bill_schedules.schedule_id',$id)
+                                                ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
+                                                ->update(['p_payment_bills.status'=>'3']);
+
+            $transaction_log = DB::table('p_payment_bill_schedules')
+                                                ->where('p_payment_bill_schedules.schedule_id',$id)
+                                                ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
+                                                ->select('p_payment_bills.id')
+                                                ->get();
+
+            $transaction=$transaction_log[0];
+
+            $r_transaction_log = new r_transaction_log;
+            $r_transaction_log->bill_id = $transaction->id;
+            $r_transaction_log->date = date('Y-m-d H:i:s');
+            $r_transaction_log->status = 3; // paid
+
+            $r_transaction_log->save();
+
+
+            DB::commit();
+            return response()->json(['db_success' => 'Bills Paid']);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
+
+    }
 }

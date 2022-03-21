@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\p_payment_bill;
 use App\p_payment_bill_schedule;
 use App\p_schedule;
+use App\r_transaction_log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,6 +34,15 @@ class PPaymentBillController extends Controller
                 $bill->status = 1; //received
 
                 $bill->save();
+
+                //tranfer log
+                $r_transaction_log = new r_transaction_log;
+                $r_transaction_log->bill_id = $value;
+                $r_transaction_log->date = date('Y-m-d H:i:s');
+                $r_transaction_log->status = 1; // Received
+
+                $r_transaction_log->save();
+
             }
 
             DB::commit();
@@ -56,6 +66,14 @@ class PPaymentBillController extends Controller
                 $bill->status = 1; //received
 
                 $bill->save();
+
+                 //tranfer log
+                 $r_transaction_log = new r_transaction_log;
+                 $r_transaction_log->bill_id = $id;
+                 $r_transaction_log->date = date('Y-m-d H:i:s');
+                 $r_transaction_log->status = 1; // Received
+
+                 $r_transaction_log->save();
 
             DB::commit();
             return response()->json(['db_success' => 'Bill Received']);
@@ -99,6 +117,14 @@ class PPaymentBillController extends Controller
                 $payment_schedule->account_id = $bills[$i]['account_id'];
                 $payment_schedule->status = "P";
                 $payment_schedule->save();
+
+                //tranfer log
+                $r_transaction_log = new r_transaction_log;
+                $r_transaction_log->bill_id = $bills[$i]['bill_id'];
+                $r_transaction_log->date = date('Y-m-d H:i:s');
+                $r_transaction_log->status = 2; // scheduled
+
+                $r_transaction_log->save();
             }
 
 
