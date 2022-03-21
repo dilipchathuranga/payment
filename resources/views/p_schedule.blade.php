@@ -225,10 +225,10 @@ var acc_table;
 
     $(document).on('click', '.all_approve', function(){
         
-       var acc_tables=$('#account_table').DataTable().column(0).data().toArray();
-       var p_schedule=$('#account_table').DataTable().column(1).data().toArray();
+       var acc_tables = $('#account_table').DataTable().column(0).data().toArray();
+       var p_schedule = $('#account_table').DataTable().column(1).data().toArray();
        
-       var p_schedule_id=p_schedule[0];
+       var p_schedule_id = p_schedule[0];
 
     
 
@@ -271,8 +271,6 @@ var acc_table;
 
     });
 
-<<<<<<< HEAD
-=======
     $(document).on('click', '.pay', function(){
         var id = $(this).attr('data');
 
@@ -336,10 +334,9 @@ var acc_table;
     });
 
     function excel_sheet(id){
-            window.open('billexport/'+id, '_blank')
+            window.open('bill_export/'+id, '_blank')
     }
 
->>>>>>> supplier-project-creation
     //pending delete payment bills
     $(document).on('click', '.delete', function(){
 

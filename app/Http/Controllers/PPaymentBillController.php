@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\m_project;
+use App\m_supplier;
 use App\p_payment_bill;
 use App\p_payment_bill_schedule;
 use App\p_schedule;
@@ -18,7 +20,11 @@ class PPaymentBillController extends Controller
 
     public function index()
     {
-        return view('p_payment_bill');
+        $projects = m_project::all();
+        $suppliers = m_supplier::all();
+
+        return view('p_payment_bill')->with([ 'projects' => $projects,
+                                              'suppliers' => $suppliers]);
     }
 
     public function bulk_bill_receive(Request $request){
@@ -143,7 +149,13 @@ class PPaymentBillController extends Controller
 
     public function pending_payment_bills(){
 
-        $result = p_payment_bill::where('status', '0')->get();
+        $result = DB::table('p_payment_bills')
+                    ->join('m_suppliers', 'p_payment_bills.bp_no', '=', 'm_suppliers.bp_no')
+                    ->join('m_projects', 'p_payment_bills.master_no', '=', 'm_projects.master_no')
+                    ->where('p_payment_bills.status', 0)
+                    ->select('p_payment_bills.*', 'm_suppliers.name as supplier_name', 'm_projects.name as project_name')
+                    ->groupBy('p_payment_bills.id')
+                    ->get();
 
         return response()->json($result);
 
@@ -151,20 +163,22 @@ class PPaymentBillController extends Controller
 
     public function pending_payment_bills_datatable(Request $request){
 
-        $project_id = $request->project_id;
-        $supplier_id = $request->supplier_id;
+        $master_no = $request->master_no;
+        $bp_no = $request->bp_no;
         $module = $request->module;
         $invoice_month = $request->invoice_month;
 
         $result = DB::table('p_payment_bills')
+            ->join('m_suppliers', 'p_payment_bills.bp_no', '=', 'm_suppliers.bp_no')
+            ->join('m_projects', 'p_payment_bills.master_no', '=', 'm_projects.master_no')
             ->where('p_payment_bills.status', 0);
 
-        if($project_id != null){
-            $result= $result->where('p_payment_bills.project_id', '=', $project_id);
+        if($master_no != null){
+            $result= $result->where('p_payment_bills.master_no', '=', $master_no);
         }
 
-        if($supplier_id != null){
-            $result= $result->where('p_payment_bills.supplier_id', '=', $supplier_id);
+        if($bp_no != null){
+            $result= $result->where('p_payment_bills.bp_no', '=', $bp_no);
         }
 
         if($module != null){
@@ -175,7 +189,8 @@ class PPaymentBillController extends Controller
             $result= $result->where('p_payment_bills.invoice_date', '=', $invoice_month);
         }
 
-        $result = $result->select('p_payment_bills.*')
+        $result = $result->select('p_payment_bills.*', 'm_suppliers.name as supplier_name', 'm_projects.name as project_name')
+                ->groupBy('p_payment_bills.id')
                 ->get();
 
         return DataTables($result)->make(true);
@@ -184,7 +199,13 @@ class PPaymentBillController extends Controller
 
     public function received_payment_bills(){
 
-        $result = p_payment_bill::where('status', '1')->get();
+        $result = DB::table('p_payment_bills')
+                    ->join('m_suppliers', 'p_payment_bills.bp_no', '=', 'm_suppliers.bp_no')
+                    ->join('m_projects', 'p_payment_bills.master_no', '=', 'm_projects.master_no')
+                    ->where('p_payment_bills.status', 1)
+                    ->select('p_payment_bills.*', 'm_suppliers.name as supplier_name', 'm_projects.name as project_name')
+                    ->groupBy('p_payment_bills.id')
+                    ->get();
 
         return response()->json($result);
 
@@ -192,20 +213,22 @@ class PPaymentBillController extends Controller
 
     public function received_payment_bills_datatable(Request $request){
 
-        $project_id = $request->project_id;
-        $supplier_id = $request->supplier_id;
+        $master_no = $request->master_no;
+        $bp_no = $request->bp_no;
         $module = $request->module;
         $invoice_month = $request->invoice_month;
 
         $result = DB::table('p_payment_bills')
+            ->join('m_suppliers', 'p_payment_bills.bp_no', '=', 'm_suppliers.bp_no')
+            ->join('m_projects', 'p_payment_bills.master_no', '=', 'm_projects.master_no')
             ->where('p_payment_bills.status', 1);
 
-        if($project_id != null){
-            $result= $result->where('p_payment_bills.project_id', '=', $project_id);
+        if($master_no != null){
+            $result= $result->where('p_payment_bills.master_no', '=', $master_no);
         }
 
-        if($supplier_id != null){
-            $result= $result->where('p_payment_bills.supplier_id', '=', $supplier_id);
+        if($bp_no != null){
+            $result= $result->where('p_payment_bills.bp_no', '=', $bp_no);
         }
 
         if($module != null){
@@ -216,7 +239,8 @@ class PPaymentBillController extends Controller
             $result= $result->where('p_payment_bills.invoice_date', '=', $invoice_month);
         }
 
-        $result = $result->select('p_payment_bills.*')
+        $result = $result->select('p_payment_bills.*', 'm_suppliers.name as supplier_name', 'm_projects.name as project_name')
+                ->groupBy('p_payment_bills.id')
                 ->get();
 
         return DataTables($result)->make(true);

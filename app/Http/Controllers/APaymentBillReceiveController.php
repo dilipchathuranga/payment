@@ -19,10 +19,8 @@ class APaymentBillReceiveController extends Controller
             $payment->module = $request->module;
             $payment->bill_id = $request->bill_id;
             $payment->invoice_date = $request->invoice_date;
-            $payment->project_id = $request->project_id;
-            $payment->project_name = $request->project_name;
-            $payment->supplier_id = $request->supplier_id;
-            $payment->supplier_name = $request->supplier_name;
+            $payment->master_no = $request->master_no;
+            $payment->bp_no = $request->bp_no;
             $payment->bill_refference = $request->bill_refference;
             $payment->pic_no = $request->pic_no;
             $payment->amount = $request->amount;

@@ -31,9 +31,17 @@ class PScheduleController extends Controller
     public function view_payment_bill($id)
     {
         $result = DB::table('p_payment_bill_schedules')
-                            ->where('p_payment_bill_schedules.schedule_id',$id)
                             ->join('p_payment_bills','p_payment_bills.id','=','p_payment_bill_schedules.payment_bill_id')
-                            ->select('p_payment_bills.*','p_payment_bill_schedules.status AS bill_status','p_payment_bill_schedules.id AS schedule_id','p_payment_bill_schedules.schedule_id AS p_schedule_id')
+                            ->join('m_suppliers', 'p_payment_bills.bp_no', '=', 'm_suppliers.bp_no')
+                            ->join('m_projects', 'p_payment_bills.master_no', '=', 'm_projects.master_no')
+                            ->where('p_payment_bill_schedules.schedule_id',$id)
+                            ->select('p_payment_bills.*',
+                                'p_payment_bill_schedules.status AS bill_status',
+                                'p_payment_bill_schedules.id AS schedule_id',
+                                'p_payment_bill_schedules.schedule_id AS p_schedule_id',
+                                'm_suppliers.name as supplier_name', 
+                                'm_projects.name as project_name')
+                            ->groupBy('p_payment_bill_schedules.id')
                             ->get();
 
             return DataTables($result)->make(true);

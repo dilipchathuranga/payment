@@ -27,7 +27,7 @@ class P_Payment_Bill_Export implements FromCollection,WithHeadings
                     ->join('m_banks','m_bank_accounts.bank_id','=','m_banks.id')
                     ->join('m_branches','m_bank_accounts.branch_id','=','m_branches.id')
                     ->where('p_payment_bill_schedules.schedule_id',$this->id)
-                    ->select('m_bank_accounts.account_name','m_bank_accounts.account_no','m_banks.code as bank_code','m_branches.code as branch_code','p_payment_bills.amount','p_payment_bills.bill_refference')
+                    ->select('m_banks.code as bank_code','m_branches.code as branch_code','m_bank_accounts.account_no','m_bank_accounts.account_name','p_payment_bills.bill_refference','p_payment_bills.amount')
                     ->get();
 
                     return $result;
@@ -36,12 +36,13 @@ class P_Payment_Bill_Export implements FromCollection,WithHeadings
     public function headings(): array
     {
         return [
-            'Account Name',
-            'Account No',
             'Bank Code',
             'Branch Code',
-            'Amount',
+            'Account No',
+            'Account Name',
             'Bill Reference',
+            'Amount'
+            
         ];
     }
 }

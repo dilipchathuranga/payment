@@ -22,6 +22,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home/bill_session', 'HomeController@bill_session');
 Route::get('/get_session', 'HomeController@get_session');
 
+//master->supplier
+Route::get('/supplier', 'MSupplierController@index')->name('supplier');
+Route::get('/supplier/create','MSupplierController@create');
+Route::get('/supplier/{any}','MSupplierController@show');
+
+//master->project
+Route::get('/project', 'MProjectController@index')->name('project');
+Route::get('/project/create','MProjectController@create');
+
 //master->bank
 Route::get('/bank', 'MBankController@index')->name('bank');
 Route::post('/bank', 'MBankController@store');
@@ -46,10 +55,8 @@ Route::get('/bank_account/create','MBankAccountController@create');
 Route::get('/bank_account/{id}', 'MBankAccountController@show');
 Route::put('/bank_account/{id}', 'MBankAccountController@update');
 Route::delete('/bank_account/{id}', 'MBankAccountController@destroy');
-Route::get('/get_supplier/{id}', 'MBankAccountController@get_supplier');
 Route::put('/get_bank_account_status/{id}', 'MBankAccountController@get_status');
-Route::get('/get_accounts_by_supplier/{id}', 'MBankAccountController@get_accounts');
-
+Route::get('/get_accounts_by_supplier/{any}', 'MBankAccountController@get_accounts');
 
 //payment->payment bill
 Route::get('/payment_bill', 'PPaymentBillController@index')->name('payment_bill');
@@ -85,22 +92,13 @@ Route::get('/bank_account_attachment/show_table/{id}', 'MBankAccountAttachmentCo
 Route::get('/bank_account_attachment/show_attachment/{id}', 'MBankAccountAttachmentController@show_attachment');
 Route::get('/bank_account_attachment/download/{any}', 'MBankAccountAttachmentController@download');
 
-//master->supplier
-Route::get('/supplier', 'MSupplierController@index')->name('supplier');
-Route::get('/supplier/create','MSupplierController@create');
-
-//master->project
-Route::get('/project', 'MProjectController@index')->name('project');
-Route::get('/project/create','MProjectController@create');
-
 //payment->payement_search
 Route::get('/payment_search', 'PPaymentSearchController@index')->name('payment_search');
 Route::get('/payment_search/create','PPaymentSearchController@create');
 Route::get('/payment_search/tranfer_log/{id}','PPaymentSearchController@tranfer_log');
 
-
 //payment->payement_export
-Route::get('/billexport/{id}', 'Report\PPaymentExcelController@export');
+Route::get('/bill_export/{id}', 'Report\PPaymentExcelController@export');
 
 
 

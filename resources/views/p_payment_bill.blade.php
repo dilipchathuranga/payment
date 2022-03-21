@@ -48,7 +48,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card card-outline card-primary">
+                        <div class="card card-outline card-success">
                             <div class="card-header">
                                 <h3 class="card-title">Pending Bills</h3>
                             </div>
@@ -74,9 +74,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="master_no_s1" id="master_no_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
-                                            <option value="">-- search by project --</option>
-
+                                            <select name="master_no_s1" id="master_no_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                                <option value="">-- search by project --</option>
+                                                @foreach($projects as $project)
+                                                    <option value="{{ $project->master_no }}">{{ $project->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -87,9 +89,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="supplier_id_s1" id="supplier_id_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
-                                            <option value="">-- search by supplier --</option>
-
+                                            <select name="supplier_bp_no_s1" id="supplier_bp_no_s1" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                                <option value="">-- search by supplier --</option>
+                                                @foreach($suppliers as $supplier)
+                                                    <option value="{{ $supplier->bp_no }}">{{ $supplier->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -125,7 +129,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card card-outline card-success">
+                        <div class="card card-outline card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Receive Bill</h3>
                             </div>
@@ -197,9 +201,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="master_no_s2" id="master_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
-                                            <option value="">-- search by project --</option>
-
+                                            <select name="master_no_s2" id="master_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                                <option value="">-- search by project --</option>
+                                                @foreach($projects as $project)
+                                                    <option value="{{ $project->master_no }}">{{ $project->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -210,9 +216,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-sm float-right">
-                                        <select name="supplier_id_s2" id="supplier_id_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
-                                            <option value="">-- search by supplier --</option>
-
+                                            <select name="supplier_bp_no_s2" id="supplier_bp_no_s2" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                                <option value="">-- select supplier --</option>
+                                                @foreach($suppliers as $supplier)
+                                                    <option value="{{ $supplier->bp_no }}">{{ $supplier->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -459,10 +467,12 @@
                   </div>
                   <div class="col-md-6">
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
-                      <select name="master_no_s" id="master_no_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
-                          <option value="">-- search by project --</option>
-
-                          </select>
+                        <select name="master_no_s" id="master_no_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                            <option value="">-- search by project --</option>
+                            @foreach($projects as $project)
+                                <option value="{{ $project->master_no }}">{{ $project->name }}</option>
+                            @endforeach
+                        </select>
                       </div>
                   </div>
                 </div>
@@ -472,10 +482,12 @@
                   </div>
                   <div class="col-md-6">
                       <div class="input-group input-group-sm float-right" style="width: 450px; ">
-                      <select name="supplier_id_s" id="supplier_id_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
-                          <option value="">-- search by supplier --</option>
-
-                          </select>
+                        <select name="supplier_bp_no_s" id="supplier_bp_no_s" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                            <option value="">-- search by supplier --</option>
+                            @foreach($suppliers as $supplier)
+                                <option value="{{ $supplier->bp_no }}">{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
                       </div>
                   </div>
                 </div>
@@ -486,6 +498,7 @@
                     <div class="col-md-6">
                         <div class="input-group input-group-sm float-right" style="width: 450px; ">
                             <input type="text" class="form-control datepicker float-right" name="invoice_month_s" id="invoice_month_s"  placeholder="Search by Invoice Date" value="" />
+                            <input type="hidden" name="month_s" id="month_s" value="">
                         </div>
                     </div>
                 </div>
@@ -607,7 +620,7 @@
             show_session_bills();
         })
 
-        $(document).on("change","#supplier_id_s", function(){
+        $(document).on("change","#supplier_bp_no_s", function(){
             show_session_bills();
         });
 
@@ -616,11 +629,24 @@
         });
 
         $(document).on('change', '#invoice_month_s', function(){
-            show_session_bills();
-        });
 
-        get_supplier_search();
-        get_project_search();
+            var value = $("#invoice_month_s").val();
+
+            if(value!= ""){
+                                
+                var invoice_month = value+'-01';
+
+                $("#month_s").val(invoice_month);
+                show_session_bills();
+
+            }else{
+
+                $("#month_s").val("");
+                show_session_bills();
+
+            }
+
+        });
 
         $(".bulk_receive").click(function(){ // bulk receive modal
 
@@ -689,7 +715,7 @@
 
             });
 
-            $(document).on("change","#supplier_id_s1", function(){
+            $(document).on("change","#supplier_bp_no_s1", function(){
                 var value = $(this).val();
                 if(value!= ""){
                     pending_table.columns(7).search(value).draw();
@@ -710,7 +736,10 @@
             $(document).on('change', '#invoice_month_s1', function(){
                 var value = $(this).val();
                 if(value!= ""){
-                    pending_table.columns(1).search(value).draw();
+
+                    var invoice_month = value+'-01';
+
+                    pending_table.columns(1).search(invoice_month).draw();
                 }else{
                     pending_table.columns(1).search("").draw();
                 }
@@ -828,7 +857,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Reeceive Bill!'
+                confirmButtonText: 'Yes, Receive Bill!'
                 }).then((result) => {
                 if (result.isConfirmed) {
 
@@ -928,7 +957,7 @@
                     'type': 'ajax',
                     'dataType': 'json',
                     'method': 'get',
-                    'url': '/get_accounts_by_supplier/'+supplier_id,
+                    'url': '/get_accounts_by_supplier/'+bp_no,
                     'async': false,
                     success: function(data){
 
@@ -952,7 +981,7 @@
                             data[i].account_no,
                             data[i].account_name,
                             "<button class='btn btn-primary btn-sm add_account' title='Select Account' data='"+data[i].id+"' ><i class='fas fa-arrow-right'></i></button>",
-                            data[i].supplier_id
+                            data[i].bp_no
                             ]).draw();
 
 
@@ -1133,7 +1162,7 @@
 
             });
 
-            $(document).on("change","#supplier_id_s2", function(){
+            $(document).on("change","#supplier_bp_no_s2", function(){
                 var value = $(this).val();
                 if(value!= ""){
                     received_table.columns(7).search(value).draw();
@@ -1154,7 +1183,10 @@
             $(document).on('change', '#invoice_month_s2', function(){
                 var value = $(this).val();
                 if(value!= ""){
-                    received_table.columns(1).search(value).draw();
+
+                    var invoice_month = value+'-01';
+
+                    received_table.columns(1).search(invoice_month).draw();
                 }else{
                     received_table.columns(1).search("").draw();
                 }
@@ -1194,9 +1226,10 @@
         $(".new_schedule").css("display", "none");
 
         var master_no = $("#master_no_s").val();
-        var bp_no = $("#bp_no_s").val();
+        var bp_no = $("#supplier_bp_no_s").val();
         var module = $("#module_s").val();
-        var invoice_month = $("#invoice_month_s").val();
+
+        var invoice_month = $("#month_s").val();
 
         $('#dataTable').DataTable().clear();
         $('#dataTable').DataTable().destroy();
@@ -1266,9 +1299,10 @@
         $(".new_schedule").css("display", "block");
 
         var master_no = $("#master_no_s").val();
-        var bp_no = $("#bp_no_s").val();
+        var bp_no = $("#supplier_bp_no_s").val();
         var module = $("#module_s").val();
-        var invoice_month = $("#invoice_month_s").val();
+
+        var invoice_month = $("#month_s").val();
 
         $('#dataTable').DataTable().clear();
         $('#dataTable').DataTable().destroy();
@@ -1442,92 +1476,6 @@
         });
 
         return result;
-    }
-
-    function get_supplier_search(){
-
-        var result;
-
-        $.ajax({
-            'type': 'ajax',
-            'dataType': 'json',
-            'method': 'get',
-            'url': 'http://fin.maga.engineering/api/get_suppliers?api_token=MAGA_AUHT_00001',
-            'async': false,
-            success: function(data){
-
-                var html = "";
-
-                html+="<option value=''>-- search by supplier --</option>";
-
-                    for(var i =0; i < data.length; i++){
-                        html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
-                    }
-
-                // supplier search
-                $("#supplier_id_s").html(html);
-                $("#supplier_id_s").selectpicker("refresh");
-                $("#supplier_id_s").val("");
-                $("#supplier_id_s").selectpicker("refresh");
-
-                // supplier search 1
-                $("#supplier_id_s1").html(html);
-                $("#supplier_id_s1").selectpicker("refresh");
-                $("#supplier_id_s1").val("");
-                $("#supplier_id_s1").selectpicker("refresh");
-
-                // supplier search 2
-                $("#supplier_id_s2").html(html);
-                $("#supplier_id_s2").selectpicker("refresh");
-                $("#supplier_id_s2").val("");
-                $("#supplier_id_s2").selectpicker("refresh");
-
-
-            }
-
-        });
-
-    }
-
-    function get_project_search(){
-
-        var result;
-
-        $.ajax({
-            'type': 'ajax',
-            'dataType': 'json',
-            'method': 'get',
-            'url': 'http://fin.maga.engineering/api/get_projects?api_token=MAGA_AUHT_00001',
-            'async': false,
-            success: function(data){
-
-                var html = "";
-
-                html+="<option value=''>-- search by project --</option>";
-
-                    for(var i =0; i < data.length; i++){
-                        html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
-                    }
-
-                $("#master_no_s").html(html);
-                $("#master_no_s").selectpicker("refresh");
-                $("#master_no_s").val("");
-                $("#master_no_s").selectpicker("refresh");
-
-                $("#master_no_s1").html(html);
-                $("#master_no_s1").selectpicker("refresh");
-                $("#master_no_s1").val("");
-                $("#master_no_s1").selectpicker("refresh");
-
-                $("#master_no_s2").html(html);
-                $("#master_no_s2").selectpicker("refresh");
-                $("#master_no_s2").val("");
-                $("#master_no_s2").selectpicker("refresh");
-
-            }
-
-        });
-
     }
 
     function validation_error(error){

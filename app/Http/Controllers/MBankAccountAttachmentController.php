@@ -42,7 +42,7 @@ class MBankAccountAttachmentController extends Controller
             return response()->json(['validation_error' => $validator->errors()->all()]);
         }else{
             try{
-                if ($request->file('document_path')) {
+                if($request->file('document_path')) {
 
                     $file = $request->file('document_path');
                     $file_name =$request->bank_id.'-'.$request->branch_id.'-'.$request->acc_id.'-'.date('m-d-Y_H-i-s').'.'.$file->getClientOriginalExtension();

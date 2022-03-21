@@ -36,9 +36,12 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="rate">Supplier ID</label>
-                            <select name="supplier_id" id="supplier_id" class="form-control selectpicker" required data-live-search="true" data-size="5">
-
+                            <label for="rate">Supplier</label>
+                            <select name="supplier_bp_no" id="supplier_bp_no" class="form-control selectpicker" required data-live-search="true" data-size="5">
+                                <option value="">-- select supplier --</option>
+                                    @foreach($suppliers as $supplier)
+                                        <option value="{{ $supplier->bp_no }}">{{ $supplier->name }}</option>
+                                    @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -115,7 +118,7 @@
                             <tr>
                                 <th style="width:10%">Bank Name</th>
                                 <th style="width:10%">Branch Name</th>
-                                <th style="width:10%">Supplier Name</th>
+                                <th style="width:10%">Supplier BP No</th>
                                 <th style="width:20%">Account No</th>
                                 <th style="width:20%">Account Name</th>
                                 <th style="width:10%">Status</th>
@@ -148,7 +151,6 @@
         });
 
         show_bank_accounts();
-        get_suppliers();
 
         $(document).on("blur",".form-control",function(){
             $("#submit").css("display","block");
@@ -191,7 +193,7 @@
 
         });
 
-        $(document).on("change","#supplier_id",function(){
+        $(document).on("change","#supplier_bp_no",function(){
 
             var id = $(this).val();
 
@@ -201,47 +203,15 @@
                 'type': 'ajax',
                 'dataType': 'json',
                 'method': 'get',
-                'url': 'get_supplier/'+id,
+                'url': 'supplier/'+id,
                 'async': false,
                 success: function(data){
 
-                    $("#supplier_name").val(data.name);
-                    $("#bp_no").val(data.bp_no);
-                    $("#supplier_email").val(data.email);
-                    $("#supplier_telephone").val(data.tele_no);
 
-                }
-
-                });
-
-            }else{
-
-                $("#supplier_name").val("");
-                $("#bp_no").val("");
-                $("#supplier_email").val("");
-                $("#supplier_telephone").val("");
-            }
-
-        });
-
-            $(document).on("change","#supplier_id",function(){
-
-            var id = $(this).val();
-
-            if(id!= ""){
-
-                $.ajax({
-                'type': 'ajax',
-                'dataType': 'json',
-                'method': 'get',
-                'url': 'get_supplier/'+id,
-                'async': false,
-                success: function(data){
-
-                    $("#supplier_name").val(data.name);
-                    $("#bp_no").val(data.bp_no);
-                    $("#supplier_email").val(data.email);
-                    $("#supplier_telephone").val(data.tele_no);
+                    $("#supplier_name").val(data[0].name);
+                    $("#bp_no").val(data[0].bp_no);
+                    $("#supplier_email").val(data[0].email);
+                    $("#supplier_telephone").val(data[0].tele_no);
 
                 }
 
@@ -312,7 +282,7 @@
                 if(hid == ""){
                     var bank_id =$("#bank_id").val();
                     var branch_id =$("#branch_id").val();
-                    var supplier_id =$("#supplier_id").val();
+                    var supplier_bp_no =$("#supplier_bp_no").val();
                     var supplier_name =$("#supplier_name").val();
                     var bp_no =$("#bp_no").val();
                     var supplier_email =$("#supplier_email").val();
@@ -325,7 +295,7 @@
                     'type': 'ajax',
                     'dataType': 'json',
                     'method': 'post',
-                    'data' : {bank_id:bank_id,branch_id:branch_id,supplier_id:supplier_id,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
+                    'data' : {bank_id:bank_id,branch_id:branch_id,supplier_bp_no:supplier_bp_no,supplier_name:supplier_name,supplier_email:supplier_email,supplier_telephone:supplier_telephone,account_name:account_name,account_no:account_no,holder_nic:holder_nic, bp_no:bp_no},
                     'url' : 'bank_account',
                     'async': false,
                     success:function(data){
@@ -374,15 +344,15 @@
 
                     $("#bank_id").val(data.bank_id);
                     $("#branch_id").val(data.branch_id);
-                    $("#supplier_id").val(data.supplier_id);
+                    $("#supplier_bp_no").val(data.bp_no);
 
                     $("#bank_id").attr("disabled","disabled");
                     $("#branch_id").attr("disabled","disabled");
-                    $("#supplier_id").attr("disabled","disabled");
+                    $("#supplier_bp_no").attr("disabled","disabled");
 
                     $("#bank_id").selectpicker('refresh');
                     $("#branch_id").selectpicker('refresh');
-                    $("#supplier_id").selectpicker('refresh');
+                    $("#supplier_bp_no").selectpicker('refresh');
 
 
                     $("#supplier_name").val(data.supplier_name);
@@ -535,7 +505,7 @@
                             var html = "";
                             html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit' ></i></button>";
                             html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"'title='Delete'><i class='fas fa-trash'></i></button>";
-                            html+="&nbsp;<button class='btn btn-secondary btn-sm attachment' data='"+d.id+"' data-id='"+d.bank_id+"' data-sid='"+d.supplier_id+"' title='Attachment'><i class='fas fa-paperclip'></i></button>";
+                            html+="&nbsp;<button class='btn btn-secondary btn-sm attachment' data='"+d.id+"' data-id='"+d.bank_id+"' data-sid='"+d.bp_no+"' title='Attachment'><i class='fas fa-paperclip'></i></button>";
                             if(d.status==0){
                                 html+="&nbsp;<button class='btn btn-success btn-sm change_status' data='1' data-id='"+d.id+"' title='Approve'><i class='fas fa-check-circle'></i></button>";
                                 html+="&nbsp;<button class='btn btn-danger btn-sm change_status' data='2' data-id='"+d.id+"' title='Reject'><i class='fas fa-times-circle'></i></button>";
@@ -551,37 +521,6 @@
             });
     }
 
-    function get_suppliers(){
-
-        var result;
-
-        $.ajax({
-            'type': 'ajax',
-            'dataType': 'json',
-            'method': 'get',
-            'url': 'http://fin.maga.engineering/api/get_suppliers?api_token=MAGA_AUHT_00001',
-            'async': false,
-            success: function(data){
-
-                var html = "";
-
-                html+="<option value=''>-- select supplier --</option>";
-
-                    for(var i =0; i < data.length; i++){
-                        html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
-                    }
-
-                $("#supplier_id").html(html);
-                $("#supplier_id").selectpicker("refresh");
-
-
-            }
-
-        });
-
-    }
-
-
     $(document).on('click', '.attachment', function(){
 
         var id = $(this).attr('data');
@@ -592,7 +531,7 @@
     function empty_form(){
         $("#bank_id").selectpicker("val","");
         $("#branch_id").selectpicker("val","");
-        $("#supplier_id").selectpicker("val","");
+        $("#supplier_bp_no").selectpicker("val","");
         $("#supplier_name").val("");
         $("#bp_no").val("");
         $("#supplier_email").val("");

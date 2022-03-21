@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\m_project;
+use App\m_supplier;
 use App\p_payment_bill;
 use App\r_transaction_log;
 use Illuminate\Http\Request;
@@ -10,13 +13,23 @@ class PPaymentSearchController extends Controller
 {
     public function index()
     {
-        return view('p_payment_bill_search');
+        $projects = m_project::all();
+        $suppliers = m_supplier::all();
+
+        return view('p_payment_bill_search')->with([ 'projects' => $projects,
+                                                    'suppliers' => $suppliers]);
+                                                    
     }
     public function create()
     {
-        $p_payment_bill = p_payment_bill::all();
+        $result = DB::table('p_payment_bills')
+                    ->join('m_suppliers', 'p_payment_bills.bp_no', '=', 'm_suppliers.bp_no')
+                    ->join('m_projects', 'p_payment_bills.master_no', '=', 'm_projects.master_no')
+                    ->select('p_payment_bills.*', 'm_suppliers.name as supplier_name', 'm_projects.name as project_name')
+                    ->groupBy('p_payment_bills.id')
+                    ->get();
 
-        return DataTables($p_payment_bill)->make(true);
+        return DataTables($result)->make(true);
     }
 
     public function tranfer_log($id)

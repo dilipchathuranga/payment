@@ -17,10 +17,20 @@ class MSupplierController extends Controller
     {
         return view('m_supplier');
     }
+
     public function create(){
 
         $result = m_supplier::all();
 
         return DataTables($result)->make(true);
     }
+
+    public function show($bp_no){
+
+        $result = m_supplier::where('bp_no',$bp_no)->get();
+
+        return response()->json($result);
+
+    }
+
 }

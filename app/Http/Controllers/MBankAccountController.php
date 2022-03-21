@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\m_bank;
 use App\m_bank_account;
 use App\m_branch;
+use App\m_supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,12 +24,11 @@ class MBankAccountController extends Controller
     {
         $banks = m_bank::where('is_active','=','1')->get();
         $branches = m_branch::where('is_active','=','1')->get();
-    //     $supplier_response = Http::get('http://fin.maga.engineering/api/get_suppliers', [
-    //         'api_token' => 'MAGA_AUHT_00001'
-    //     ]);
+        $suppliers = m_supplier::all();
 
        return view('m_bank_account')->with(['banks' => $banks,
-                                            'branches' => $branches]);
+                                            'branches' => $branches,
+                                            'suppliers' => $suppliers]);
 
     }
 
@@ -52,7 +52,7 @@ class MBankAccountController extends Controller
         $validator = Validator::make($request->all(), [
             'bank_id'=>'required',
             'branch_id' => 'required',
-            'supplier_id' => 'required',
+            'supplier_bp_no' => 'required',
             'supplier_name'=>'required',
             'account_no'=>'required',
             'account_name' => 'required'
@@ -68,9 +68,8 @@ class MBankAccountController extends Controller
                 $bank_account = new m_bank_account;
                 $bank_account->bank_id = $request->bank_id;
                 $bank_account->branch_id = $request->branch_id;
-                $bank_account->supplier_id = $request->supplier_id;
+                $bank_account->bp_no = $request->supplier_bp_no;
                 $bank_account->supplier_name = $request->supplier_name;
-                $bank_account->bp_no = $request->bp_no;
                 $bank_account->supplier_email = $request->supplier_email;
                 $bank_account->supplier_telephone = $request->supplier_telephone;
                 $bank_account->account_no = $request->account_no;
@@ -97,6 +96,7 @@ class MBankAccountController extends Controller
     }
 
     public function show($id){
+        
         $result = m_bank_account::find($id);
 
         return response()->json($result);
@@ -121,7 +121,6 @@ class MBankAccountController extends Controller
                 $bank_account = m_bank_account::find($request->id);
 
                 $bank_account->supplier_name = $request->supplier_name;
-                $bank_account->bp_no = $request->bp_no;
                 $bank_account->supplier_email = $request->supplier_email;
                 $bank_account->supplier_telephone = $request->supplier_telephone;
                 $bank_account->account_no = $request->account_no;
@@ -146,36 +145,27 @@ class MBankAccountController extends Controller
 
     public function destroy(Request $request){
 
-            try{
-                DB::beginTransaction();
+        try{
+            DB::beginTransaction();
 
-                $bank_account = m_bank_account::find($request->id);
-                $bank_account->is_active = 0;
+            $bank_account = m_bank_account::find($request->id);
+            $bank_account->is_active = 0;
 
-                $bank_account->save();
+            $bank_account->save();
 
-                DB::commit();
-                return response()->json(['db_success' => 'Bank Account Deleted']);
+            DB::commit();
+            return response()->json(['db_success' => 'Bank Account Deleted']);
 
-            }catch(\Throwable $th){
-                DB::rollback();
-                throw $th;
-                return response()->json(['db_error' =>'Database Error'.$th]);
-            }
-    }
-
-    public function get_supplier($id){
-
-        $supplier_response = Http::get('http://fin.maga.engineering/api/get_supplier/'.$id, [
-            'api_token' => 'MAGA_AUHT_00001'
-        ]);
-
-       return $supplier_response;
+        }catch(\Throwable $th){
+            DB::rollback();
+            throw $th;
+            return response()->json(['db_error' =>'Database Error'.$th]);
+        }
 
     }
-
 
     public function get_status(Request $request){
+
         try{
             DB::beginTransaction();
 
@@ -192,16 +182,17 @@ class MBankAccountController extends Controller
             throw $th;
             return response()->json(['db_error' =>'Database Error'.$th]);
         }
+
     }
 
-    public function get_accounts($id){
+    public function get_accounts($bp_no){
 
         $result = DB::table('m_bank_accounts')
                     ->join('m_banks', 'm_bank_accounts.bank_id', '=', 'm_banks.id')
                     ->join('m_branches', 'm_bank_accounts.branch_id', '=', 'm_branches.id')
                     ->where('m_bank_accounts.is_active', 1)
                     ->where('m_bank_accounts.status', 1)
-                    ->where('m_bank_accounts.supplier_id', $id)
+                    ->where('m_bank_accounts.bp_no', $bp_no)
                     ->select('m_bank_accounts.*', 'm_banks.name as bank_name', 'm_branches.name as branch_name')
                     ->get();
 
