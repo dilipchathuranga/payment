@@ -23,4 +23,5 @@ class MSupplierController extends Controller
 
         return DataTables($result)->make(true);
     }
+
 }

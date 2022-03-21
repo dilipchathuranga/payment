@@ -91,6 +91,7 @@ Route::get('/bank_account_attachment/download/{any}', 'MBankAccountAttachmentCon
 Route::get('/supplier', 'MSupplierController@index')->name('supplier');
 Route::get('/supplier/create','MSupplierController@create');
 
+
 //master->project
 Route::get('/project', 'MProjectController@index')->name('project');
 Route::get('/project/create','MProjectController@create');

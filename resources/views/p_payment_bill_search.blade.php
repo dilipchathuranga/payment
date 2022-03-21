@@ -126,7 +126,7 @@
 </div>
 <script>
     $(document).ready(function(){
-        var paymentsearch
+        var paymentsearch;
         // menu active
             $(".payment_search_route").addClass('active');
 
