@@ -62,6 +62,32 @@
                     <!-- <button class="btn btn-primary addNew"><i class="fa fa-plus"></i> Add New Schedule</button> -->
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                                &nbsp;
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm float-right">
+                            <select name="status" id="status" class="form-control selectpicker"  required data-live-search="true" data-size="5">
+                                <option value="">-- search by status --</option>
+                                <option value="P">Pending</option>
+                                <option value="A">Approved</option>
+                                <option value="C">Paid</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm float-right">
+                                <input type="text" class="form-control datepicker float-right" name="date" id="date"  placeholder="Search by Invoice Date" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                     <table class="table table-bordered" id="tbl_schedule">
                         <thead>
                             <tr>
@@ -69,6 +95,8 @@
                                 <th style="width:30%">Refference No</th>
                                 <th style="width:20%">Status</th>
                                 <th style="width:30%">Action</th>
+                                <th style="width:10%">Status</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +127,12 @@ var acc_table;
             $("#submit").css("display","block");
         });
 
-
+        $("#date").datepicker( {
+                format: "yyyy-mm",
+                startView: "months",
+                minViewMode: "months",
+                orientation: 'bottom'
+        });
     });
 
     //Data Table show
@@ -107,7 +140,7 @@ var acc_table;
             $('#tbl_schedule').DataTable().clear();
             $('#tbl_schedule').DataTable().destroy();
 
-            $("#tbl_schedule").DataTable({
+            shedule=$("#tbl_schedule").DataTable({
                 'processing': true,
                 'serverSide': true,
                 "bLengthChange": false,
@@ -123,13 +156,12 @@ var acc_table;
                         render: function(d){
                             var html = "";
                             if(d.status=='A'){
-                                html+= "Approved";
+                                html = "<span style='padding:5px' class='badge badge-primary' >Approved</span>";
                             }if(d.status=='P'){
-                                html+= "Pending";
+                                html = "<span style='padding:5px' class='badge badge-warning'>Pending</span>";
                             }if(d.status=='C'){
-                                html+= "Complete";
+                                html = "<span style='padding:5px' class='badge badge-success' data='C'>Paid</span>";
                             }
-
                             return html;
 
                         }
@@ -144,15 +176,36 @@ var acc_table;
                                 html+="&nbsp;<button class='btn btn-success btn-sm pay' data='"+d.id+"' title='Bill Pay'><i class='fas fa-money-bill'></i></button>";
                             }
                             if(d.status=='C'){
-                                html+="&nbsp;<button class='btn btn-primary btn-sm excel' data='"+d.id+"' data-ref='"+d.refference_no+"' title='Excel Download'><i class='fas fa-file-excel'></i></button>";
+                                html+="&nbsp;<button class='btn btn-success btn-sm excel' data='"+d.id+"' data-ref='"+d.refference_no+"' title='Excel Download'><i class='fas fa-file-excel'></i></button>";
                             }
 
                         return html;
 
                     }
 
-                    }
+                    },
+                    {data: 'status', "visible": false}
+
                 ]
+            });
+
+            $(document).on('change', '#date', function(){
+                    var value = $(this).val();
+
+                    if(value!= ""){
+                        shedule.columns(0).search(value).draw();
+                    }else{
+                        shedule.columns(0).search("").draw();
+                    }
+            });
+            $(document).on('change', '#status', function(){
+
+                var value = $(this).val();
+                if(value!= ""){
+                    shedule.columns(4).search(value).draw();
+                }else{
+                    shedule.columns(4).search("").draw();
+                }
             });
     }
 
@@ -255,7 +308,6 @@ var acc_table;
                         });
 
                     }
-
         });
 
     });

@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .table#tbl_paymentsearch  {
+        table-layout: fixed;
+         width: 100% !important;
+    }
+
+    .table#tbl_paymentsearch td {
+        font-size: 10px;
+    }
+</style>
 
 <!-- supplier_account modal -->
 <div class="modal fade " id="modal1" >
@@ -51,10 +61,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                                 &nbsp;
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group input-group-sm float-right">
                             <select name="module" id="module" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                 <option value="">-- search by module --</option>
@@ -66,10 +76,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                                 &nbsp;
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group input-group-sm float-right">
                             <select name="master_no" id="master_no" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                 <option value="">-- search by project --</option>
@@ -79,10 +89,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                                 &nbsp;
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group input-group-sm float-right">
                             <select name="bp_no" id="bp_no" class="form-control selectpicker"  required data-live-search="true" data-size="5">
                                 <option value="">-- search by supplier --</option>
@@ -92,10 +102,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             &nbsp;
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group input-group-sm float-right">
                                 <input type="text" class="form-control datepicker float-right" name="invoice_month" id="invoice_month"  placeholder="Search by Invoice Date" value="" />
                             </div>
@@ -180,13 +190,13 @@
                                     html = "<span style='padding:5px' class='badge badge-warning'>Pending</span>";
                                 }
                                 if(d.status=='1'){
-                                    html = "<span style='padding:5px' class='badge badge-success'>Received</span>";
+                                    html = "<span style='padding:5px' class='badge badge-secondary'>Received</span>";
                                 }
                                 if(d.status=='2'){
                                     html = "<span style='padding:5px' class='badge badge-info'>Scheduled</span>";
                                 }
                                 if(d.status=='3'){
-                                    html = "<span style='padding:5px' class='badge badge-danger'>Paid</span>";
+                                    html = "<span style='padding:5px' class='badge badge-success'>Paid</span>";
                                 }
 
                                 return html;
