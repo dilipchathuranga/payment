@@ -2,13 +2,9 @@
 
 @section('content')
 <style>
-    .table#tbl_paymentsearch  {
+    .table#tbl_payment_search  {
         table-layout: fixed;
          width: 100% !important;
-    }
-
-    .table#tbl_paymentsearch td {
-        font-size: 10px;
     }
 </style>
 
@@ -112,7 +108,7 @@
                         </div>
                     </div>
                     <br>
-                    <table class="table table-bordered" id="tbl_paymentsearch">
+                    <table class="table table-bordered" id="tbl_payment_search">
                         <thead>
                             <tr>
                                 <th style="width:10%">Module</th>
@@ -161,10 +157,10 @@
         //Data Table show
         function show_payment_bill(){
 
-                $('#tbl_paymentsearch').DataTable().clear();
-                $('#tbl_paymentsearch').DataTable().destroy();
+                $('#tbl_payment_search').DataTable().clear();
+                $('#tbl_payment_search').DataTable().destroy();
 
-                paymentsearch = $("#tbl_paymentsearch").DataTable({
+                paymentsearch = $("#tbl_payment_search").DataTable({
                     'processing': true,
                     'serverSide': true,
                     "bLengthChange": false,
