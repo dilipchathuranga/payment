@@ -23,7 +23,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="card card-outline card-danger">
+                <div class="card card-outline card-warning">
                     <div class="card-body">
                         <table class="table table-hover" id="tranfer_log" >
                             <thead>
