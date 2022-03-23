@@ -43,10 +43,8 @@ class HomeController extends Controller
     public function bill_session(Request $request){
 
         Session::put(['bill_session' => $request->session]);
-
     }
 
-    
     public function get_session(){
 
         $result = array();
