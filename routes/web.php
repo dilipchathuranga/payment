@@ -121,6 +121,10 @@ Route::get('/user/{id}', 'UUserController@show');
 Route::put('/user/{id}', 'UUserController@update');
 Route::delete('/user/{id}', 'UUserController@destroy');
 
+//user->profile
+Route::get('/profile', 'UProfileController@index')->name('profile');
+Route::get('/change_password', 'UProfileController@store');
+
 
 
 

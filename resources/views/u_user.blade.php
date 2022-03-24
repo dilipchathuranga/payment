@@ -18,31 +18,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                     <label for="name">Username</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Username" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                    <label for="name">PID</label>
-                    <input type="text" class="form-control" id="pid" name="pid" placeholder="Enter PID" >
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Username" required readonly>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-8">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                    <label for="name">Designation</label>
-                    <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter Designation" required>
-                    </div>
-                </div>
-                <div class="row pass">
-                    <div class="form-group col-md-6">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required readonly>
                     </div>
                 </div>
                 <div class="row">
@@ -163,9 +145,6 @@
                     $("#hid").val(data.users.id);
                     $("#name").val(data.users.name);
                     $("#email").val(data.users.email);
-                    $("#pid").val(data.users.pid);
-                    $("#designation").val(data.users.designation);
-                    $("#phone").val(data.users.phone);
 
                     var u_user_roles = [];
                     for(var i=0;i<data.u_user_roles.length;i++){
@@ -183,9 +162,6 @@
                     var id = $("#hid").val();
                     var name =$("#name").val();
                     var email =$("#email").val();
-                    var pid =$("#pid").val();
-                    var designation =$("#designation").val();
-                    var phone =$("#phone").val()
                     var role_id =$("#role_id").val()
 
                     Swal.fire({
@@ -203,7 +179,7 @@
                                     'type': 'ajax',
                                     'dataType': 'json',
                                     'method': 'put',
-                                    'data' : {name:name,email:email,pid:pid,designation:designation,phone:phone,role_id:role_id},
+                                    'data' : {name:name,email:email,role_id:role_id},
                                     'url': 'user/'+id,
                                     'async': false,
                                     success:function(data){

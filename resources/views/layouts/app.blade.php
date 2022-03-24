@@ -41,7 +41,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <li class="user-footer">
-
+                        <a href="{{ route('profile') }}" class="btn btn-default btn-flat btn-lg btn-block"> User Profile</a>
                         <a href="#" class="btn btn-default btn-flat btn-lg btn-block"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Log out
