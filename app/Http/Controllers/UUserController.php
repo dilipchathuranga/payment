@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\u_roles;
 use App\User;
-use App\user_roles;
+use App\u_user_roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -61,7 +61,7 @@ class UUserController extends Controller
                 // save user role
                 foreach( $roles as $role){
 
-                    $user_role = new user_roles;
+                    $user_role = new u_user_roles;
                     $user_role->user_id = $users;
                     $user_role->role_id = $role;
 
@@ -85,7 +85,7 @@ class UUserController extends Controller
 
         $result['users'] = User::find($id);
 
-        $result['u_roles'] = user_roles::select('role_id')->where(['user_id' => $id])->get();
+        $result['u_user_roles'] = u_user_roles::select('role_id')->where(['user_id' => $id])->get();
 
         return response()->json($result);
 
@@ -122,7 +122,7 @@ class UUserController extends Controller
 
                 foreach( $roles as $role){
 
-                    $user_role = new user_roles;
+                    $user_role = new u_user_roles;
                     $user_role->user_id = $users;
                     $user_role->role_id = $role;
 
@@ -152,7 +152,7 @@ class UUserController extends Controller
     }
 
     public function delete_roles($id){
-        user_roles::where(['user_id' => $id])->delete();
+        u_user_roles::where(['user_id' => $id])->delete();
      }
 
 }

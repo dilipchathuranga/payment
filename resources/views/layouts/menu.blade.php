@@ -69,7 +69,7 @@
             <li class="nav-item">
                 <a href="{{ route('payment_search') }}" class="nav-link payment_search_route">
                     <i class="fas fa-file-invoice-dollar"></i>
-                    <p>&nbsp;Payment Search</p>
+                    <p>&nbsp;Payment Bill Search</p>
                 </a>
             </li>
 
@@ -85,7 +85,7 @@
         </li>
         <li class="nav-item">
             <a href="{{ route('user') }}" class="nav-link user_route">
-            <i class="fas fa-file-alt"></i>
+            <i class="fas fa-users"></i>
                 <p>&nbsp;User</p>
             </a>
         </li>
