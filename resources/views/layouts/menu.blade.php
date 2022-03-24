@@ -23,7 +23,7 @@
         </a>
     </li>
 
-<!--Bank Section -->
+    <!--Bank Section -->
     <li class="nav-item has-treeview bank_tree_open">
         <a href="#" class="nav-link bank_tree ">
             <i class="fas fa-university"></i>&nbsp;
@@ -73,5 +73,20 @@
                 </a>
             </li>
 
-
+        <!--user managment Section -->
+        <li class="nav-item">
+            <p style="color: #C2C7D0; font-size: 15px; padding-top:10px">&nbsp;User Management</p>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('role') }}" class="nav-link role_route">
+                <i class="fas fa-user-tie"></i>
+                <p>&nbsp;Role</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('user') }}" class="nav-link user_route">
+            <i class="fas fa-file-alt"></i>
+                <p>&nbsp;User</p>
+            </a>
+        </li>
 

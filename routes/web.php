@@ -100,6 +100,22 @@ Route::get('/payment_search/tranfer_log/{id}','PPaymentSearchController@tranfer_
 //payment->payement_export
 Route::get('/bill_export/{id}', 'Report\PPaymentExcelController@export');
 
+//user_managment->role
+Route::get('/role', 'URolesController@index')->name('role');
+Route::post('/role', 'URolesController@store');
+Route::get('/role/create', 'URolesController@create');
+Route::get('/role/{id}', 'URolesController@show');
+Route::put('/role/{id}', 'URolesController@update');
+Route::delete('/role/{id}', 'URolesController@destroy');
+
+//user_managment->user
+Route::get('/user', 'UUserController@index')->name('user');
+Route::post('/user', 'UUserController@store');
+Route::get('/user/create', 'UUserController@create');
+Route::get('/user/{id}', 'UUserController@show');
+Route::put('/user/{id}', 'UUserController@update');
+Route::delete('/user/{id}', 'UUserController@destroy');
+
 
 
 
