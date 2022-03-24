@@ -26,6 +26,7 @@
                                 <tr>
                                     <th style="width:30%">Date</th>
                                     <th style="width:40%">Status</th>
+                                    <th style="width:40%">User</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -314,6 +315,7 @@
                                         return html;
                                     }
                                 },
+                                {data: 'user_name'},
                             ]
                     });
                 },

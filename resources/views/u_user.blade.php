@@ -167,11 +167,11 @@
                     $("#designation").val(data.users.designation);
                     $("#phone").val(data.users.phone);
 
-                    var u_roles = [];
-                    for(var i=0;i<data.u_roles.length;i++){
-                        u_roles.push(data.u_roles[i].role_id);
+                    var u_user_roles = [];
+                    for(var i=0;i<data.u_user_roles.length;i++){
+                        u_user_roles.push(data.u_user_roles[i].role_id);
                     }
-                    $('#role_id').multiselect('select', u_roles);
+                    $('#role_id').multiselect('select', u_user_roles);
                 }
 
             });
