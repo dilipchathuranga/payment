@@ -37,6 +37,7 @@ class APaymentBillReceiveController extends Controller
             $r_transaction_log->bill_id = $payment->id;
             $r_transaction_log->date = date('Y-m-d H:i:s');
             $r_transaction_log->status = 0; // pending
+            $r_transaction_log->action_by=$request->user_id;
 
             $r_transaction_log->save();
 

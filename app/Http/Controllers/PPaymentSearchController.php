@@ -22,8 +22,10 @@ class PPaymentSearchController extends Controller
     public function tranfer_log($id)
     {
         $result = DB::table('r_transaction_logs')
+                        ->leftJoin('users','users.id','r_transaction_logs.action_by')
                         ->where('r_transaction_logs.bill_id',$id)
                         ->orderBy('r_transaction_logs.status','ASC')
+                        ->select('users.name as user_name','r_transaction_logs.*')
                         ->get();
 
         return DataTables($result)->make(true);

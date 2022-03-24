@@ -140,6 +140,7 @@ class PScheduleController extends Controller
             $r_transaction_log->bill_id = $transaction->id;
             $r_transaction_log->date = date('Y-m-d H:i:s');
             $r_transaction_log->status = 3; // paid
+            $r_transaction_log->action_by = auth()->user()->id;
 
             $r_transaction_log->save();
 

@@ -71,6 +71,7 @@ class PPaymentBillController extends Controller
                  $r_transaction_log->bill_id = $id;
                  $r_transaction_log->date = date('Y-m-d H:i:s');
                  $r_transaction_log->status = 1; // Received
+                 $r_transaction_log->action_by = auth()->user()->id;
 
                  $r_transaction_log->save();
 
@@ -121,7 +122,8 @@ class PPaymentBillController extends Controller
                 $r_transaction_log = new r_transaction_log;
                 $r_transaction_log->bill_id = $bills[$i]['bill_id'];
                 $r_transaction_log->date = date('Y-m-d H:i:s');
-                $r_transaction_log->status = 2; // scheduled
+                $r_transaction_log->status = 2;
+                $r_transaction_log->action_by = auth()->user()->id; // scheduled
 
                 $r_transaction_log->save();
             }
