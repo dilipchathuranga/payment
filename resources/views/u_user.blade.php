@@ -71,7 +71,6 @@
                                     <th style="width:5%">#</th>
                                     <th style="width:10%">User Name</th>
                                     <th style="width:10%">Email</th>
-                                    <th style="width:10%">Designation</th>
                                     <th style="width:10%">Action</th>
                                 </tr>
                             </thead>
@@ -262,7 +261,6 @@
                     {data: 'id'},
                     {data: 'name'},
                     {data: 'email'},
-                    {data: 'designation'},
 
                     {
                     data: null,
@@ -282,10 +280,7 @@
     function empty_form(){
         $("#hid").val("");
         $("#name").val("");
-        $("#designation").val("");
-        $("#pid").val("");
         $("#email").val("");
-        $("#phone").val("")
         $("#role_id").multiselect('clearSelection');
     }
 

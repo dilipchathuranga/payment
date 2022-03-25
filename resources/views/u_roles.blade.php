@@ -280,8 +280,7 @@
 
     function empty_form(){
         $("#hid").val("");
-        $("#name").val("");
-        $("#code").val("");
+        $("#description").val("");
     }
 
     function validation_error(error){

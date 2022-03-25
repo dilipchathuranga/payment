@@ -130,14 +130,12 @@ $(".submit").click(function(){
                             $("#current_password").val('');
                             $("#new_password").val('');
                             $("#password_confirmation").val('');
-                            toastr.error('password updated');
+                            toastr.success('password updated');
                      }).fail(function(res){
-                            console.log(res);
                      });
                  }
                 }).fail(function(jxhr, statusText, error) {
                     toastr.error('Invalid current password');
-                    console.console.log('failed');
                 });
 
     // $("#myForm").attr('action', 'change_password') ;
