@@ -31,56 +31,6 @@ class UUserController extends Controller
         return DataTables($result)->make(true);
     }
 
-    public function store(Request $request){
-
-        $validator = Validator::make($request->all(), [
-            'role_id' => 'required',
-            'designation' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-
-        ]);
-
-        if($validator->fails()){
-            return response()->json(['validation_error' => $validator->errors()->all()]);
-        }else{
-            try{
-                DB::beginTransaction();
-
-                $user = new User;
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->pid = $request->pid;
-                $user->designation = $request->designation;
-                $user->password =  Hash::make($request->password);
-
-                $user->save();
-
-                $roles =$request->role_id;
-                $users = $user->id;
-                // save user role
-                foreach( $roles as $role){
-
-                    $user_role = new u_user_roles;
-                    $user_role->user_id = $users;
-                    $user_role->role_id = $role;
-
-                    $user_role->save();
-
-                }
-
-                DB::commit();
-                return response()->json(['db_success' => 'Added New Role']);
-
-            }catch(\Throwable $th){
-                DB::rollback();
-                throw $th;
-                return response()->json(['db_error' =>'Database Error'.$th]);
-            }
-
-        }
-    }
-
     public function show($id){
 
         $result['users'] = User::find($id);
@@ -94,8 +44,6 @@ class UUserController extends Controller
     public function update(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'designation' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255']
         ]);
@@ -109,9 +57,6 @@ class UUserController extends Controller
                 $user = User::find($request->id);
                 $user->name = $request->name;
                 $user->email = $request->email;
-                $user->pid = $request->pid;
-                $user->phone = $request->phone;
-                $user->designation = $request->designation;
 
                 $user->save();
 
