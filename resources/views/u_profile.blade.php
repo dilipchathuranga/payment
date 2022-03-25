@@ -101,7 +101,7 @@ $(".submit").click(function(){
                 var confirmPassword = $("#password_confirmation").val();
 
                 if (password != confirmPassword) {
-                    alert("Passwords do not match.");
+                    toastr.error("Passwords do not match.");
                     return this;
                 }
                 var ajaxConfig = {
@@ -130,13 +130,13 @@ $(".submit").click(function(){
                             $("#current_password").val('');
                             $("#new_password").val('');
                             $("#password_confirmation").val('');
-                            alert('password updated');
+                            toastr.error('password updated');
                      }).fail(function(res){
                             console.log(res);
                      });
                  }
                 }).fail(function(jxhr, statusText, error) {
-                    alert('Invalid current password');
+                    toastr.error('Invalid current password');
                     console.console.log('failed');
                 });
 
