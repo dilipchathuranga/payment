@@ -69,9 +69,11 @@
                             <thead>
                                 <tr>
                                     <th style="width:5%">#</th>
-                                    <th style="width:10%">User Name</th>
-                                    <th style="width:10%">Email</th>
+                                    <th style="width:10%">PID</th>
+                                    <th style="width:15%">User Name</th>
                                     <th style="width:10%">Designation</th>
+                                    <th style="width:15%">Email</th>
+                                    <th style="width:10%">Phone</th>
                                     <th style="width:10%">Action</th>
                                 </tr>
                             </thead>
@@ -260,9 +262,11 @@
                 },
                 'columns': [
                     {data: 'id'},
+                    {data: 'pid'},
                     {data: 'name'},
-                    {data: 'email'},
                     {data: 'designation'},
+                    {data: 'email'},
+                    {data: 'phone'},
 
                     {
                     data: null,
@@ -282,10 +286,7 @@
     function empty_form(){
         $("#hid").val("");
         $("#name").val("");
-        $("#designation").val("");
-        $("#pid").val("");
         $("#email").val("");
-        $("#phone").val("")
         $("#role_id").multiselect('clearSelection');
     }
 
