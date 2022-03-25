@@ -69,12 +69,11 @@
                             <thead>
                                 <tr>
                                     <th style="width:5%">#</th>
+                                    <th style="width:10%">PID</th>
                                     <th style="width:15%">User Name</th>
+                                    <th style="width:10%">Designation</th>
                                     <th style="width:15%">Email</th>
                                     <th style="width:10%">Phone</th>
-                                    <th style="width:10%">PID</th>
-                                    <th style="width:10%">Gender</th>
-                                    <th style="width:10%">Designation</th>
                                     <th style="width:10%">Action</th>
                                 </tr>
                             </thead>
@@ -263,24 +262,11 @@
                 },
                 'columns': [
                     {data: 'id'},
+                    {data: 'pid'},
                     {data: 'name'},
+                    {data: 'designation'},
                     {data: 'email'},
                     {data: 'phone'},
-                    {data: 'pid'},
-                    {
-                        data: null,
-                        render: function(d){
-                            var html = "";
-                            if(d.gender=='0'){
-                                html = "Female";
-                            }if(d.gender=='1'){
-                                html = "Male";
-                            }
-                            return html;
-
-                        }
-                    },
-                    {data: 'designation'},
 
                     {
                     data: null,
